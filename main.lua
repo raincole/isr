@@ -1,6 +1,7 @@
 require 'initialize'
 
 function love.load()
+	require 'r'
 end
 
 function love.update(dt)
