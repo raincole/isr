@@ -1,0 +1,5 @@
+require 'vendor/AnAL'
+_ = require 'vendor/underscore'
+inspect = require 'vendor/inspect'
+beholder = require 'vendor/beholder'
+require 'classes'
