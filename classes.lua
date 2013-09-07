@@ -3,6 +3,7 @@ Screen = require 'engine/screen'
 Actor = require 'engine/actor'
 
 Mathx = require 'lib/mathx'
+Vect2 = require 'lib/vect2'
 Direction = require 'lib/direction'
 Rect = require 'lib/rect'
 Animator = require 'lib/animator'

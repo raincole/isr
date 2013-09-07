@@ -11,7 +11,7 @@ function Player:__init(name)
 	self.zIndex = 10
 
 	self.moving = false
-	self.speed = 80
+	self.speed = 120
 	self.pickingRadius = 40
 	self.handLength = 20
 	self.dir = Direction.CENTER
@@ -43,11 +43,13 @@ function Player:_handleMove(dt)
 	if dir ~= Direction.CENTER then
 		self.dir = dir
 		self.moving = true
-	end
 
-	local vect = Direction.toVect(dir)
-	self.x = self.x + vect.x * self.speed * dt
-	self.y = self.y + vect.y * self.speed * dt
+		local vect = Direction.toVect(dir)
+		local frameSpeed = self.speed * dt
+		local displacement = vect:stretchTo(frameSpeed)
+		self.x = self.x + displacement.x
+		self.y = self.y + displacement.y
+	end
 end
 
 function Player:_updateTarget()
