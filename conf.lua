@@ -1,5 +1,5 @@
 function love.conf(t)
-    t.title = ""        -- The title of the window the game is in (string)
+    t.title = "Burning Civilization"        -- The title of the window the game is in (string)
     t.author = "Raincole Lai, Joshua Chao, David Kuo, Fntsrlike Lin"        -- The author of the game (string)
     t.url = nil                 -- The website of the game (string)
     t.version = "0.8.0"         -- The LÖVE version this game was made for (string)
