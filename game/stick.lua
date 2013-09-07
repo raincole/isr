@@ -58,6 +58,7 @@ function Stick:update(dt)
 			end
 		)
 		if #sticks >= R.metadatas.campfire.upgradeThreshold then
+			getStickManager():changeBurningStickNum(1)
 			local campfire = Campfire('campfire', self._fire.x, self._fire.y)
 			Game.currentScreen:addEntity(campfire)
 
