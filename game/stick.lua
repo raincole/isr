@@ -77,6 +77,8 @@ end
 function Stick:draw()
 	love.graphics.drawq(self.image, R.metadatas.stick.quad.normal, self.x - self.ox, self.y - self.oy)
 	if self.fired == true then
+		love.graphics.printf( string.format("%.1f",self.burnTimer:getRemainTime()), 
+				self.x - self.width/2 , self.y + 10 , 100, "left" )
 		self._fire:draw()
 	end
 end

@@ -6,7 +6,6 @@ local TimerManager = class()
 
 function TimerManager:__init()
     self.timerList = {}
-
 end
 
 function TimerManager:draw()
