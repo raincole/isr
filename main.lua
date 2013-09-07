@@ -13,12 +13,13 @@ function init()
 	player.y = 240
 	screen:addEntity(player)
 
-	local stones = {}
+	local sticks = {}
 	for i = 1, 100 do
-		table.insert(stones, Actor('stone', R.images.stone,
-								   math.random(1280), math.random(960)))
+		table.insert(sticks, 
+			Stick(string.format('stick #%d', i), 
+				  math.random(love.graphics.getWidth()), math.random(love.graphics.getHeight())))
 	end
-	screen:addEntities(stones)
+	screen:addEntities(sticks)
 
 	Game.currentScreen = screen
 end

@@ -7,6 +7,9 @@ R = {}
 R.images = {
 	stone = newImage("assets/images/stone.png"),
 	characterSheet = newImage("assets/images/sprites/characters.png"),
+	stick = {
+		newImage("assets/images/stick.png"),
+	},
 }
 
 R.sounds = {
