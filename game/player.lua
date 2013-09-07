@@ -15,6 +15,7 @@ function Player:__init(name)
 	self.handLength = 20
 	self.dir = Direction.CENTER
 	self.anims = R.anims.player
+	self.targetItem = nil
 	self.holdingItem = nil
 end
 
@@ -22,6 +23,7 @@ function Player:update(dt)
 	self:getCurrentAnim():update(dt)
 
 	self:_handleMove(dt)
+	self:_updateTarget()
 end
 
 function Player:_handleMove(dt)
@@ -40,26 +42,44 @@ function Player:_handleMove(dt)
 	self.y = self.y + vect.y * self.speed * dt
 end
 
+function Player:_updateTarget()
+	local handX = self:getHandPosition().x
+	local handY = self:getHandPosition().y
+	local minSqrDistance = math.huge
+
+	self.targetItem = nil
+	beholder.trigger(Event.CHECK_IN_RANGE, handX, handY, self.pickingRadius,
+		function(item, sqrDistance)
+			if sqrDistance < minSqrDistance then
+				minSqrDistance = sqrDistance
+				self.targetItem = item
+			end
+		end)
+end
+
 function Player:onKeyReleased(key)
 	if key == ' ' or key == 'j' then
-		local origin = self:getOrigin()
-		local handX = origin.x + self:getDirVect().x * self.handLength
-		local handY = origin.y + self:getDirVect().y * self.handLength
-		local item = self.holdingItem
+		item = self.holdingItem
 		if item then
-			item.ox = handX
-			item.oy = handY
+			item.ox = self:getHandPosition().x
+			item.oy = self:getHandPosition().y
 			Game.currentScreen:addEntity(item)
 			self.holdingItem = nil
-		else
-			beholder.trigger(Event.TRY_PICK,
-							 self, handX, handY, self.pickingRadius)
+		elseif self.targetItem then
+			self.targetItem:removeSelf()
+			self.holdingItem = self.targetItem
 		end
 	end
 end
 
 function Player:getOrigin()
 	return { x = self.x + self.width / 2, y = self.y + self.height / 2 }
+end
+
+function Player:getHandPosition()
+	local origin = self:getOrigin()
+	return { x = origin.x + self:getDirVect().x * self.handLength,
+	         y = origin.y + self:getDirVect().y * self.handLength }
 end
 
 function Player:getDirVect()
