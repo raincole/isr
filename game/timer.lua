@@ -24,7 +24,7 @@ function Timer:update(dt)
     end
 end
 
-function Timer:getStatus()
+function Timer:isTimeUp()
     return self.timeUp
 end
 
