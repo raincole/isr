@@ -28,8 +28,8 @@ function Timer:isTimeUp()
     return self.timeUp
 end
 
-function Timer:addLifeTime(time)
-    self.lifeTime = self.lifeTime + time
+function Timer:changeLifeTime(seconds)
+    self.lifeTime = self.lifeTime + seconds
 end
 
 function Timer:getLifeTime()

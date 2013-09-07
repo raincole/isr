@@ -4,6 +4,7 @@ Game = {
 	currentScreen = nil,
 	debug = true,
 	timerManager = TimerManager(),
+	
 }
 
 function init()
