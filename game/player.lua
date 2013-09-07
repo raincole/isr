@@ -13,7 +13,7 @@ function Player:__init(name)
 	self.moving = false
 	self.speed = 120
 	self.pickingRadius = 40
-	self.lightRadius = 60
+	self.lightRadius = 80
 	self.handLength = 20
 	self.dir = Direction.CENTER
 	self.targetItem = nil

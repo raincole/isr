@@ -69,6 +69,7 @@ R.anims = {
 			up        = newAnimation(R.images.barbarian, 34, 48, 0.1, {13, 14, 15, 16}),
 			down      = newAnimation(R.images.barbarian, 34, 48, 0.1, {9, 10, 11, 12}),
 			center    = newAnimation(R.images.barbarian, 34, 48, 0.1, {9, 10, 11, 12}),
+			dancing   = newAnimation(R.images.barbarian, 34, 48, 0.2, {17, 18, 19, 20, 21, 22, 23, 24}),
 		}
 	end,
 	stickfire = function()
@@ -100,11 +101,12 @@ R.metadatas = {
 			height = R.images.sticks[1]:getHeight()
 		},
 		quad = {
-			normal = newQuad(0, 0, 
+			normal = newQuad(0, 0,
 				R.images.sticks[1]:getWidth() / 2, R.images.sticks[1]:getHeight(),
 				R.images.sticks[1]:getWidth(), R.images.sticks[1]:getHeight()
 			),
 			glow = newQuad(R.images.sticks[1]:getWidth() / 2, 0, 
+			fired = newQuad(R.images.sticks[1]:getWidth() / 2, 0,
 				R.images.sticks[1]:getWidth() / 2, R.images.sticks[1]:getHeight(),
 				R.images.sticks[1]:getWidth(), R.images.sticks[1]:getHeight()
 			),
