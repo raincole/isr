@@ -96,7 +96,7 @@ R.metadatas = {
 			{ x = 8 , y = 4  },
 		},
 		size = {
-			width = R.images.sticks[1]:getWidth(),
+			width = R.images.sticks[1]:getWidth() / 2,
 			height = R.images.sticks[1]:getHeight()
 		},
 		quad = {
