@@ -8,7 +8,9 @@ function Campfire:__init(name, x, y)
     self.y = y
     self.ox = 23
     self.oy = 39
-    self.zIndex = 1
+    self.lightRadius = 30
+    self.zIndex = 10
+    self.barbs = {}
 
     self.timer = Timer('campfire_timer', 10)
 
@@ -30,14 +32,18 @@ function Campfire:registerObservers()
 end
 
 function Campfire:update(dt)
-    if self.timer:isTimeUp() == true then
-        self:removeSelf()
-    end
-    
     Campfire._base.update(self, dt)
 
-    -- Q: 如何偵測附近一定範圍有barbs? 
-    -- A: 由野蠻人觸發營火的函數去改變數量。所以相關程式碼請參照野蠻人的程式碼。
+    if self.timer:isTimeUp() == true then
+        self:extinguish()
+    else
+        beholder.trigger(Event.CAMPFIRE, self.x, self.y, self.lightRadius, function(barb)
+            if not self:isFull() then
+                barb:findCampfire()
+                table.insert(self.barbs, barb)
+            end
+        end)
+    end
 end
 
 function Campfire:draw()
@@ -49,24 +55,22 @@ function Campfire:draw()
     --       love.graphics.draw(self.images.normal, self.ox - self.width / 2, self.oy - self.height / 2)
 end
 
+function Campfire:extinguish()
+    for i, b in ipairs(self.barbs) do
+        b:loseCampfire()
+    end
+    self:removeSelf()
+end
 
 function Campfire:changeLifeTime(seconds)
     self.timer:changeLifeTime(seconds)
 end
 
-function Campfire:isBeingFull()
-    if self.barbsBeingNum < self.barbsLimitNum then
+function Campfire:isFull()
+    if #self.barbs < self.barbsLimitNum then
         return false
     else
         return true
-    end
-end
-
-function Campfire:changeBarbsBeingNum(number)
-    self.barbsBeingNum = self.barbsBeingNum + number
-
-    if self.barbsBeingNum < 0 then
-        error("Number of barbarian near campfire is Error!!!")
     end
 end
 
