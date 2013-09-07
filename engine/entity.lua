@@ -2,7 +2,11 @@ require 'vendor/class'
 
 local Entity = class()
 
+local id = 0
+
 function Entity:__init(name)
+	self._id = id
+	id = id + 1
 	self._name = name
 	self.children = {}
 	self.parent = nil
@@ -14,7 +18,7 @@ end
 function Entity:registerObservers() end
 
 function Entity:draw()
-	table.sort(self.children, function(a, b)
+	stable_sort(self.children, function(a, b)
 		return a.zIndex < b.zIndex
 	end)
 	for i, e in ipairs(self.children) do

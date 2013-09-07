@@ -12,7 +12,7 @@ function Player:__init(name)
 
 	self.speed = 80
 	self.pickingRadius = 40
-	self.dropLength = 20
+	self.handLength = 20
 	self.dir = Direction.CENTER
 	self.anims = R.anims.player
 	self.holdingItem = nil
@@ -43,15 +43,17 @@ end
 function Player:onKeyReleased(key)
 	if key == ' ' or key == 'j' then
 		local origin = self:getOrigin()
+		local handX = origin.x + self:getDirVect().x * self.handLength
+		local handY = origin.y + self:getDirVect().y * self.handLength
 		local item = self.holdingItem
 		if item then
-			item.ox = origin.x + self:getDirVect().x * self.dropLength
-			item.oy = origin.y + self:getDirVect().y * self.dropLength
+			item.ox = handX
+			item.oy = handY
 			Game.currentScreen:addEntity(item)
 			self.holdingItem = nil
 		else
 			beholder.trigger(Event.TRY_PICK,
-							 self, origin.x, origin.y, self.pickingRadius)
+							 self, handX, handY, self.pickingRadius)
 		end
 	end
 end

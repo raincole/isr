@@ -23,7 +23,6 @@ function init()
 	player.x = 320
 	player.y = 240
 	screen:addEntity(player)
->>>>>>> raincole_working
 
 	Game.currentScreen = screen
 end
