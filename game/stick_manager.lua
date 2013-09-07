@@ -47,6 +47,7 @@ function StickManager:removeStick(stick)
 	self._sticks[self._sticksID[info.ID]].ID = info.ID
 	table.remove(self._sticksID)
 	self._sticks[stick] = nil
+	self._sticksCount = self._sticksCount - 1
 	stick:removeSelf()
 end
 
