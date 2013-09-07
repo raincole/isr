@@ -7,6 +7,8 @@ local id = 0
 function Entity:__init(name)
 	self._id = id
 	id = id + 1
+	self.x = 0
+	self.y = 0
 	self._name = name
 	self.children = {}
 	self.parent = nil
@@ -19,6 +21,7 @@ function Entity:registerObservers() end
 
 function Entity:draw()
 	stable_sort(self.children, function(a, b)
+		if a.zIndex == b.zIndex then return a.y < b.y end
 		return a.zIndex < b.zIndex
 	end)
 	for i, e in ipairs(self.children) do

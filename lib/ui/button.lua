@@ -49,7 +49,7 @@ end
 
 function Button:draw()
 	local image = self:getImage()
-	if self.visible and image then love.graphics.draw(image, self.x, self.y) end
+	if self.visible and image then love.graphics.draw(image, self.x - self.ox, self.y - self.oy) end
 end
 
 function Button:update()

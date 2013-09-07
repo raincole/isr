@@ -10,7 +10,7 @@ function Actor:__init(name, image, x, y)
 end
 
 function Actor:draw()
-	love.graphics.draw(self.image, self.x, self.y)
+	love.graphics.draw(self.image, self.x - self.ox, self.y - self.oy)
 end
 
 return Actor

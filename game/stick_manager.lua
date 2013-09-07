@@ -5,6 +5,7 @@ local StickManager = class(Entity)
 function StickManager:__init(name)
 	self._base.__init(self, name)
 	self.blockSize = {x = 4, y = 3}
+	self._sticksID = {}
 	self._sticks = {}
 	self._blocks = {}
 	for i = 1, self.blockSize.x do
@@ -22,18 +23,28 @@ function StickManager:getRealPosition(block, position)
 			 y = (block.y - 1) * (love.graphics.getHeight() / self.blockSize.y) + position.y }
 end
 
-function StickManager:addStick(stick, block)
-	if block == nil then -- real position
-		block = { x = stick.ox / self.blockSize.x, 
-				  y = stick.oy / self.blockSize.y }
+function StickManager:addStick(stick, info)
+	if info == nil then -- real position
+		info = { x = math.floor(stick.ox / self.blockSize.x + 1),
+				  y = math.floor(stick.oy / self.blockSize.y + 1) }
 	end
-	self._blocks[block.x][block.y] = self._blocks[block.x][block.y] + 1
+	self._blocks[info.x][info.y] = self._blocks[info.x][info.y] + 1
 	self._sticksCount = self._sticksCount + 1
-	if self._blocks[block.x][block.y] > self._blockMaxCount then
-		self._blockMaxCount = self._blocks[block.x][block.y]
+	if self._blocks[info.x][info.y] > self._blockMaxCount then
+		self._blockMaxCount = self._blocks[info.x][info.y]
 	end
-	table.insert(self._sticks, stick)
+	table.insert(self._sticksID, stick)
+	info.ID = #self._sticksID
+	self._sticks[stick] = info
 	self:addEntity(stick)
+end
+
+function StickManager:removeStick(stick)
+	local info = self._sticks[stick]
+	self._blocks[info.x][info.y] = self._blocks[info.x][info.y] - 1
+	self._sticksID[info.ID] = nil
+	self._sticks[stick] = nil
+	stick:removeSelf()
 end
 
 function StickManager:randomBlock()
@@ -66,8 +77,8 @@ end
 
 --- TODO: anime
 function StickManager:randomLightStick()
-	local rand = math.random(self._sticksCount)
-	self._sticks[rand].fired = true
+	--local rand = math.random(self._sticksCount)
+	--self._sticks[rand].fired = true
 end
 
 return StickManager

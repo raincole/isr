@@ -1,4 +1,5 @@
 --timer
+
 require 'vendor/class'
 
 local Timer = class(Entity)

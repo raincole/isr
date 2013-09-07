@@ -18,6 +18,7 @@ BarbarianManager = require 'game/barbarian_manager'
 
 Player = require 'game/player'
 Stick = require 'game/stick'
+StickFire = require 'game/stick_fire'
 Timer = require 'game/timer'
 
 TimerManager = require 'game/timer_manager'

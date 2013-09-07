@@ -5,15 +5,21 @@ local newMusic = function (filename) return love.audio.newSource(filename, "stre
 local R = {}
 
 R.images = {
+	bg = newImage("assets/images/bg.png"),
 	stone = newImage("assets/images/stone.png"),
+	player = newImage("assets/images/player.png"),
+	barbarian = newImage("assets/images/bab_1.png"),
 	characterSheet = newImage("assets/images/sprites/characters.png"),
     --campfire =  newImage("assets/images/campfire.png"),
 	sticks = {
-		{
-			normal = newImage("assets/images/stick.png"),
-			fired  = newImage("assets/images/stick.png"),
-		},
+		newImage("assets/images/sticks/stick_1.png"),
+		newImage("assets/images/sticks/stick_2.png"),
+		newImage("assets/images/sticks/stick_3.png"),
+		newImage("assets/images/sticks/stick_4.png"),
+		newImage("assets/images/sticks/stick_5.png"),
+		newImage("assets/images/sticks/stick_6.png"),
 	},
+	stickfire = newImage("assets/images/stickfire.png"),
 }
 
 R.sounds = {
@@ -25,33 +31,49 @@ R.musics = {
 R.anims = {
 	player = function()
 		return {
-			down = newAnimation(R.images.characterSheet, 32, 32, 0.2, {2, 3, 1}),
-			left = newAnimation(R.images.characterSheet, 32, 32, 0.2, {14, 15, 13}),
-			right = newAnimation(R.images.characterSheet, 32, 32, 0.2, {26, 27, 25}),
-			up = newAnimation(R.images.characterSheet, 32, 32, 0.2, {38, 39, 37}),
-			upRight = newAnimation(R.images.characterSheet, 32, 32, 0.2, {38, 39, 37}),
-			upLeft = newAnimation(R.images.characterSheet, 32, 32, 0.2, {38, 39, 37}),
-			downRight = newAnimation(R.images.characterSheet, 32, 32, 0.2, {38, 39, 37}),
-			downLeft = newAnimation(R.images.characterSheet, 32, 32, 0.2, {38, 39, 37}),
-			center = newAnimation(R.images.characterSheet, 32, 32, 0.2, {38, 39, 37}),
+			left      = newAnimation(R.images.player, 34, 48, 0.1, {5, 6, 7, 8}),
+			upLeft    = newAnimation(R.images.player, 34, 48, 0.1, {5, 6, 7, 8}),
+			downLeft  = newAnimation(R.images.player, 34, 48, 0.1, {5, 6, 7, 8}),
+			right     = newAnimation(R.images.player, 34, 48, 0.1, {1, 2, 3, 4}),
+			upRight   = newAnimation(R.images.player, 34, 48, 0.1, {1, 2, 3, 4}),
+			downRight = newAnimation(R.images.player, 34, 48, 0.1, {1, 2, 3, 4}),
+			up        = newAnimation(R.images.player, 34, 48, 0.1, {13, 14, 15, 16}),
+			down      = newAnimation(R.images.player, 34, 48, 0.1, {9, 10, 11, 12}),
+			center    = newAnimation(R.images.player, 34, 48, 0.1, {9, 10, 11, 12}),
 		}
 	end,
 	barbarian = function()
 		return {
-			down = newAnimation(R.images.characterSheet, 32, 32, 0.2, {5, 6, 4}),
-			left = newAnimation(R.images.characterSheet, 32, 32, 0.2, {17, 18, 16}),
-			right = newAnimation(R.images.characterSheet, 32, 32, 0.2, {29, 30, 28}),
-			up = newAnimation(R.images.characterSheet, 32, 32, 0.2, {41, 42, 40}),
-			upRight = newAnimation(R.images.characterSheet, 32, 32, 0.2, {41, 42, 40}),
-			upLeft = newAnimation(R.images.characterSheet, 32, 32, 0.2, {41, 42, 40}),
-			downRight = newAnimation(R.images.characterSheet, 32, 32, 0.2, {41, 42, 40}),
-			downLeft = newAnimation(R.images.characterSheet, 32, 32, 0.2, {41, 42, 40}),
-			center = newAnimation(R.images.characterSheet, 32, 32, 0.2, {41, 42, 40}),
+			left      = newAnimation(R.images.barbarian, 34, 48, 0.1, {5, 6, 7, 8}),
+			upLeft    = newAnimation(R.images.barbarian, 34, 48, 0.1, {5, 6, 7, 8}),
+			downLeft  = newAnimation(R.images.barbarian, 34, 48, 0.1, {5, 6, 7, 8}),
+			right     = newAnimation(R.images.barbarian, 34, 48, 0.1, {1, 2, 3, 4}),
+			upRight   = newAnimation(R.images.barbarian, 34, 48, 0.1, {1, 2, 3, 4}),
+			downRight = newAnimation(R.images.barbarian, 34, 48, 0.1, {1, 2, 3, 4}),
+			up        = newAnimation(R.images.barbarian, 34, 48, 0.1, {13, 14, 15, 16}),
+			down      = newAnimation(R.images.barbarian, 34, 48, 0.1, {9, 10, 11, 12}),
+			center    = newAnimation(R.images.barbarian, 34, 48, 0.1, {9, 10, 11, 12}),
 		}
+	end,
+	stickfire = function()
+		return { newAnimation(R.images.stickfire, 12, 26, 0.16, 0) }
 	end,
 }
 
 R.fonts = {
+}
+
+R.metadatas = {
+	stick = {
+		firePosition = {
+			{ x = 24, y = 4  },
+			{ x = 22, y = 6  },
+			{ x = 8 , y = 10 },
+			{ x = 24, y = 14 },
+			{ x = 2 , y = 4  },
+			{ x = 23, y = 6  },
+		}
+	}
 }
 
 return R
