@@ -12,7 +12,7 @@ R.images = {
 	playerStick = newImage("assets/images/player_stick.png"),
 	barbarian = newImage("assets/images/bab_1.png"),
 	characterSheet = newImage("assets/images/sprites/characters.png"),
-    --campfire =  newImage("assets/images/campfire.png"),
+    campfire =  newImage("assets/images/campfire.png"),
 	sticks = {
 		newImage("assets/images/sticks/stick_1.png"),
 		newImage("assets/images/sticks/stick_2.png"),
@@ -77,6 +77,9 @@ R.anims = {
 	thounder = function()
 		return { newAnimation(R.images.thounder, 32, 600, 0.08, 0) }
 	end,
+	campfire = function()
+		return { newAnimation(R.images.campfire, 50, 56, 0.16, 0) }
+	end,
 }
 
 R.fonts = {
@@ -114,6 +117,13 @@ R.metadatas = {
 			{ x = 60, y = 24 }, { x = 61, y = 26 }, { x = 60, y = 24 }, { x = 62, y = 22 },
 			{ x = 15, y = 24 }, { x = 15, y = 22 }, { x = 15, y = 24 }, { x = 16, y = 25 },
 		},
+	},
+	campfire = {
+		oneStickLifespan = 2,
+		upgradeThreshold = 5,
+	},
+	fire = {
+		burnRadius = 30,
 	},
 }
 

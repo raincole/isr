@@ -14,7 +14,7 @@ function Stick:__init(name, x, y)
 	self.oy = self.height / 2
 	self.fired = false
 	self.zIndex = 0
-	self.burnTime = 0.1
+	self.burnTime = 20
 	self.burnTimer = nil
 
 	self.name = name
@@ -48,6 +48,28 @@ function Stick:update(dt)
 		self.burnTimer = nil
 		getStickManager():changeBurningStickNum(-1)
 		getStickManager():removeStick(self)
+	end
+
+	if self.fired and not self.toRemove then
+		local sticks = {}
+		beholder.trigger(Event.CHECK_IN_RANGE, self._fire.x, self._fire.y, R.metadatas.fire.burnRadius,
+			function(item, sqrDistance)
+				table.insert(sticks, item)
+			end
+		)
+		if #sticks >= R.metadatas.campfire.upgradeThreshold then
+			local campfire = Campfire('campfire', self._fire.x, self._fire.y)
+			Game.currentScreen:addEntity(campfire)
+
+			for i, v in ipairs(sticks) do
+				if v.fired == true then
+					v.fired = false
+					v.burnTimer = nil
+					getStickManager():changeBurningStickNum(-1)
+				end
+				getStickManager():removeStick(v)
+			end
+		end
 	end
 end
 
