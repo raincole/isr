@@ -2,6 +2,7 @@ Entity = require 'engine/entity'
 Screen = require 'engine/screen'
 Actor = require 'engine/actor'
 
+Mathx = require 'lib/mathx'
 Direction = require 'lib/direction'
 Rect = require 'lib/rect'
 Animator = require 'lib/animator'

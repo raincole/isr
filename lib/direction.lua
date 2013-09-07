@@ -49,4 +49,21 @@ function Direction.comebine(dir1, dir2)
 	return Direction.fromVect(vect)
 end
 
+function Direction.all8Dirs()
+	return {
+		Direction.UP,
+		Direction.RIGHT,
+		Direction.DOWN,
+		Direction.LEFT,
+		Direction.UP_RIGHT,
+		Direction.DOWN_RIGHT,
+		Direction.DOWN_LEFT,
+		Direction.UP_LEFT,
+	}
+end
+
+function Direction.randomFrom8Dirs()
+	return Direction.all8Dirs()[math.random(8)]
+end
+
 return Direction
