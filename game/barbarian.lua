@@ -8,20 +8,48 @@ function Barbarian:__init(name)
     self.oy = 35
     self.speed = 60
     self.dir = Direction.CENTER
-    self.turnInterval = 3
-    self.turnTimer = 0
+    self.tracing = false
+    self.hasTarget = false
+    self.detectingRadius = 60
+    self.reachedRadius = 50
     self.nextWayPoint = nil
     self.zIndex = 10
 end
 
+function Barbarian:registerObservers()
+    beholder.observe(Event.LIGHT_SOURCE, function(x, y, radius)
+        local maxDistance = radius + self.detectingRadius
+        local sqrMaxDistance = maxDistance * maxDistance
+        local sqrDistance = (self.x - x) * (self.x - x) + (self.y - y) * (self.y - y)
+        if sqrDistance <= sqrMaxDistance then
+            if ((not self.tracing) or self:reachedWayPoint()) then
+                local escapeDistance = maxDistance / 1.5
+                local rx = math.random(-escapeDistance, escapeDistance)
+                local ry = math.sqrt(escapeDistance*escapeDistance-rx*rx)
+                if math.random(2) == 1 then ry = -ry end
+                self.nextWayPoint = Vect2(x + rx,
+                                          y + ry)
+            end
+            self.hasTarget = true
+        end
+    end)
+end
+
 function Barbarian:update(dt)
     Barbarian._base.update(self, dt)
-    self.turnTimer = self.turnTimer - dt
-    if self.turnTimer <= 0 or self:reachedWayPoint() then
-        self.nextWayPoint = { x = math.random(800), y = math.random(600) }
-        self.turnTimer = self.turnInterval
+
+    self.tracing = self.hasTarget
+
+    if (not self.hasTarget) and (self:reachedWayPoint()) then
+        self.nextWayPoint = { x = self.x + math.random(-200, 200),
+                              y = self.y + math.random(-200, 200) }
     end
-    self:moveToPoint(self.nextWayPoint, self.speed * dt)
+
+    if self.nextWayPoint then
+        self:moveToPoint(self.nextWayPoint, self.speed * dt)
+    end
+
+    self.hasTarget = false
 end
 
 function Barbarian:moveToPoint(point, frameSpeed)
@@ -44,8 +72,10 @@ end
 
 function Barbarian:reachedWayPoint()
     local point = self.nextWayPoint
+    if not point then return true end
+
     local delta = Vect2(point.x - self.x, point.y - self.y)
-    return delta:sqrMagnitude() < 5
+    return delta:sqrMagnitude() < self.reachedRadius * self.reachedRadius
 end
 
 function Barbarian:getCurrentAnimIndex()
