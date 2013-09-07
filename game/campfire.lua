@@ -19,7 +19,7 @@ function Campfire:__init(name, ox, oy)
 end
 
 function Campfire:registerObservers()
-
+    -- TODO: 監聽樹枝掉在附近的事件
 end
 
 function Campfire:update(dt)
