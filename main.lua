@@ -15,15 +15,19 @@ function init()
 	player.y = 240
 	screen:addEntity(player)
 
-	local stones = {}
-	for i = 1, 100 do
-		table.insert(stones, Actor('stone', R.images.stone,
-								   math.random(1280), math.random(960)))
+	stickManager = StickManager("stickManager")
+	screen:addEntity(stickManager)
+	for i = 1, 20 do
+		stickManager:randomAddStick()
 	end
-	screen:addEntities(stones)
 
 	local countdown = Countdown(10)
 	screen:addEntity(countdown)
+
+	local player = Player('player')
+	player.x = 320
+	player.y = 240
+	screen:addEntity(player)
 
 	Game.currentScreen = screen
 end
@@ -35,11 +39,12 @@ function love.load()
 		math.randomseed(os.time)
 	end
 
-	require 'r'
 	init()
 end
 
 function love.update(dt)
+	
+	if math.random(1000) < 17 then stickManager:randomAddStick() end
 	Game.timerManager:update(dt)
 	Game.currentScreen:update(dt)
 	Game.currentScreen:afterUpdate()
@@ -47,4 +52,16 @@ end
 
 function love.draw()
 	Game.currentScreen:draw()
+end
+
+function love.mousepressed(x, y, button)
+	Game.currentScreen:onMousePressed(x, y, button)
+end
+
+function love.mousereleased(x, y, button)
+	Game.currentScreen:onMouseReleased(x, y, button)
+end
+
+function love.keyreleased(key)
+	Game.currentScreen:onKeyReleased(key)
 end
