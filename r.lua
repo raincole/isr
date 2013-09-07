@@ -8,11 +8,14 @@ R.images = {
 	stone = newImage("assets/images/stone.png"),
 	characterSheet = newImage("assets/images/sprites/characters.png"),
 	sticks = {
-		{
-			normal = newImage("assets/images/stick.png"),
-			fired  = newImage("assets/images/stick.png"),
-		},
+		newImage("assets/images/sticks/stick_1.png"),
+		newImage("assets/images/sticks/stick_2.png"),
+		newImage("assets/images/sticks/stick_3.png"),
+		newImage("assets/images/sticks/stick_4.png"),
+		newImage("assets/images/sticks/stick_5.png"),
+		newImage("assets/images/sticks/stick_6.png"),
 	},
+	fire = newImage("assets/images/fire.png"),
 }
 
 R.sounds = {
@@ -27,7 +30,7 @@ R.anims = {
 		left = newAnimation(R.images.characterSheet, 32, 32, 0.2, {13, 14, 15}),
 		right = newAnimation(R.images.characterSheet, 32, 32, 0.2, {25, 26, 27}),
 		up = newAnimation(R.images.characterSheet, 32, 32, 0.2, {37, 38, 39}),
-	}
+	},
 }
 
 R.fonts = {

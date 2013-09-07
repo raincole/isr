@@ -13,15 +13,6 @@ function init()
 	player.y = 240
 	screen:addEntity(player)
 
---[[
-	local sticks = {}
-	for i = 1, 100 do
-		table.insert(sticks, 
-			Stick(string.format('stick #%d', i), 
-				  math.random(love.graphics.getWidth()), math.random(love.graphics.getHeight())))
-	end
-	screen:addEntities(sticks)
---]]
 	stickManager = StickManager("stickManager")
 	screen:addEntity(stickManager)
 	for i = 1, 20 do
