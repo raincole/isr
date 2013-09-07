@@ -4,6 +4,8 @@ local Barbarian = class(Animator)
 
 function Barbarian:__init(name)
     Barbarian._base.__init(self, name, R.anims.barbarian())
+    self.ox = 16
+    self.oy = 35
     self.width = 32
     self.height = 32
     self.speed = 60
@@ -22,10 +24,6 @@ function Barbarian:update(dt)
         self.turnTimer = self.turnInterval
     end
     self:moveByDir(self.dir, self.speed * dt)
-end
-
-function Barbarian:draw()
-    Barbarian._base.draw(self)
 end
 
 function Barbarian:moveByDir(dir, disp)

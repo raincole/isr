@@ -8,7 +8,7 @@ function BarbarianManager:__init(name)
 end
 
 function BarbarianManager:addBarbarian(barbarian)
-	self:addEntity(barbarian)
+	self.parent:addEntity(barbarian)
 end
 
 function BarbarianManager:randomAddBarbarian()
