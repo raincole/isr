@@ -10,6 +10,7 @@ function Barbarian:__init(name)
     self.dir = Direction.CENTER
     self.turnInterval = 3
     self.turnTimer = 0
+    self.zIndex = 10
 end
 
 function Barbarian:update(dt)

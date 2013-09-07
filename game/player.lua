@@ -73,7 +73,6 @@ function Player:onKeyReleased(key)
 			item.y = self:getHandPosition().y
 			local sm = getStickManager()
 			sm:addStick(item, nil) -- sitck only
-			Game.currentScreen:addEntity(item)
 			self.holdingItem = nil
 		elseif self.targetItem then
 			self.targetItem:removeSelf()
