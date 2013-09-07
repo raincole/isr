@@ -43,6 +43,9 @@ end
 
 function Campfire:draw()
     Campfire._base.draw(self)
+
+    love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()), 
+        self.x , self.y + 10 , 100, "left" )
     -- TODO: 營火生命週期血條
     --       血條從正中間為抵，時間越長越往兩側伸展，反之則越往中間縮短
 
