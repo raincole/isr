@@ -12,12 +12,12 @@ function Stick:__init(name, x, y)
 	self.height = self.image:getHeight()
 	self.ox = self.width / 2
 	self.oy = self.height / 2
-	if math.random(2) == 1 then
-		self.fired = false
-	else
-		self.fired = true
-	end
+	self.fired = false
 	self.zIndex = 0
+	self.burnTime = 5
+	self.burnTimer = nil
+
+	self.name = name
 
 	self.fireOffset = R.metadatas.stick.firePosition[rand]
 	local firePos = { x = self.x - self.ox + self.fireOffset.x, y = self.y - self.oy + self.fireOffset.y}
@@ -38,6 +38,16 @@ function Stick:update(dt)
 	self._fire.x = self.x - self.ox + self.fireOffset.x
 	self._fire.y = self.y - self.oy + self.fireOffset.y
 	Stick._base.update(self, dt)
+
+	if self.burnTimer == nil and self.fired == true then 
+		self.burnTimer = Timer(self.name, self.burnTime)
+	end
+
+	if self.burnTimer ~= nil and self.burnTimer:isTimeUp() == true then
+		self.fired = false
+		self.burnTimer = nil 
+		getStickManager():changeBurningStickNum(-1)
+	end
 end
 
 function Stick:draw()

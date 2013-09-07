@@ -16,6 +16,7 @@ function StickManager:__init(name)
 	end
 	self._sticksCount = 0
 	self._blockMaxCount = 0
+	self._fireCounter = 0
 end
 
 function StickManager:getRealPosition(block, position)
@@ -75,10 +76,21 @@ function StickManager:randomAddStick()
 	self:addStick(stick, randBlock)
 end
 
---- TODO: anime
+
 function StickManager:randomLightStick()
-	--local rand = math.random(self._sticksCount)
-	--self._sticks[rand].fired = true
+	if self._fireCounter == 0 then
+		local rand = math.random(self._sticksCount)
+		local randomStick = self._sticksID[rand]
+		local screen = Screen()
+		self._thounder = Thounder("Thounder: " .. rand, randomStick.x, randomStick.y)
+		Game.currentScreen:addEntity(self._thounder)
+		randomStick.fired = true
+		self._fireCounter = self._fireCounter + 1
+	end
+end
+
+function StickManager:changeBurningStickNum(number)
+	self._fireCounter = self._fireCounter + number
 end
 
 return StickManager
