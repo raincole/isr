@@ -32,6 +32,7 @@ function StickManager:addStick(stick, block)
 	if self._blocks[block.x][block.y] > self._blockMaxCount then
 		self._blockMaxCount = self._blocks[block.x][block.y]
 	end
+	table.insert(self._sticks, stick)
 	self:addEntity(stick)
 end
 
@@ -61,6 +62,12 @@ function StickManager:randomAddStick()
 	local realPosition = self:getRealPosition(randBlock, randPos)
 	stick = Stick(stickDebugName, realPosition.x, realPosition.y)
 	self:addStick(stick, randBlock)
+end
+
+--- TODO: anime
+function StickManager:randomLightStick()
+	local rand = math.random(self._sticksCount)
+	self._sticks[rand].fired = true
 end
 
 return StickManager
