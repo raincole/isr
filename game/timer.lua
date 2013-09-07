@@ -1,31 +1,44 @@
---timer
-
+--timer 
 require 'vendor/class'
 
-local Timer = class(Entity)
+local Timer = class()
 
+function Timer:__init(name, lifeTime)
 
-function Timer:__init(name, remain_time)
-    self._base.__init(self, name)
-    self.remain_time = remain_time
-    self.time_up = false
+    self.name = name
+    self.lifeTime = lifeTime
+    self.passTime = 0
+    self.remainTime = lifeTime
+    self.timeUp = false
+
+    Game.timerManager:addTimer(self)
 end
 
 function Timer:update(dt)
-    if self.time_up == false then
-        self.remain_time = self.remain_time - dt
-        if self.remain_time <= 0 then
-            self.time_up = true
-        end
+
+    self.passTime = self.passTime + dt
+    self.remainTime = self.lifeTime - self.passTime
+
+    if self.timeUp == false and self.remainTime <= 0 then
+        self.timeUp = true
     end
 end
 
-function Timer:draw()
-    if self.time_up == false then
-        love.graphics.printf( string.format("%.1f",self.remain_time), 10, 10, 100, "left" )
-    else 
-        love.graphics.printf( "time is up" , 10, 10, 100, "left" )
-    end
+function Timer:getStatus()
+    return self.timeUp
 end
+
+function Timer:getLifeTime()
+    return self.lifeTime
+end
+
+function Timer:getPassTime()
+    return self.passTime
+end
+
+function Timer:getRemainTime()
+    return self.remainTime
+end
+
 
 return Timer

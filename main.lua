@@ -3,6 +3,7 @@ require 'initialize'
 Game = {
 	currentScreen = nil,
 	debug = true,
+	timerManager = TimerManager(),
 }
 
 function init()
@@ -20,8 +21,8 @@ function init()
 	end
 	screen:addEntities(stones)
 
-	local timer = Timer('timer', 3)
-	screen:addEntity(timer)
+	local countdown = Countdown(10)
+	screen:addEntity(countdown)
 
 	Game.currentScreen = screen
 end
@@ -38,6 +39,7 @@ function love.load()
 end
 
 function love.update(dt)
+	Game.timerManager:update(dt)
 	Game.currentScreen:update(dt)
 	Game.currentScreen:afterUpdate()
 end
