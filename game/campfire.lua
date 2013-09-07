@@ -1,44 +1,51 @@
 require 'vendor/class'
 
-local Campfire = class(Entity)
+local Campfire = class(Animator)
 
-function Campfire:__init(name, ox, oy)
-    self._base.__init(self, name)
-    self.images = R.images.campfires
-    self.ox = ox
-    self.oy = oy
-    self.width = self.images.normal:getWidth()
-    self.height = self.images.normal:getHeight()
-    self.zIndex = 0
+function Campfire:__init(name, x, y)
+    Campfire._base.__init(self, name, R.anims.campfire())
+    self.x = x
+    self.y = y
+    self.ox = 23
+    self.oy = 39
+    self.zIndex = 1
 
-    self.timer = Timer(10)
+    self.timer = Timer('campfire_timer', 10)
 
     self.barbsLimitNum = 5
     self.barbsBeingNum = 0
 
+    self.radius = 15
 end
 
 function Campfire:registerObservers()
-    -- TODO: ±OÂ ˜äÖ¦µôÔÚ¸½½üµÄÊÂ¼þ
+    beholder.observe(Event.PUT_STICK_ON_GROUND, function(stick, cb)
+        if stick.toRemove == true then return end
+        local sqrDistance = (self.x - stick.x) * (self.x - stick.x) + (self.y - stick.y) * (self.y - stick.y)
+        if sqrDistance <= self.radius * self.radius then
+            self:changeLifeTime(R.metadatas.campfire.oneStickLifespan)
+            cb()
+        end
+    end)
 end
 
 function Campfire:update(dt)
     if self.timer:isTimeUp() == true then
-        self._base.removeSelf()
+        self:removeSelf()
     end
+    
+    Campfire._base.update(self, dt)
 
-    -- TODO: ÅÐ¶¨¸½½ü¹Ì¶¨¹ ‡úÊÇ·ñÓÐ˜äÖ¦£¬ÓÐµÄÔ’¾Í³Ôµô£¬Ôö¼Ó I»ðµÄÉúÃüÆÚÏÞ¡£
-
-    -- Q: ÈçºÎ‚Éœy¸½½üÒ»¶¨¹ ‡úÓÐbarbs? 
-    -- A: ÓÉÒ°ÐUÈËÓ|°l I»ðµÄº¯”µÈ¥¸Ä×ƒ”µÁ¿¡£ËùÒÔÏàêP³ÌÊ½´aÕˆ…¢ÕÕÒ°ÐUÈËµÄ³ÌÊ½´a¡£
+    -- Q: å¦‚ä½•åµæ¸¬é™„è¿‘ä¸€å®šç¯„åœæœ‰barbs? 
+    -- A: ç”±é‡Žè »äººè§¸ç™¼ç‡Ÿç«çš„å‡½æ•¸åŽ»æ”¹è®Šæ•¸é‡ã€‚æ‰€ä»¥ç›¸é—œç¨‹å¼ç¢¼è«‹åƒç…§é‡Žè »äººçš„ç¨‹å¼ç¢¼ã€‚
 end
 
 function Campfire:draw()
+    Campfire._base.draw(self)
+    -- TODO: ç‡Ÿç«ç”Ÿå‘½é€±æœŸè¡€æ¢
+    --       è¡€æ¢å¾žæ­£ä¸­é–“ç‚ºæŠµï¼Œæ™‚é–“è¶Šé•·è¶Šå¾€å…©å´ä¼¸å±•ï¼Œåä¹‹å‰‡è¶Šå¾€ä¸­é–“ç¸®çŸ­
 
-    -- TODO:  I»ðÉúÃüßLÆÚÑª—l
-    --       Ñª—lÄÕýÖÐégžéµÖ£¬•régÔ½éLÔ½ÍùƒÉ‚ÈÉìÕ¹£¬·´Ö®„tÔ½ÍùÖÐég¿s¶Ì
-
-    -- TODO:  I»ðˆD°¸
+    -- TODO: ç‡Ÿç«åœ–æ¡ˆ
     --       love.graphics.draw(self.images.normal, self.ox - self.width / 2, self.oy - self.height / 2)
 end
 

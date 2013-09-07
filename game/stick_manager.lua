@@ -38,6 +38,10 @@ function StickManager:addStick(stick, info)
 	info.ID = #self._sticksID
 	self._sticks[stick] = info
 	self:addEntity(stick)
+
+	beholder.trigger(Event.PUT_STICK_ON_GROUND, stick, function()
+		self:removeStick(stick)
+	end)
 end
 
 function StickManager:removeStick(stick)
