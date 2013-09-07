@@ -47,5 +47,9 @@ function Stick:draw()
 	end
 end
 
+function Stick:isFired()
+	return self._fire
+end
+
 return Stick
 
