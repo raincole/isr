@@ -14,11 +14,10 @@ function Stick:__init(name, ox, oy)
 end
 
 function Stick:registerObservers()
-	beholder.observe(Event.TRY_PICK, function(player, x, y, radius)
-		if((self.ox - x) * (self.ox - x) + (self.oy - y) * (self.oy - y) <= radius * radius) then
-			if player:pick(self) then
-				self:removeSelf()
-			end
+	beholder.observe(Event.CHECK_IN_RANGE, function(x, y, radius, callback)
+		local sqrDistance = (self.ox - x) * (self.ox - x) + (self.oy - y) * (self.oy - y)
+		if sqrDistance <= radius * radius then
+			callback(self, sqrDistance)
 		end
 	end)
 end
