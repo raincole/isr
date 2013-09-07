@@ -4,6 +4,7 @@ Actor = require 'engine/actor'
 
 Direction = require 'lib/direction'
 Rect = require 'lib/rect'
+Animator = require 'lib/animator'
 
 Button = require 'lib/ui/button'
 

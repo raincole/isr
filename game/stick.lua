@@ -3,7 +3,7 @@ require 'vendor/class'
 local Stick = class(Entity)
 
 function Stick:__init(name, ox, oy)
-	self._base.__init(self, name)
+	Stick._base.__init(self, name)
 	self.images = R.images.sticks[1]
 	self.ox = ox
 	self.oy = oy

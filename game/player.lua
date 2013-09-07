@@ -1,29 +1,33 @@
 require 'vendor/class'
 
-local Player = class(Entity)
+local Player = class(Animator)
 
 function Player:__init(name)
-	self._base.__init(self, name)
+	Player._base.__init(self, name, R.anims.player())
 	self.x = 0
 	self.y = 0
 	self.width = 32
 	self.height = 32
 	self.zIndex = 10
 
+	self.moving = false
 	self.speed = 80
 	self.pickingRadius = 40
 	self.handLength = 20
 	self.dir = Direction.CENTER
-	self.anims = R.anims.player
 	self.targetItem = nil
 	self.holdingItem = nil
 end
 
 function Player:update(dt)
-	self:getCurrentAnim():update(dt)
-
 	self:_handleMove(dt)
 	self:_updateTarget()
+
+	if self.moving then
+		self:getCurrentAnim():update(dt)
+	else
+		self:getCurrentAnim():reset()
+	end
 end
 
 function Player:_handleMove(dt)
@@ -35,7 +39,11 @@ function Player:_handleMove(dt)
 		end
 	end
 
-	if dir ~= Direction.CENTER then self.dir = dir end
+	self.moving = false
+	if dir ~= Direction.CENTER then
+		self.dir = dir
+		self.moving = true
+	end
 
 	local vect = Direction.toVect(dir)
 	self.x = self.x + vect.x * self.speed * dt
@@ -72,10 +80,6 @@ function Player:onKeyReleased(key)
 	end
 end
 
-function Player:getOrigin()
-	return { x = self.x + self.width / 2, y = self.y + self.height / 2 }
-end
-
 function Player:getHandPosition()
 	local origin = self:getOrigin()
 	return { x = origin.x + self:getDirVect().x * self.handLength,
@@ -95,12 +99,8 @@ function Player:pick(item)
 	end
 end
 
-function Player:draw()
-	self:getCurrentAnim():draw(self.x, self.y)
-end
-
-function Player:getCurrentAnim()
-	return self.anims[self.dir]
+function Player:getCurrentAnimIndex()
+	return self.dir
 end
 
 return Player
