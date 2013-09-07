@@ -4,8 +4,8 @@ local Thounder = class(Animator)
 
 function Thounder:__init(name, x, y)
     Thounder._base.__init(self, name, R.anims.thounder())
-    self.x = x
-    self.y = y
+    self.x = math.floor(x)
+    self.y = math.floor(y)
     self.ox = 21
     self.oy = 600
     self.zIndex = 100

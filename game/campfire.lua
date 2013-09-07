@@ -4,8 +4,8 @@ local Campfire = class(Animator)
 
 function Campfire:__init(name, x, y)
     Campfire._base.__init(self, name, R.anims.campfire())
-    self.x = x
-    self.y = y
+    self.x = math.floor(x)
+    self.y = math.floor(y)
     self.ox = 23
     self.oy = 39
     self.zIndex = 1
@@ -31,7 +31,7 @@ end
 
 function Campfire:update(dt)
     if self.timer:isTimeUp() == true then
-        getStickManager():changeBurningStickNum(-1)
+        Game.SceneManager:getNowRunning().stickManager:changeBurningStickNum(-1)
         self:removeSelf()
     end
     

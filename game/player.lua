@@ -88,6 +88,9 @@ function Player:_updateTarget()
 				self.targetItem = item
 			end
 		end)
+	if self.targetItem then
+		self.targetItem.glow = true
+	end
 end
 
 function Player:onKeyReleased(key)
@@ -96,9 +99,9 @@ function Player:onKeyReleased(key)
 		if item then -- put item
 			self.ox = 16
 			self.anims = R.anims.player()
-			item.x = self:getHandPosition().x
-			item.y = self:getHandPosition().y
-			local sm = getStickManager()
+			item.x = math.floor(self:getHandPosition().x)
+			item.y = math.floor(self:getHandPosition().y)
+			local sm = Game.SceneManager:getNowRunning().stickManager
 			sm:addStick(item, nil) -- sitck only
 			self.holdingItem = nil
 		elseif self.targetItem then -- hold item
@@ -106,7 +109,7 @@ function Player:onKeyReleased(key)
 			self.anims = R.anims.playerStick()
 			self.targetItem:removeSelf()
 			self.holdingItem = self.targetItem
-			local sm = getStickManager()
+			local sm = Game.SceneManager:getNowRunning().stickManager
 			sm:removeStick(self.targetItem)
 		end
 	end

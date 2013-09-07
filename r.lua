@@ -104,7 +104,7 @@ R.metadatas = {
 				R.images.sticks[1]:getWidth() / 2, R.images.sticks[1]:getHeight(),
 				R.images.sticks[1]:getWidth(), R.images.sticks[1]:getHeight()
 			),
-			fired = newQuad(R.images.sticks[1]:getWidth() / 2, 0, 
+			glow = newQuad(R.images.sticks[1]:getWidth() / 2, 0, 
 				R.images.sticks[1]:getWidth() / 2, R.images.sticks[1]:getHeight(),
 				R.images.sticks[1]:getWidth(), R.images.sticks[1]:getHeight()
 			),

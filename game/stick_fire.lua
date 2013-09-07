@@ -4,8 +4,8 @@ local StickFire = class(Animator)
 
 function StickFire:__init(name, x, y)
 	StickFire._base.__init(self, name, R.anims.stickfire())
-	self.x = x
-	self.y = y
+	self.x = math.floor(x)
+	self.y = math.floor(y)
 	self.ox = 6
 	self.oy = 26
 	self.width = 12
