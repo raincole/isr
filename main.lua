@@ -8,13 +8,16 @@ Game = {
 function init()
 	local screen = Screen()
 
-	local sticks = {}
-	for i = 1, 100 do
-		table.insert(sticks,
-			Stick(string.format('stick #%d', i),
-				  math.random(love.graphics.getWidth()), math.random(love.graphics.getHeight())))
+	local player = Player('player')
+	player.x = 320
+	player.y = 240
+	screen:addEntity(player)
+
+	stickManager = StickManager("stickManager")
+	screen:addEntity(stickManager)
+	for i = 1, 20 do
+		stickManager:randomAddStick()
 	end
-	screen:addEntities(sticks)
 
 	local timer = Timer('timer', 3)
 	screen:addEntity(timer)
@@ -38,6 +41,7 @@ function love.load()
 end
 
 function love.update(dt)
+	if math.random(1000) < 17 then stickManager:randomAddStick() end
 	Game.currentScreen:update(dt)
 	Game.currentScreen:afterUpdate()
 end

@@ -7,9 +7,10 @@ function Stick:__init(name, ox, oy)
 	self.images = R.images.sticks[1]
 	self.ox = ox
 	self.oy = oy
-	self.width = self.images.normal:getWidth()
-	self.height = self.images.normal:getHeight()
-	self.fired = false
+<<<<<<< HEAD
+	self.width = self.image:getWidth()
+	self.height = self.image:getHeight()
+	-- 30 x 16
 	self.zIndex = 0
 end
 
@@ -20,6 +21,11 @@ function Stick:registerObservers()
 			callback(self, sqrDistance)
 		end
 	end)
+=======
+	self.width = self.images.normal:getWidth()
+	self.height = self.images.normal:getHeight()
+	self.fired = false
+>>>>>>> davy_working
 end
 
 function Stick:draw()
