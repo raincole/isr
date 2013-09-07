@@ -57,7 +57,6 @@ function love.update(dt)
 
 	Game.currentScreen:update(dt)
 	Game.currentScreen:afterUpdate()
-	print(stickManager:fireCounter())
 end
 
 function love.draw()
