@@ -10,6 +10,7 @@ function Player:__init(name)
 	self.height = 32
 	self.zIndex = 10
 
+	self.moving = false
 	self.speed = 80
 	self.pickingRadius = 40
 	self.handLength = 20
@@ -20,10 +21,14 @@ function Player:__init(name)
 end
 
 function Player:update(dt)
-	self:getCurrentAnim():update(dt)
-
 	self:_handleMove(dt)
 	self:_updateTarget()
+
+	if self.moving then
+		self:getCurrentAnim():update(dt)
+	else
+		self:getCurrentAnim():seek(2) -- default frame
+	end
 end
 
 function Player:_handleMove(dt)
@@ -35,7 +40,11 @@ function Player:_handleMove(dt)
 		end
 	end
 
-	if dir ~= Direction.CENTER then self.dir = dir end
+	self.moving = false
+	if dir ~= Direction.CENTER then
+		self.dir = dir
+		self.moving = true
+	end
 
 	local vect = Direction.toVect(dir)
 	self.x = self.x + vect.x * self.speed * dt
