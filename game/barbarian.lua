@@ -9,6 +9,7 @@ function Barbarian:__init(name)
     self.speed = 60
     self.dir = Direction.CENTER
     self.tracing = false
+    self.hasTarget = false
     self.detectingRadius = 60
     self.reachedRadius = 50
     self.nextWayPoint = nil
@@ -20,14 +21,16 @@ function Barbarian:registerObservers()
         local maxDistance = radius + self.detectingRadius
         local sqrMaxDistance = maxDistance * maxDistance
         local sqrDistance = (self.x - x) * (self.x - x) + (self.y - y) * (self.y - y)
-        if sqrDistance <= sqrMaxDistance and self:reachedWayPoint() then
-            local escapeDistance = maxDistance / 1.5
-            local rx = math.random(-escapeDistance, escapeDistance)
-            local ry = math.sqrt(escapeDistance*escapeDistance-rx*rx)
-            if math.random(2) == 1 then ry = -ry end
-            self.nextWayPoint = Vect2(x + rx,
-                                      y + ry)
-            self.tracing = true
+        if sqrDistance <= sqrMaxDistance then
+            if ((not self.tracing) or self:reachedWayPoint()) then
+                local escapeDistance = maxDistance / 1.5
+                local rx = math.random(-escapeDistance, escapeDistance)
+                local ry = math.sqrt(escapeDistance*escapeDistance-rx*rx)
+                if math.random(2) == 1 then ry = -ry end
+                self.nextWayPoint = Vect2(x + rx,
+                                          y + ry)
+            end
+            self.hasTarget = true
         end
     end)
 end
@@ -35,7 +38,9 @@ end
 function Barbarian:update(dt)
     Barbarian._base.update(self, dt)
 
-    if (not self.tracing) and (self:reachedWayPoint()) then
+    self.tracing = self.hasTarget
+
+    if (not self.hasTarget) and (self:reachedWayPoint()) then
         self.nextWayPoint = { x = self.x + math.random(-200, 200),
                               y = self.y + math.random(-200, 200) }
     end
@@ -44,7 +49,7 @@ function Barbarian:update(dt)
         self:moveToPoint(self.nextWayPoint, self.speed * dt)
     end
 
-    self.tracing = false
+    self.hasTarget = false
 end
 
 function Barbarian:moveToPoint(point, frameSpeed)
