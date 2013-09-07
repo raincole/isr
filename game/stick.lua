@@ -15,8 +15,6 @@ end
 
 function Stick:registerObservers()
 	beholder.observe(Event.CHECK_IN_RANGE, function(x, y, radius, callback)
-		print(self._name)
-		print(self.ox)
 		local sqrDistance = (self.ox - x) * (self.ox - x) + (self.oy - y) * (self.oy - y)
 		if sqrDistance <= radius * radius then
 			callback(self, sqrDistance)
