@@ -17,16 +17,34 @@ function Player:__init(name)
 	self.dir = Direction.CENTER
 	self.targetItem = nil
 	self.holdingItem = nil
+	self.fire = StickFire("fire: " .. name, 0, 0)
 end
 
 function Player:update(dt)
 	self:_handleMove(dt)
 	self:_updateTarget()
 
+	local anim = self:getCurrentAnim()
+	local frame = anim.frames[anim.position]
+	local frameX, frameY, frameW, frameH = frame:getViewport()
+	local frameID = frameX / frameW + (frameY / frameH) * 4 + 1
+	local firePosRel = R.metadatas.player.firePosition[frameID]
+	self.fire.x = self.x - self.ox + firePosRel.x
+	self.fire.y = self.y - self.oy + firePosRel.y
+	self.fire:update(dt)
 	if self.moving then
 		self:getCurrentAnim():update(dt)
 	else
 		self:getCurrentAnim():reset()
+	end
+end
+
+function Player:draw()
+	Player._base.draw(self)
+	if self.holdingItem then
+		if self.holdingItem.fired == true then
+			self.fire:draw()
+		end
 	end
 end
 
@@ -70,13 +88,17 @@ end
 function Player:onKeyReleased(key)
 	if key == ' ' or key == 'j' then
 		item = self.holdingItem
-		if item then -- holding item
+		if item then -- put item
+			self.ox = 16
+			self.anims = R.anims.player()
 			item.x = self:getHandPosition().x
 			item.y = self:getHandPosition().y
 			local sm = getStickManager()
 			sm:addStick(item, nil) -- sitck only
 			self.holdingItem = nil
-		elseif self.targetItem then
+		elseif self.targetItem then -- hold item
+			self.ox = 36
+			self.anims = R.anims.playerStick()
 			self.targetItem:removeSelf()
 			self.holdingItem = self.targetItem
 			local sm = getStickManager()

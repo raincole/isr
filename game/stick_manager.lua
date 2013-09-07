@@ -25,8 +25,8 @@ end
 
 function StickManager:addStick(stick, info)
 	if info == nil then -- real position
-		info = { x = math.floor(stick.ox / self.blockSize.x + 1),
-				  y = math.floor(stick.oy / self.blockSize.y + 1) }
+		info = { x = math.floor(stick.x / (love.graphics.getWidth() / self.blockSize.x) + 1),
+				  y = math.floor(stick.y / (love.graphics.getHeight() / self.blockSize.y) + 1) }
 	end
 	self._blocks[info.x][info.y] = self._blocks[info.x][info.y] + 1
 	self._sticksCount = self._sticksCount + 1
