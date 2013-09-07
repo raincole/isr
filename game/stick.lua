@@ -14,7 +14,7 @@ function Stick:__init(name, x, y)
 	self.oy = self.height / 2
 	self.fired = false
 	self.zIndex = 0
-	self.burnTime = 5
+	self.burnTime = 1
 	self.burnTimer = nil
 
 	self.name = name
@@ -47,6 +47,7 @@ function Stick:update(dt)
 		self.fired = false
 		self.burnTimer = nil 
 		getStickManager():changeBurningStickNum(-1)
+		--getStickManager():removeStick(self)
 	end
 end
 
