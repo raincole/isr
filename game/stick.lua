@@ -10,6 +10,7 @@ function Stick:__init(name, ox, oy)
 	self.width = self.image:getWidth()
 	self.height = self.image:getHeight()
 	-- 30 x 16
+	self.zIndex = 0
 end
 
 function Stick:registerObservers()

@@ -6,10 +6,13 @@ function Player:__init(name)
 	self._base.__init(self, name)
 	self.x = 0
 	self.y = 0
-	self.width = 16
-	self.height = 16
+	self.width = 32
+	self.height = 32
+	self.zIndex = 10
+
 	self.speed = 80
 	self.pickingRadius = 40
+	self.dropLength = 20
 	self.dir = Direction.CENTER
 	self.anims = R.anims.player
 	self.holdingItem = nil
@@ -42,8 +45,8 @@ function Player:onKeyReleased(key)
 		local origin = self:getOrigin()
 		local item = self.holdingItem
 		if item then
-			item.ox = origin.x
-			item.oy = origin.y
+			item.ox = origin.x + self:getDirVect().x * self.dropLength
+			item.oy = origin.y + self:getDirVect().y * self.dropLength
 			Game.currentScreen:addEntity(item)
 			self.holdingItem = nil
 		else
@@ -55,6 +58,10 @@ end
 
 function Player:getOrigin()
 	return { x = self.x + self.width / 2, y = self.y + self.height / 2 }
+end
+
+function Player:getDirVect()
+	return Direction.toVect(self.dir)
 end
 
 function Player:pick(item)

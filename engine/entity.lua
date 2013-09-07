@@ -8,11 +8,15 @@ function Entity:__init(name)
 	self.parent = nil
 	self._observerId = {}
 	self.toRemove = false
+	self.zIndex = 0
 end
 
 function Entity:registerObservers() end
 
 function Entity:draw()
+	table.sort(self.children, function(a, b)
+		return a.zIndex < b.zIndex
+	end)
 	for i, e in ipairs(self.children) do
 		e:draw()
 	end
