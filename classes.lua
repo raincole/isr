@@ -9,3 +9,4 @@ Button = require 'lib/ui/button'
 --
 
 Player = require 'game/player'
+Timer = require 'game/timer'

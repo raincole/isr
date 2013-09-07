@@ -20,6 +20,9 @@ function init()
 	end
 	screen:addEntities(stones)
 
+	local timer = Timer('timer', 3)
+	screen:addEntity(timer)
+
 	Game.currentScreen = screen
 end
 
