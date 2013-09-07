@@ -3,7 +3,7 @@ require 'vendor/class'
 local Player = class(Animator)
 
 function Player:__init(name)
-	Player._base.__init(self, name, R.anims.player)
+	Player._base.__init(self, name, R.anims.player())
 	self.x = 0
 	self.y = 0
 	self.width = 32
