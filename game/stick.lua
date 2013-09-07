@@ -8,14 +8,14 @@ function Stick:__init(name, x, y)
 	self.image = R.images.sticks[rand]
 	self.x = x
 	self.y = y
-	self.width = self.image:getWidth()
-	self.height = self.image:getHeight()
+	self.width = R.metadatas.stick.size.width
+	self.height = R.metadatas.stick.size.height
 	self.ox = self.width / 2
 	self.oy = self.height / 2
 	if math.random(2) == 1 then
-		self.fired = false
-	else
 		self.fired = true
+	else
+		self.fired = false
 	end
 	self.zIndex = 0
 
@@ -41,7 +41,7 @@ function Stick:update(dt)
 end
 
 function Stick:draw()
-	love.graphics.draw(self.image, self.x - self.ox, self.y - self.oy)
+	love.graphics.drawq(self.image, R.metadatas.stick.quad.normal, self.x - self.ox, self.y - self.oy)
 	if self.fired == true then
 		self._fire:draw()
 	end
