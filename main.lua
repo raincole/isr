@@ -8,18 +8,18 @@ Game = {
 function init()
 	local screen = Screen()
 
+	local sticks = {}
+	for i = 1, 100 do
+		table.insert(sticks,
+			Stick(string.format('stick #%d', i),
+				  math.random(love.graphics.getWidth()), math.random(love.graphics.getHeight())))
+	end
+	screen:addEntities(sticks)
+
 	local player = Player('player')
 	player.x = 320
 	player.y = 240
 	screen:addEntity(player)
-
-	local sticks = {}
-	for i = 1, 100 do
-		table.insert(sticks, 
-			Stick(string.format('stick #%d', i), 
-				  math.random(love.graphics.getWidth()), math.random(love.graphics.getHeight())))
-	end
-	screen:addEntities(sticks)
 
 	Game.currentScreen = screen
 end
@@ -31,7 +31,6 @@ function love.load()
 		math.randomseed(os.time)
 	end
 
-	require 'r'
 	init()
 end
 
@@ -42,4 +41,16 @@ end
 
 function love.draw()
 	Game.currentScreen:draw()
+end
+
+function love.mousepressed(x, y, button)
+	Game.currentScreen:onMousePressed(x, y, button)
+end
+
+function love.mousereleased(x, y, button)
+	Game.currentScreen:onMouseReleased(x, y, button)
+end
+
+function love.keyreleased(key)
+	Game.currentScreen:onKeyReleased(key)
 end
