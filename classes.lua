@@ -10,3 +10,4 @@ Button = require 'lib/ui/button'
 --
 
 Player = require 'game/player'
+Stick = require 'game/stick'
