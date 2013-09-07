@@ -16,6 +16,7 @@ function StickManager:__init(name)
 	end
 	self._sticksCount = 0
 	self._blockMaxCount = 0
+	self._fireCounter = 0
 end
 
 function StickManager:getRealPosition(block, position)
@@ -42,8 +43,11 @@ end
 function StickManager:removeStick(stick)
 	local info = self._sticks[stick]
 	self._blocks[info.x][info.y] = self._blocks[info.x][info.y] - 1
-	self._sticksID[info.ID] = nil
+	self._sticksID[info.ID] = self._sticksID[#self._sticksID]
+	self._sticks[self._sticksID[info.ID]].ID = info.ID
+	table.remove(self._sticksID)
 	self._sticks[stick] = nil
+	self._sticksCount = self._sticksCount - 1
 	stick:removeSelf()
 end
 
@@ -75,10 +79,24 @@ function StickManager:randomAddStick()
 	self:addStick(stick, randBlock)
 end
 
---- TODO: anime
+
 function StickManager:randomLightStick()
-	--local rand = math.random(self._sticksCount)
-	--self._sticks[rand].fired = true
+	if self._fireCounter == 0 then
+		local rand = math.random(self._sticksCount)
+		local randomStick = self._sticksID[rand]
+		self._thounder = Thounder("Thounder: " .. rand, randomStick.x, randomStick.y)
+		Game.currentScreen:addEntity(self._thounder)
+		randomStick.fired = true
+		self._fireCounter = self._fireCounter + 1
+	end
+end
+
+function StickManager:changeBurningStickNum(number)
+	self._fireCounter = self._fireCounter + number
+end
+
+function StickManager:fireCounter()
+	return self._fireCounter
 end
 
 return StickManager

@@ -28,4 +28,5 @@ Countdown = require 'game/countdown'
 Campfire = require 'game/campfire'
 
 Barbarian = require 'game/barbarian'
+Thounder = require 'game/thounder'
 

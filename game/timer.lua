@@ -2,10 +2,10 @@
 
 require 'vendor/class'
 
-local Timer = class(Entity)
+local Timer = class()
 
 function Timer:__init(name, lifeTime)
-    Timer._base.__init(self, name)
+    
     self.name = name
     self.lifeTime = lifeTime
     self.passTime = 0

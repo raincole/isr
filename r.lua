@@ -22,6 +22,7 @@ R.images = {
 		newImage("assets/images/sticks/stick_6.png"),
 	},
 	stickfire = newImage("assets/images/stickfire.png"),
+	thounder = newImage("assets/animation/thounder.png")
 }
 
 R.sounds = {
@@ -72,6 +73,9 @@ R.anims = {
 	end,
 	stickfire = function()
 		return { newAnimation(R.images.stickfire, 12, 26, 0.16, 0) }
+	end,
+	thounder = function()
+		return { newAnimation(R.images.thounder, 32, 600, 0.08, 0) }
 	end,
 }
 

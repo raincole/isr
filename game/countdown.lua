@@ -9,8 +9,6 @@ function Countdown:__init(gameTime)
     self.timer = Timer("countdown", gameTime)
 end
 
-function Countdown:update(dt)
-end
 
 function Countdown:draw()
 
