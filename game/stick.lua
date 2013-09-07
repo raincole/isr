@@ -3,7 +3,7 @@ require 'vendor/class'
 local Stick = class(Entity)
 
 function Stick:__init(name, ox, oy)
-	self._base.__init(self, name)
+	Stick._base.__init(self, name)
 	self.image = R.images.sticks[math.random(#R.images.sticks)]
 	-- self.anim = R.anims.fire
 	self.ox = ox
@@ -11,6 +11,16 @@ function Stick:__init(name, ox, oy)
 	self.width = self.image:getWidth()
 	self.height = self.image:getHeight()
 	self.fired = false
+	self.zIndex = 0
+end
+
+function Stick:registerObservers()
+	beholder.observe(Event.CHECK_IN_RANGE, function(x, y, radius, callback)
+		local sqrDistance = (self.ox - x) * (self.ox - x) + (self.oy - y) * (self.oy - y)
+		if sqrDistance <= radius * radius then
+			callback(self, sqrDistance)
+		end
+	end)
 end
 
 function Stick:draw()
