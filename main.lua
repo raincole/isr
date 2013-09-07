@@ -22,12 +22,14 @@ function init()
 	local timer = Timer('timer', 3)
 	screen:addEntity(timer)
 
-	local player = Player('player')
-	player.x = 320
-	player.y = 240
-	screen:addEntity(player)
+	bab = newAnimation(R.images.barbarian, 34, 48, 0.2, {17, 18, 19, 20, 21, 22, 23, 24})
 
 	Game.currentScreen = screen
+end
+
+-- TODO: move into scene
+function getStickManager()
+	return stickManager
 end
 
 function love.load()
@@ -41,12 +43,16 @@ function love.load()
 end
 
 function love.update(dt)
-	if math.random(1000) < 17 then stickManager:randomAddStick() end
+	if math.random(1000) < 37 then stickManager:randomAddStick() end
+	if math.random(1000) < 17 then stickManager:randomLightStick() end
+	bab:update(dt)
 	Game.currentScreen:update(dt)
 	Game.currentScreen:afterUpdate()
 end
 
 function love.draw()
+	love.graphics.draw(R.images.bg, 0, 0)
+	bab:draw(100, 100)
 	Game.currentScreen:draw()
 end
 

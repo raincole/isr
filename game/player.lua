@@ -6,8 +6,8 @@ function Player:__init(name)
 	Player._base.__init(self, name, R.anims.player())
 	self.x = 0
 	self.y = 0
-	self.width = 32
-	self.height = 32
+	self.ox = 16
+	self.oy = 35
 	self.zIndex = 10
 
 	self.moving = false
@@ -51,8 +51,8 @@ function Player:_handleMove(dt)
 end
 
 function Player:_updateTarget()
-	local handX = self:getHandPosition().x
-	local handY = self:getHandPosition().y
+	local handX = math.floor(self:getHandPosition().x)
+	local handY = math.floor(self:getHandPosition().y)
 	local minSqrDistance = math.huge
 
 	self.targetItem = nil
@@ -68,22 +68,25 @@ end
 function Player:onKeyReleased(key)
 	if key == ' ' or key == 'j' then
 		item = self.holdingItem
-		if item then
-			item.ox = self:getHandPosition().x
-			item.oy = self:getHandPosition().y
+		if item then -- holding item
+			item.x = self:getHandPosition().x
+			item.y = self:getHandPosition().y
+			local sm = getStickManager()
+			sm:addStick(item, nil) -- sitck only
 			Game.currentScreen:addEntity(item)
 			self.holdingItem = nil
 		elseif self.targetItem then
 			self.targetItem:removeSelf()
 			self.holdingItem = self.targetItem
+			local sm = getStickManager()
+			sm:removeStick(self.targetItem)
 		end
 	end
 end
 
 function Player:getHandPosition()
-	local origin = self:getOrigin()
-	return { x = origin.x + self:getDirVect().x * self.handLength,
-	         y = origin.y + self:getDirVect().y * self.handLength }
+	return { x = self.x + self:getDirVect().x * self.handLength,
+	         y = self.y + self:getDirVect().y * self.handLength }
 end
 
 function Player:getDirVect()

@@ -7,8 +7,8 @@ function Animator:__init(name, anims)
 	self.anims = anims
 	self.x = 0
 	self.y = 0
-	self.width = 0
-	self.height = 0
+	self.ox = 0
+	self.oy = 0
 end
 
 function Animator:update(dt)
@@ -16,7 +16,7 @@ function Animator:update(dt)
 end
 
 function Animator:draw()
-	self:getCurrentAnim():draw(self.x, self.y)
+	self:getCurrentAnim():draw(self.x - self.ox, self.y - self.oy)
 end
 
 function Animator:getCurrentAnim()
@@ -25,10 +25,6 @@ end
 
 function Animator:getCurrentAnimIndex()
 	return 1
-end
-
-function Animator:getOrigin()
-	return { x = self.x + self.width / 2, y = self.y + self.height / 2 }
 end
 
 return Animator
