@@ -24,6 +24,15 @@ function init()
 	local countdown = Countdown(10)
 	screen:addEntity(countdown)
 
+	barbarianManager = BarbarianManager("barbarianManager")
+	screen:addEntity(barbarianManager)
+	for i = 1, 5 do
+		barbarianManager:randomAddBarbarian()
+	end
+
+	local timer = Timer('timer', 3)
+	screen:addEntity(timer)
+
 	local player = Player('player')
 	player.x = 320
 	player.y = 240
@@ -43,8 +52,10 @@ function love.load()
 end
 
 function love.update(dt)
-	
-	if math.random(1000) < 17 then stickManager:randomAddStick() end
+	if math.random(1000) < 17 then
+		stickManager:randomAddStick()
+		barbarianManager:randomAddBarbarian()
+	end
 	Game.timerManager:update(dt)
 	Game.currentScreen:update(dt)
 	Game.currentScreen:afterUpdate()
