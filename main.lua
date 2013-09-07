@@ -13,6 +13,7 @@ function init()
 	player.y = 240
 	screen:addEntity(player)
 
+--[[
 	local sticks = {}
 	for i = 1, 100 do
 		table.insert(sticks, 
@@ -20,6 +21,12 @@ function init()
 				  math.random(love.graphics.getWidth()), math.random(love.graphics.getHeight())))
 	end
 	screen:addEntities(sticks)
+--]]
+	stickManager = StickManager("stickManager")
+	screen:addEntity(stickManager)
+	for i = 1, 20 do
+		stickManager:randomAddStick()
+	end
 
 	Game.currentScreen = screen
 end
@@ -36,6 +43,7 @@ function love.load()
 end
 
 function love.update(dt)
+	if math.random(1000) < 17 then stickManager:randomAddStick() end
 	Game.currentScreen:update(dt)
 	Game.currentScreen:afterUpdate()
 end
