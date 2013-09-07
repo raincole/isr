@@ -5,6 +5,7 @@ local Entity = class()
 function Entity:__init(name)
 	self._name = name
 	self.children = {}
+	self.parent = nil
 	self._observerId = {}
 	self.toRemove = false
 end
@@ -39,6 +40,7 @@ end
 function Entity:onAdded(parent)
 	beholder.group(self._observerId, function() self:registerObservers() end)
 	self.parent = parent
+	self.toRemove = false
 end
 
 function Entity:onRemoved()
@@ -78,6 +80,16 @@ end
 function Entity:onMouseReleased(x, y, button)
 	for i, e in ipairs(self.children) do
 		if e:onMouseReleased(x, y, button) then
+			return true
+		end
+	end
+
+	return false
+end
+
+function Entity:onKeyReleased(key)
+	for i, e in ipairs(self.children) do
+		if e:onKeyReleased(key) then
 			return true
 		end
 	end
