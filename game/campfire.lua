@@ -31,6 +31,7 @@ end
 
 function Campfire:update(dt)
     if self.timer:isTimeUp() == true then
+        getStickManager():changeBurningStickNum(-1)
         self:removeSelf()
     end
     
