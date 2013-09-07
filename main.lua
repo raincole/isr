@@ -19,6 +19,12 @@ function init()
 		stickManager:randomAddStick()
 	end
 
+	barbarianManager = BarbarianManager("barbarianManager")
+	screen:addEntity(barbarianManager)
+	for i = 1, 5 do
+		barbarianManager:randomAddBarbarian()
+	end
+
 	local timer = Timer('timer', 3)
 	screen:addEntity(timer)
 
@@ -41,7 +47,10 @@ function love.load()
 end
 
 function love.update(dt)
-	if math.random(1000) < 17 then stickManager:randomAddStick() end
+	if math.random(1000) < 17 then
+		stickManager:randomAddStick()
+		barbarianManager:randomAddBarbarian()
+	end
 	Game.currentScreen:update(dt)
 	Game.currentScreen:afterUpdate()
 end
