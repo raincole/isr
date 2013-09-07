@@ -6,14 +6,25 @@ function Player:__init(name)
 	self._base.__init(self, name)
 	self.x = 0
 	self.y = 0
+	self.width = 32
+	self.height = 32
+	self.zIndex = 10
+
 	self.speed = 80
+	self.pickingRadius = 40
+	self.dropLength = 20
 	self.dir = Direction.CENTER
 	self.anims = R.anims.player
+	self.holdingItem = nil
 end
 
 function Player:update(dt)
 	self:getCurrentAnim():update(dt)
 
+	self:_handleMove(dt)
+end
+
+function Player:_handleMove(dt)
 	local dir = Direction.CENTER
 	local keys = { 'up', 'right', 'down', 'left', 'w', 'd', 's', 'a' }
 	for i, key in ipairs(keys) do
@@ -29,12 +40,44 @@ function Player:update(dt)
 	self.y = self.y + vect.y * self.speed * dt
 end
 
+function Player:onKeyReleased(key)
+	if key == ' ' or key == 'j' then
+		local origin = self:getOrigin()
+		local item = self.holdingItem
+		if item then
+			item.ox = origin.x + self:getDirVect().x * self.dropLength
+			item.oy = origin.y + self:getDirVect().y * self.dropLength
+			Game.currentScreen:addEntity(item)
+			self.holdingItem = nil
+		else
+			beholder.trigger(Event.TRY_PICK,
+							 self, origin.x, origin.y, self.pickingRadius)
+		end
+	end
+end
+
+function Player:getOrigin()
+	return { x = self.x + self.width / 2, y = self.y + self.height / 2 }
+end
+
+function Player:getDirVect()
+	return Direction.toVect(self.dir)
+end
+
+function Player:pick(item)
+	if self.holdingItem then
+		return false
+	else
+		self.holdingItem = item
+		return true
+	end
+end
+
 function Player:draw()
 	self:getCurrentAnim():draw(self.x, self.y)
 end
 
 function Player:getCurrentAnim()
-	print(inspect(self.anims))
 	return self.anims[self.dir]
 end
 

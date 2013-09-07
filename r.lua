@@ -2,7 +2,7 @@ local newImage = love.graphics.newImage
 local newSound = function (filename) return love.audio.newSource(filename, "static") end
 local newMusic = function (filename) return love.audio.newSource(filename, "stream") end
 
-R = {}
+local R = {}
 
 R.images = {
 	stone = newImage("assets/images/stone.png"),
@@ -34,3 +34,5 @@ R.anims = {
 
 R.fonts = {
 }
+
+return R
