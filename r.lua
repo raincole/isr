@@ -131,8 +131,16 @@ R.fonts = {
 }
 
 R.levels = {
-	require 'assets/levels/1',
-	require 'assets/levels/1',
+	require 'assets/levels/01',
+	require 'assets/levels/02',
+	require 'assets/levels/03',
+	require 'assets/levels/04',
+	require 'assets/levels/05',
+	require 'assets/levels/06',
+	require 'assets/levels/07',
+	require 'assets/levels/08',
+	require 'assets/levels/09',
+	require 'assets/levels/10',
 }
 
 R.metadatas = {
