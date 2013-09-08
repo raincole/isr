@@ -5,6 +5,10 @@ Game = {
 	debug = true,
 	timerManager = TimerManager(),
 	globalStroage = {},
+	
+	getCurrentScene = function ()
+		return Game.SceneManager.getNowRunning()
+	end,
 }
 
 function init()

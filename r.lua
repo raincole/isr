@@ -29,7 +29,7 @@ R.images = {
 		scene = {
 			newImage("assets/images/ui/time_full.png"),
 			newImage("assets/images/ui/time_empty.png"),
-			newImage("assets/images/ui/time_bar.png"),		
+			newImage("assets/images/ui/time_bar.png"),
 		},
 		stick = newImage("assets/images/ui/stick_fire_life.png"),
 		campfire = newImage("assets/images/ui/firecamp_life.png"),
@@ -99,6 +99,10 @@ R.anims = {
 }
 
 R.fonts = {
+}
+
+R.levels = {
+	require 'assets/levels/1',
 }
 
 R.metadatas = {

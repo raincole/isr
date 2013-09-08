@@ -42,11 +42,11 @@ function Direction.fromVect(vect)
 	if vect.x == 0 and vect.y == 0 then return Direction.CENTER end
 end
 
-function Direction.fromApproxVect(vect)
+function Direction.from4ApproxVect(vect)
 	local maxDot = -math.huge
 	local best = nil
-	for i, d in ipairs(Direction.all8Dirs()) do
-		local dot = vect:dot(Direction.toVect(d))
+	for i, d in ipairs(Direction.all4Dirs()) do
+		local dot = vect:dot(Direction.toVect(d):normalized())
 		if dot > maxDot then
 			maxDot = dot
 			best = d
@@ -60,6 +60,15 @@ function Direction.comebine(dir1, dir2)
 	local vect2 = Direction.toVect(dir2)
 	local vect = { x = vect1.x + vect2.x, y = vect1.y + vect2.y }
 	return Direction.fromVect(vect)
+end
+
+function Direction.all4Dirs()
+	return {
+		Direction.UP,
+		Direction.RIGHT,
+		Direction.DOWN,
+		Direction.LEFT,
+	}
 end
 
 function Direction.all8Dirs()

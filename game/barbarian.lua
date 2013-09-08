@@ -90,7 +90,7 @@ end
 
 function Barbarian:moveBy(displacement)
     local realDisplacement = self:tryToMove(displacement:normalized(), displacement:magnitude())
-    self.dir = Direction.fromApproxVect(realDisplacement)
+    self.dir = Direction.from4ApproxVect(realDisplacement)
     return realDisplacement
 end
 
@@ -108,10 +108,12 @@ function Barbarian:getCurrentAnimIndex()
 end
 
 function Barbarian:findCampfire()
+    beholder.trigger(Event.CHANGE_COLONIZED_BARBARIANS, 1)
     self.dancing = true
 end
 
 function Barbarian:loseCampfire()
+    beholder.trigger(Event.CHANGE_COLONIZED_BARBARIANS, -1)
     self.dancing = false
 end
 
