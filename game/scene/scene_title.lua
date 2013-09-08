@@ -8,7 +8,7 @@ function Scene_Title:__init(info, item)
 	self.translation = 0.6
 
 	self.item = item or 1
-	self.unlock = 10
+	self.unlock = 9
 	if self.item > 10 then self.item = 10 end
 	if self.item < 1  then self.item = 1  end
 	self.map = R.images.title.map
