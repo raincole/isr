@@ -39,6 +39,7 @@ R.images = {
 		newImage("assets/images/ui/people_0.png"),
 		newImage("assets/images/ui/people_1.png"),
 	},
+	rock = newImage("assets/images/sprites/rocks.png"),
 }
 
 R.sounds = {

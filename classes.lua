@@ -33,6 +33,7 @@ Countdown = require 'game/countdown'
 ConquerPoint = require 'game/conquer_point'
 
 Campfire = require 'game/campfire'
+Rock = require 'game/rock'
 
 Barbarian = require 'game/barbarian'
 Thounder = require 'game/thounder'

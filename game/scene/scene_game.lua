@@ -35,6 +35,10 @@ function Scene_Game:__init(info, level)
 
 	local conquerPoint = ConquerPoint("conquerPoint", self)
 	self._screen:addEntity(conquerPoint)	
+
+	--rock test
+	local rock = Rock("rock1",51,51)
+	self._screen:addEntity(rock)
 end
 
 function Scene_Game:update(dt)
