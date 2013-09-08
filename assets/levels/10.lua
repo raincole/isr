@@ -1,5 +1,5 @@
 return {
-	playerPos = { x = 320, y = 240 },
+	playerPos = { x = 400, y = 300 },
 	orginalSticks = 20,
 	spawnLightCond = 5,
 	spawnLightRate = 0.0113,
@@ -18,7 +18,7 @@ return {
 		{ x = 15, y = 5 }, { x = 16, y = 6 }, { x = 16, y = 10 },
 	},
 	blockSand = {
-		{ x = 1, y = 1 }, { x = 1, y = 8 }, { x = 2, y = 3 }, { x = 3, y = 6 }, 
+		{ x = 1, y = 2 }, { x = 1, y = 8 }, { x = 2, y = 3 }, { x = 3, y = 6 }, 
 		{ x = 3, y = 9 }, { x = 3, y = 11 }, { x = 4, y = 1 }, { x = 4, y = 2 }, 
 		{ x = 5, y = 4 }, { x = 6, y = 8 }, { x = 6, y = 11 }, { x = 8, y = 3 }, 
 		{ x = 9, y = 2 }, { x = 10, y = 3 }, { x = 10, y = 10 }, { x = 11, y = 9 }, 
