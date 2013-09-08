@@ -7,7 +7,7 @@ function Scene_Title:__init()
 end
 
 function Scene_Title:update(dt)
-	Game.SceneManager:nextScene(Scene_Game(), 1)
+	Game.SceneManager:nextScene(Scene_Game(R.levels[1]), 1)
 
 	Scene_Title._base.update(self, dt)
 end

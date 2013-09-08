@@ -108,10 +108,12 @@ function Barbarian:getCurrentAnimIndex()
 end
 
 function Barbarian:findCampfire()
+    beholder.trigger(Event.CHANGE_COLONIZED_BARBARIANS, 1)
     self.dancing = true
 end
 
 function Barbarian:loseCampfire()
+    beholder.trigger(Event.CHANGE_COLONIZED_BARBARIANS, -1)
     self.dancing = false
 end
 

@@ -2,7 +2,7 @@ require 'vendor/class'
 
 local Scene_Game = class(Scene_Base)
 
-function Scene_Game:__init()
+function Scene_Game:__init(level)
 	Scene_Game._base.__init(self)
 
 	local player = Player('player')
@@ -24,6 +24,14 @@ function Scene_Game:__init()
 	for i = 1, 5 do
 		self.barbarianManager:randomAddBarbarian()
 	end
+
+	self.colonizedBarbariansNum = 0
+	beholder.observe(Event.CHANGE_COLONIZED_BARBARIANS, function(n)
+		self.colonizedBarbariansNum = self.colonizedBarbariansNum + n
+	end)
+
+	self.index = level.index
+	self.target = level.target
 end
 
 function Scene_Game:update(dt)
@@ -38,6 +46,10 @@ function Scene_Game:draw()
 	love.graphics.draw(R.images.bg, 0, 0)
 
 	Scene_Game._base.draw(self)
+end
+
+function Scene_Game:reachedTarget()
+	return self.colonizedBarbariansNum >= self.target
 end
 
 return Scene_Game
