@@ -30,8 +30,8 @@ function Scene_Game:__init(info, level)
 	end)	
 
 	--rock test
-	local rock = Rock("rock1",51,51)
-	self._screen:addEntity(rock)
+	local element = Sand("ele",51,51)
+	self._screen:addEntity(element)
 
 	local leftBorder = Border('leftBorder', Rect(-20, -20, 10, 1000))
 	local rightBorder = Border('rightBorder', Rect(820, -20, 10, 1000))

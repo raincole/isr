@@ -36,6 +36,7 @@ ConquerPoint = require 'game/conquer_point'
 
 Campfire = require 'game/campfire'
 Rock = require 'game/rock'
+Sand = require 'game/sand'
 
 Barbarian = require 'game/barbarian'
 Thounder = require 'game/thounder'

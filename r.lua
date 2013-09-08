@@ -47,6 +47,7 @@ R.images = {
 		newImage("assets/images/ui/people_1.png"),
 	},
 	rock = newImage("assets/images/sprites/rocks.png"),
+	sand = newImage("assets/images/sprites/sands.png"),
 }
 
 R.sounds = {
@@ -167,6 +168,7 @@ R.metadatas = {
 	},
 	player = {
 		speed = 150,
+		speedOnSand = 50,
 		firePosition = {
 			{ x = 68, y = 24 }, { x = 70, y = 24 }, { x = 68, y = 24 }, { x = 66, y = 24 },
 			{ x = 8 , y = 24 }, { x = 6 , y = 24 }, { x = 8 , y = 24 }, { x = 10, y = 24 },

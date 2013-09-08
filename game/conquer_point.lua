@@ -16,8 +16,6 @@ function ConquerPoint:__init(name, scene)
     self.oy = self.imgIcon:getHeight() / 2
     self.pointX = self.imgGetPoint:getWidth() / 2
     self.pointY = -self.imgGetPoint:getHeight() / 2 
-    print(self.pointX)
-    print(self.pointY)
     self.scene = scene
     
 end
