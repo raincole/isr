@@ -46,6 +46,15 @@ R.images = {
 		newImage("assets/images/ui/people_0.png"),
 		newImage("assets/images/ui/people_1.png"),
 	},
+	tutorial = {
+		you = newImage("assets/images/tutorial/you.png"),
+		timeLeft = newImage("assets/images/tutorial/time_left.png"),
+		natives = newImage("assets/images/tutorial/natives.png"),
+		move = newImage("assets/images/tutorial/move.png"),
+		space = newImage("assets/images/tutorial/space.png"),
+		ignite = newImage("assets/images/tutorial/ignite.png"),
+		dancing = newImage("assets/images/tutorial/dancing.png"),
+	},
 	rock = newImage("assets/images/sprites/rocks.png"),
 	sand = newImage("assets/images/sprites/sands.png"),
 }

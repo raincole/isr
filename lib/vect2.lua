@@ -21,7 +21,8 @@ end
 
 function Vect2:normalized()
 	local mag = self:magnitude()
-	return Vect2(self.x / mag, self.y / mag)
+	if math.abs(mag) < 1e-9 then return Vect2(0, 0)
+	else return Vect2(self.x / mag, self.y / mag) end
 end
 
 function Vect2:scale(f)

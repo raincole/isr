@@ -26,8 +26,12 @@ end
 
 function Scene_Title:onKeyReleased(key)
 	if key == ' ' then
-		Game.SceneManager:nextScene(Scene_Game, R.levels[1])
-	elseif key == 'up' or key == 'w' 
+		if self.item == 1 then
+			Game.SceneManager:nextScene(Scene_Tutorial)
+		else
+			Game.SceneManager:nextScene(Scene_Game, R.levels[self.item])
+		end
+	elseif key == 'up' or key == 'w'
 		or key == 'down' or key == 's' then
 		local canvas = love.graphics.newCanvas()
 		canvas:renderTo(function()

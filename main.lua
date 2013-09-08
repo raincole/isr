@@ -5,7 +5,7 @@ Game = {
 	debug = true,
 	timerManager = TimerManager(),
 	globalStroage = {},
-	
+
 	getCurrentScene = function ()
 		return Game.SceneManager.getNowRunning()
 	end,
@@ -40,6 +40,10 @@ end
 
 function love.mousereleased(x, y, button)
 	Game.SceneManager:onMouseReleased(x, y, button)
+end
+
+function love.keypressed(key)
+	Game.SceneManager:onKeyPressed(key)
 end
 
 function love.keyreleased(key)

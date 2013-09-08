@@ -24,6 +24,7 @@ Scene_Title = require 'game/scene/scene_title'
 Scene_Credit = require 'game/scene/scene_credit'
 Scene_Game = require 'game/scene/scene_game'
 Scene_Result = require 'game/scene/scene_result'
+Scene_Tutorial = require 'game/scene/scene_tutorial'
 
 Player = require 'game/player'
 Stick = require 'game/stick'

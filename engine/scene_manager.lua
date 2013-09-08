@@ -167,6 +167,15 @@ function SceneManager:onMouseReleased(x, y, button)
 	end
 end
 
+function SceneManager:onKeyPressed(key)
+	if self._translate == true then return end
+	if self.currentScene.onKeyPressed then self.currentScene:onKeyPressed(key) end
+	if self._nextScene ~= nil then
+		self:_moveScene()
+		self._translate = true
+	end
+end
+
 function SceneManager:onKeyReleased(key)
 	if self._translate == true then return end
 	self.currentScene:onKeyReleased(key)

@@ -27,7 +27,7 @@ function Scene_Game:__init(info, level)
 	self.colonizedBarbariansNum = 0
 	beholder.observe(Event.CHANGE_COLONIZED_BARBARIANS, function(n)
 		self.colonizedBarbariansNum = self.colonizedBarbariansNum + n
-	end)	
+	end)
 
 	--rock test
 	local element = Sand("ele",51,51)
@@ -57,7 +57,7 @@ function Scene_Game:update(dt)
 			self:draw()
 		end)
 
-		Game.SceneManager:switchScene(Scene_Result, 
+		Game.SceneManager:switchScene(Scene_Result,
 			canvas, { status = 'win', next = self.level.index + 1 }
 		)
 	end
@@ -68,12 +68,12 @@ function Scene_Game:update(dt)
 			self:draw()
 		end)
 
-		Game.SceneManager:switchScene(Scene_Result, 
+		Game.SceneManager:switchScene(Scene_Result,
 			canvas, { status = 'lose', next = self.level.index }
 		)
 	end
 
-	if math.random() < self.level.spawnBarbRate then 
+	if math.random() < self.level.spawnBarbRate then
 		self.barbarianManager:randomAddBarbarian()
 	end
 
