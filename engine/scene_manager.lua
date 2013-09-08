@@ -12,6 +12,7 @@ function SceneManager:__init(first, ...)
 	self._canvas2 = nil
 	table.insert(self._sceneStack, self.currentScene)
 	self._translate = false
+	self._translateAnim = 'window'
 	self._translateTime = 0
 	self._translating = 0
 
@@ -26,25 +27,32 @@ function SceneManager:nextScene(next, ...)
 	local tm = TimerManager()
 	self._nextScene = next({ TM = tm }, ...)
 	self._translateTime = self._nextScene.translation
+	self._translateAnim = self._nextScene.translationAnim
 	self._translating = 0
 	self._canvas = nil
 	self._canvas2 = nil
 end
 
-function SceneManager:backScene(time)
+function SceneManager:backScene()
 	self._nextScene = 'back'
 	self._translateTime = self.currentScene.translation
+	self._translateAnim = self.currentScene.translationAnim
 	self._translating = 0
 	self._canvas = nil
 	self._canvas2 = nil
 end
 
-function SceneManager:switchScene(next, time)
-	self:nextScene(next, time)
+function SceneManager:switchScene(next, ...)
+	self:nextScene(next, ...)
 	table.remove(self._sceneStack)
 end
 
 function SceneManager:translate()
+	if self._translateAnim == 'fade' then
+		self:translate_fade()
+		return
+	end
+
 	local percent = 1 - self._translating / self._translateTime
 
 	love.graphics.draw(self._canvas2, 0, 0)
@@ -56,6 +64,19 @@ function SceneManager:translate()
 		)
 		love.graphics.drawq(self._canvas, quad, 0, i * self.translateBlockHeight)
 	end
+end
+
+function SceneManager:translate_fade()
+	local o = math.floor(self._translating / self._translateTime * 255)
+	local r, g, b, a = love.graphics.getColor()
+
+	love.graphics.setColor(255, 255, 255, 255 - o)
+	love.graphics.draw(self._canvas)
+
+	love.graphics.setColor(255, 255, 255, o)
+	love.graphics.draw(self._canvas2)
+
+	love.graphics.setColor(r, g, b, a)
 end
 
 function SceneManager:_moveScene()
@@ -110,6 +131,7 @@ function SceneManager:draw()
 end
 
 function SceneManager:onMousePressed(x, y, button)
+	if self._translate == true then return end
 	self.currentScene:onMousePressed(x, y, button)
 	if self._nextScene ~= nil then
 		self:_moveScene()
@@ -118,6 +140,7 @@ function SceneManager:onMousePressed(x, y, button)
 end
 
 function SceneManager:onMouseReleased(x, y, button)
+	if self._translate == true then return end
 	self.currentScene:onMouseReleased(x, y, button)
 	if self._nextScene ~= nil then
 		self:_moveScene()
@@ -126,6 +149,7 @@ function SceneManager:onMouseReleased(x, y, button)
 end
 
 function SceneManager:onKeyReleased(key)
+	if self._translate == true then return end
 	self.currentScene:onKeyReleased(key)
 	if self._nextScene ~= nil then
 		self:_moveScene()

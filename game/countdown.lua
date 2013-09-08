@@ -8,6 +8,7 @@ function Countdown:__init(gameTime)
     self._base.__init(self, name)
     self.timer = Timer("countdown", gameTime)
     self.images = R.images.countdown.scene
+    self.zIndex = 100
 end
 
 

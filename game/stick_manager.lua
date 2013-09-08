@@ -91,15 +91,13 @@ function StickManager:generateFireStick()
 end
 
 function StickManager:randomLightStick()
-	if self._fireCounter == 0 then
-		local rand = math.random(self._sticksCount)
-		local randomStick = self._sticksID[rand]
-		self._thounder = Thounder("Thounder: " .. rand, randomStick.x, randomStick.y)
-		-- TODO: provide a function to push entity to root
-		Game.SceneManager:getNowRunning()._screen:addEntity(self._thounder)
-		randomStick:getFired()
-		self:changeBurningStickNum(1)
-	end
+	local rand = math.random(self._sticksCount)
+	local randomStick = self._sticksID[rand]
+	self._thounder = Thounder("Thounder: " .. rand, randomStick.x, randomStick.y)
+	-- TODO: provide a function to push entity to root
+	Game.SceneManager:getNowRunning()._screen:addEntity(self._thounder)
+	randomStick:getFired()
+	self:changeBurningStickNum(1)
 end
 
 function StickManager:changeBurningStickNum(number)
@@ -108,6 +106,10 @@ end
 
 function StickManager:fireCounter()
 	return self._fireCounter
+end
+
+function StickManager:stickCounter()
+	return self._sticksCount
 end
 
 return StickManager

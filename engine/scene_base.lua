@@ -4,6 +4,7 @@ local Scene_Base = class()
 
 function Scene_Base:__init(info)
 	self._screen = Screen()
+	self.translationAnim = 'window'
 	self.translation = 0.8
 	self.TimeManager = info.TM
 	self.TM = info.TM -- alias
@@ -11,7 +12,7 @@ end
 
 function Scene_Base:update(dt)
 	if Game.SceneManager.currentScene ~= self then
-		self:dispose()
+		self:pause()
 		return
 	end
 
@@ -35,7 +36,7 @@ function Scene_Base:onKeyReleased(key)
 	self._screen:onKeyReleased(key)
 end
 
-function Scene_Base:dispose()
+function Scene_Base:pause()
 	
 end
 

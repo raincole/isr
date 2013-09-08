@@ -17,6 +17,7 @@ function Barbarian:__init(name)
     self.reachedRadius = 50
     self.nextWayPoint = nil
     self.zIndex = 10
+    self.anims.img = R.images.barbarian[math.random(3)]
 end
 
 function Barbarian:registerObservers()

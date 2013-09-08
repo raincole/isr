@@ -70,7 +70,7 @@ end
 
 function Scene_TitleAnim:onKeyReleased(key)
 	if key == ' ' then
-		Game.SceneManager:switchScene(Scene_Title, 0)
+		Game.SceneManager:switchScene(Scene_Title)
 	end
 
 	Scene_TitleAnim._base.onKeyReleased(self, key)
