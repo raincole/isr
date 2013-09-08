@@ -6,4 +6,10 @@ function Scene_Title:__init()
 	Scene_Title._base.__init(self)
 end
 
+function Scene_Title:update(dt)
+	Game.SceneManager:nextScene(Scene_Game(), 1)
+
+	Scene_Title._base.update(self, dt)
+end
+
 return Scene_Title

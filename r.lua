@@ -7,22 +7,20 @@ local R = {}
 
 R.images = {
 	bg = newImage("assets/images/bg.png"),
-	stone = newImage("assets/images/stone.png"),
-	player = newImage("assets/images/player.png"),
-	playerStick = newImage("assets/images/player_stick.png"),
-	barbarian = newImage("assets/images/bab_1.png"),
-	characterSheet = newImage("assets/images/sprites/characters.png"),
-    campfire =  newImage("assets/images/campfire.png"),
+	player = newImage("assets/images/sprites/player.png"),
+	playerStick = newImage("assets/images/sprites/player_stick.png"),
+	barbarian = newImage("assets/images/sprites/bab_1.png"),
+    campfire =  newImage("assets/images/sprites/campfire.png"),
 	sticks = {
-		newImage("assets/images/sticks/stick_1.png"),
-		newImage("assets/images/sticks/stick_2.png"),
-		newImage("assets/images/sticks/stick_3.png"),
-		newImage("assets/images/sticks/stick_4.png"),
-		newImage("assets/images/sticks/stick_5.png"),
-		newImage("assets/images/sticks/stick_6.png"),
+		newImage("assets/images/sprites/stick_1.png"),
+		newImage("assets/images/sprites/stick_2.png"),
+		newImage("assets/images/sprites/stick_3.png"),
+		newImage("assets/images/sprites/stick_4.png"),
+		newImage("assets/images/sprites/stick_5.png"),
+		newImage("assets/images/sprites/stick_6.png"),
 	},
-	stickfire = newImage("assets/images/stickfire.png"),
-	thounder = newImage("assets/animation/thounder.png")
+	stickfire = newImage("assets/images/sprites/stickfire.png"),
+	thounder = newImage("assets/images/sprites/thounder.png")
 }
 
 R.sounds = {
