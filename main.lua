@@ -4,6 +4,9 @@ Game = {
 	SceneManager = nil,
 	debug = true,
 	timerManager = TimerManager(),
+	getCurrentScene = function ()
+		return Game.SceneManager.getNowRunning()
+	end,
 }
 
 function init()
