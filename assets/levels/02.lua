@@ -8,5 +8,6 @@ return {
 	timeLimit = 60,
 	index = 2,
 	target = 15,
-	block = {},
+	blockRock = {},
+	blockSand = {},
 }

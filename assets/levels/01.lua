@@ -1,6 +1,4 @@
 return {
-	index = 3,
-	target = 5,
 	playerPos = { x = 320, y = 240 },
 	orginalSticks = 20,
 	spawnLightCond = 5,
@@ -10,5 +8,6 @@ return {
 	timeLimit = 60,
 	index = 1,
 	target = 5,
-	block = {},
+	blockRock = {},
+	blockSand = {},
 }
