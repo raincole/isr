@@ -168,6 +168,7 @@ R.metadatas = {
 	},
 	player = {
 		speed = 150,
+		speedOnSand = 50,
 		firePosition = {
 			{ x = 68, y = 24 }, { x = 70, y = 24 }, { x = 68, y = 24 }, { x = 66, y = 24 },
 			{ x = 8 , y = 24 }, { x = 6 , y = 24 }, { x = 8 , y = 24 }, { x = 10, y = 24 },

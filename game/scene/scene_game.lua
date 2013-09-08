@@ -48,7 +48,6 @@ function Scene_Game:__init(info, level)
 	love.audio.stop(Game.globalStroage.bgm)
 	Game.globalStroage.bgm = R.musics.level
 	love.audio.play(Game.globalStroage.bgm)
->>>>>>> master
 end
 
 function Scene_Game:update(dt)
