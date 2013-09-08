@@ -63,6 +63,9 @@ R.images = {
 	},
 	rock = newImage("assets/images/sprites/rocks.png"),
 	sand = newImage("assets/images/sprites/sands.png"),
+	emotion = {
+		notice = newImage("assets/images/emotions/notice.png"),
+	},
 }
 
 R.sounds = {
@@ -212,6 +215,14 @@ R.metadatas = {
 				width = R.images.countdown.scene[3]:getWidth(),
 				height = R.images.countdown.scene[3]:getHeight()
 			},
+		},
+	},
+	emotion = {
+		notice = {
+			img = R.images.emotion.notice,
+			ox = 6,
+			oy = 19,
+			during = 5,
 		},
 	},
 }

@@ -26,6 +26,7 @@ Scene_Game = require 'game/scene/scene_game'
 Scene_Result = require 'game/scene/scene_result'
 Scene_Tutorial = require 'game/scene/scene_tutorial'
 
+Emotion = require 'game/emotion'
 Player = require 'game/player'
 Stick = require 'game/stick'
 StickFire = require 'game/stick_fire'

@@ -36,9 +36,11 @@ function Scene_Tutorial:__init(info)
 	local b1 = Barbarian('tutorial_barbarian1')
 	b1.x = 610
 	b1.y = 215
+	b1.tutorial = true
 	local b2 = Barbarian('tutorial_barbarian2')
 	b2.x = 610
 	b2.y = 385
+	b2.tutorial = true
 	self._screen:addEntity(b1)
 	self._screen:addEntity(b2)
 	self.b1 = b1

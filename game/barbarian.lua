@@ -18,6 +18,7 @@ function Barbarian:__init(name)
     self.nextWayPoint = nil
     self.zIndex = 10
     self.anims.img = R.images.barbarian[math.random(3)]
+    self.tutorial = false
 end
 
 function Barbarian:registerObservers()
@@ -51,7 +52,13 @@ end
 function Barbarian:update(dt)
     Barbarian._base.update(self, dt)
 
+    local __tracing = self.tracing
     self.tracing = self.hasTarget
+    if __tracing == false and self.tracing == true and 
+        (not self.dancing) and (not self.tutorial) then
+        local emo = Emotion('Emotion', self.x - 2, self.y - self.oy, R.metadatas.emotion.notice)
+        self:addEntity(emo)
+    end
 
     if self.dancing then
 
