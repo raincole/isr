@@ -98,7 +98,7 @@ function StickManager:randomLightStick()
 	Game.SceneManager:getNowRunning()._screen:addEntity(self._thounder)
 	randomStick:getFired()
 	self:changeBurningStickNum(1)
-        love.audio.play(R.sounds.thunder)
+    love.audio.play(love.audio.newSource(R.sounds.thunder, 'static'))
 end
 
 function StickManager:changeBurningStickNum(number)

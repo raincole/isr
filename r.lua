@@ -52,7 +52,7 @@ R.sounds = {
 	campfire = newSound("assets/sounds/campfire.ogg"),
 	dancing = newSound("assets/sounds/dancing.ogg"),
 	fire = newSound("assets/sounds/fire.ogg"),
-	thunder = newSound("assets/sounds/thunder.ogg"),
+	thunder = love.sound.newSoundData("assets/sounds/thunder.ogg"),
 }
 
 R.musics = {
