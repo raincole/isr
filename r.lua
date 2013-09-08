@@ -6,6 +6,7 @@ local newQuad  = love.graphics.newQuad
 local R = {}
 
 R.images = {
+	appIcon = newImage("assets/images/app_icon_32.png"),
 	bg = newImage("assets/images/bg.png"),
 	result_Y = newImage("assets/images/result_Y.png"),
 	result_N = newImage("assets/images/result_N.png"),

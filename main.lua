@@ -2,7 +2,7 @@ require 'initialize'
 
 Game = {
 	SceneManager = nil,
-	debug = true,
+	debug = false,
 	timerManager = TimerManager(),
 	globalStroage = {},
 
@@ -16,10 +16,11 @@ function init()
 end
 
 function love.load()
+	love.graphics.setIcon(R.images.appIcon)
 	if Game.debug then
 		math.randomseed(3336661)
 	else
-		math.randomseed(os.time)
+		math.randomseed(os.time())
 	end
 
 	init()

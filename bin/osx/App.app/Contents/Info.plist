@@ -10,7 +10,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeIconFile</key>
-			<string>LoveDocument.icns</string>
+			<string>Love.icns</string>
 			<key>CFBundleTypeName</key>
 			<string>LÖVE Project</string>
 			<key>CFBundleTypeRole</key>
