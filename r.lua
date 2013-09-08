@@ -30,6 +30,11 @@ R.images = {
 		stick = newImage("assets/images/ui/stick_fire_life.png"),
 		campfire = newImage("assets/images/ui/firecamp_life.png"),
 	},
+	conquerPoint = {
+		newImage("assets/images/ui/people_icon.png"),
+		newImage("assets/images/ui/people_0.png"),
+		newImage("assets/images/ui/people_1.png"),
+	},
 
 }
 

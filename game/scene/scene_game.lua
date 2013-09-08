@@ -32,6 +32,9 @@ function Scene_Game:__init(level)
 
 	self.index = level.index
 	self.target = level.target
+
+	local conquerPoint = ConquerPoint("conquerPoint", self)
+	self._screen:addEntity(conquerPoint)	
 end
 
 function Scene_Game:update(dt)

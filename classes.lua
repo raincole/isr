@@ -29,6 +29,7 @@ Timer = require 'game/timer'
 
 TimerManager = require 'game/timer_manager'
 Countdown = require 'game/countdown'
+ConquerPoint = require 'game/conquer_point'
 
 Campfire = require 'game/campfire'
 
