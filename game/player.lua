@@ -95,22 +95,26 @@ end
 
 function Player:onKeyReleased(key)
 	if key == ' ' or key == 'j' then
-		item = self.holdingItem
+		local item = self.holdingItem
+		local sm = Game.SceneManager:getNowRunning().stickManager
 		if item then -- put item
 			self.ox = 16
 			self.anims = R.anims.player()
 			item.x = math.floor(self:getHandPosition().x)
 			item.y = math.floor(self:getHandPosition().y)
-			local sm = Game.SceneManager:getNowRunning().stickManager
 			sm:addStick(item, nil) -- sitck only
 			self.holdingItem = nil
 		elseif self.targetItem then -- hold item
 			self.ox = 36
 			self.anims = R.anims.playerStick()
-			self.targetItem:removeSelf()
-			self.holdingItem = self.targetItem
-			local sm = Game.SceneManager:getNowRunning().stickManager
-			sm:removeStick(self.targetItem)
+			if self.targetItem:is_a(Stick) then
+				self.targetItem:removeSelf()
+				self.holdingItem = self.targetItem
+				sm:removeStick(self.targetItem)
+			else
+				self.targetItem:minusOneStick()
+				self.holdingItem = sm:generateFireStick()
+			end
 		end
 	end
 end

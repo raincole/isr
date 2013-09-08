@@ -19,10 +19,16 @@ function Campfire:__init(name, x, y)
     self.barbsLimitNum = 5
     self.barbsBeingNum = 0
 
-    self.radius = 15
+    self.radius = 25
 end
 
 function Campfire:registerObservers()
+    beholder.observe(Event.CHECK_IN_RANGE, function(x, y, radius, callback)
+        local sqrDistance = (self.x - x) * (self.x - x) + (self.y - y) * (self.y - y)
+        if sqrDistance <= radius * radius then
+            callback(self, sqrDistance)
+        end
+    end)
     beholder.observe(Event.PUT_STICK_ON_GROUND, function(stick, cb)
         if stick.toRemove == true then return end
         local sqrDistance = (self.x - stick.x) * (self.x - stick.x) + (self.y - stick.y) * (self.y - stick.y)
@@ -73,6 +79,10 @@ end
 
 function Campfire:changeLifeTime(seconds)
     self.timer:changeLifeTime(seconds)
+end
+
+function Campfire:minusOneStick()
+    self:changeLifeTime(-R.metadatas.campfire.oneStickLifespan)
 end
 
 function Campfire:isFull()
