@@ -10,6 +10,7 @@ R.images = {
 	bg = newImage("assets/images/bg.png"),
 	result_Y = newImage("assets/images/result_Y.png"),
 	result_N = newImage("assets/images/result_N.png"),
+	result_Y2 = newImage("assets/images/result_Y2.png"),
 	CREDIT = newImage("assets/images/CREDIT.png"),
 	player = newImage("assets/images/sprites/player.png"),
 	playerStick = newImage("assets/images/sprites/player_stick.png"),
