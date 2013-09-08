@@ -2,8 +2,11 @@ require 'vendor/class'
 
 local Scene_Base = class()
 
-function Scene_Base:__init()
+function Scene_Base:__init(info)
 	self._screen = Screen()
+	self.translation = 0.8
+	self.TimeManager = info.TM
+	self.TM = info.TM -- alias
 end
 
 function Scene_Base:update(dt)

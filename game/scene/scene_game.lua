@@ -2,8 +2,8 @@ require 'vendor/class'
 
 local Scene_Game = class(Scene_Base)
 
-function Scene_Game:__init(level)
-	Scene_Game._base.__init(self)
+function Scene_Game:__init(info, level)
+	Scene_Game._base.__init(self, info)
 
 	local player = Player('player')
 	player.x = 320

@@ -12,7 +12,7 @@ Game = {
 }
 
 function init()
-	Game.SceneManager = SceneManager(Scene_TitleAnim())
+	Game.SceneManager = SceneManager(Scene_TitleAnim)
 end
 
 function love.load()

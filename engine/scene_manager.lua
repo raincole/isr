@@ -2,8 +2,10 @@ require 'vendor/class'
 
 local SceneManager = class()
 
-function SceneManager:__init(first)
-	self.currentScene = first
+function SceneManager:__init(first, ...)
+	local tm = TimerManager()
+
+	self.currentScene = first({ TM = tm }, ...)
 	self._nextScene = nil
 	self._sceneStack = {}
 	self._canvas = nil
@@ -20,16 +22,21 @@ function SceneManager:getNowRunning()
 	return self.currentScene
 end
 
-function SceneManager:nextScene(next, time)
-	self._nextScene = next
-	self._translateTime = time
+function SceneManager:nextScene(next, ...)
+	local tm = TimerManager()
+	self._nextScene = next({ TM = tm }, ...)
+	self._translateTime = self._nextScene.translation
 	self._translating = 0
+	self._canvas = nil
+	self._canvas2 = nil
 end
 
 function SceneManager:backScene(time)
 	self._nextScene = 'back'
-	self._translateTime = time
+	self._translateTime = self.currentScene.translation
 	self._translating = 0
+	self._canvas = nil
+	self._canvas2 = nil
 end
 
 function SceneManager:switchScene(next, time)
@@ -67,8 +74,7 @@ function SceneManager:update(dt)
 		if self._translating > self._translateTime then
 			self._translate = false
 			self.currentScene = self._nextScene
-			self._canvas = nil
-			self._canvas2 = nil
+			self._nextScene = nil
 		end
 		return
 	end
@@ -105,14 +111,26 @@ end
 
 function SceneManager:onMousePressed(x, y, button)
 	self.currentScene:onMousePressed(x, y, button)
+	if self._nextScene ~= nil then
+		self:_moveScene()
+		self._translate = true
+	end
 end
 
 function SceneManager:onMouseReleased(x, y, button)
 	self.currentScene:onMouseReleased(x, y, button)
+	if self._nextScene ~= nil then
+		self:_moveScene()
+		self._translate = true
+	end
 end
 
 function SceneManager:onKeyReleased(key)
 	self.currentScene:onKeyReleased(key)
+	if self._nextScene ~= nil then
+		self:_moveScene()
+		self._translate = true
+	end
 end
 
 return SceneManager

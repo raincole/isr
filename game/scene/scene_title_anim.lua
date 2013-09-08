@@ -3,8 +3,8 @@ require 'vendor/class'
 local Scene_TitleAnim = class(Scene_Base)
 local newImage = love.graphics.newImage
 
-function Scene_TitleAnim:__init()
-	Scene_TitleAnim._base.__init(self)
+function Scene_TitleAnim:__init(info)
+	Scene_TitleAnim._base.__init(self, info)
 
 	self.title = newImage('assets/images/opening/title.png')
 	self.mapA  = newImage('assets/images/opening/map_0.png')
@@ -70,7 +70,7 @@ end
 
 function Scene_TitleAnim:onKeyReleased(key)
 	if key == ' ' then
-		Game.SceneManager:switchScene(Scene_Title(), 0)
+		Game.SceneManager:switchScene(Scene_Title, 0)
 	end
 
 	Scene_TitleAnim._base.onKeyReleased(self, key)
