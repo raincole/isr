@@ -13,9 +13,19 @@ function Rock:__init(name, x, y)
     self.zIndex = 10
     self.images = R.images.rock
     self.rand = math.random(6)
+    self.radius = 35
 end
 
 function Rock:registerObservers()
+    beholder.observe(Event.PUT_STICK_ON_GROUND, function(stick, cb)
+        if stick.toRemove == true then return end
+        local selfX = self.x + self.width/2
+        local selfY = self.y + self.height/2
+        local sqrDistance = (selfX - stick.x) * (selfX - stick.x) + (selfY - stick.y) * (selfY - stick.y)
+        if sqrDistance <= self.radius * self.radius  then
+            cb()
+        end
+    end)    
     beholder.observe(Event.TRY_TO_MOVE, function(rect, velocity, callback)
         callback(rect:collisionTime(self:getRect(), velocity))
     end)
