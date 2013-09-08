@@ -6,11 +6,14 @@ function Barbarian:__init(name)
     Barbarian._base.__init(self, name, R.anims.barbarian())
     self.ox = 16
     self.oy = 35
+    self.width = 32
+    self.height = 20
     self.speed = 60
     self.dir = Direction.CENTER
     self.tracing = false
+    self.dancing = false
     self.hasTarget = false
-    self.detectingRadius = 60
+    self.detectingRadius = 40
     self.reachedRadius = 50
     self.nextWayPoint = nil
     self.zIndex = 10
@@ -18,12 +21,9 @@ end
 
 function Barbarian:registerObservers()
     beholder.observe(Event.LIGHT_SOURCE, function(x, y, radius)
-        local maxDistance = radius + self.detectingRadius
-        local sqrMaxDistance = maxDistance * maxDistance
-        local sqrDistance = (self.x - x) * (self.x - x) + (self.y - y) * (self.y - y)
-        if sqrDistance <= sqrMaxDistance then
+        if self:inRange(x, y, radius) then
             if ((not self.tracing) or self:reachedWayPoint()) then
-                local escapeDistance = maxDistance / 1.5
+                local escapeDistance = (radius + self.detectingRadius) / 1.5
                 local rx = math.random(-escapeDistance, escapeDistance)
                 local ry = math.sqrt(escapeDistance*escapeDistance-rx*rx)
                 if math.random(2) == 1 then ry = -ry end
@@ -33,6 +33,18 @@ function Barbarian:registerObservers()
             self.hasTarget = true
         end
     end)
+    beholder.observe(Event.CAMPFIRE, function(x, y, radius, callback)
+        if (not self.dancing) and self:inRange(x, y, radius) then
+            callback(self)
+        end
+    end)
+end
+
+function Barbarian:inRange(x, y, radius)
+    local maxDistance = radius + self.detectingRadius
+    local sqrMaxDistance = maxDistance * maxDistance
+    local sqrDistance = (self.x - x) * (self.x - x) + (self.y - y) * (self.y - y)
+    return sqrDistance <= sqrMaxDistance
 end
 
 function Barbarian:update(dt)
@@ -40,13 +52,17 @@ function Barbarian:update(dt)
 
     self.tracing = self.hasTarget
 
-    if (not self.hasTarget) and (self:reachedWayPoint()) then
-        self.nextWayPoint = { x = self.x + math.random(-200, 200),
-                              y = self.y + math.random(-200, 200) }
-    end
+    if self.dancing then
 
-    if self.nextWayPoint then
-        self:moveToPoint(self.nextWayPoint, self.speed * dt)
+    else
+        if (not self.hasTarget) and (self:reachedWayPoint()) then
+            self.nextWayPoint = { x = self.x + math.random(-200, 200),
+                                  y = self.y + math.random(-200, 200) }
+        end
+
+        if self.nextWayPoint then
+            self:moveToPoint(self.nextWayPoint, self.speed * dt)
+        end
     end
 
     self.hasTarget = false
@@ -65,9 +81,8 @@ function Barbarian:moveToPoint(point, frameSpeed)
 end
 
 function Barbarian:moveBy(displacement)
-    self.x = self.x + displacement.x
-    self.y = self.y + displacement.y
-    self.dir = Direction.fromApproxVect(displacement)
+    local realDisplacement = self:tryToMove(displacement:normalized(), displacement:magnitude())
+    self.dir = Direction.fromApproxVect(realDisplacement)
 end
 
 function Barbarian:reachedWayPoint()
@@ -79,7 +94,16 @@ function Barbarian:reachedWayPoint()
 end
 
 function Barbarian:getCurrentAnimIndex()
-    return self.dir
+    if self.dancing then return 'dancing'
+    else return self.dir end
+end
+
+function Barbarian:findCampfire()
+    self.dancing = true
+end
+
+function Barbarian:loseCampfire()
+    self.dancing = false
 end
 
 return Barbarian

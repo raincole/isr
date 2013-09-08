@@ -89,7 +89,8 @@ function StickManager:randomLightStick()
 		local rand = math.random(self._sticksCount)
 		local randomStick = self._sticksID[rand]
 		self._thounder = Thounder("Thounder: " .. rand, randomStick.x, randomStick.y)
-		Game.currentScreen:addEntity(self._thounder)
+		-- TODO: provide a function to push entity to root
+		Game.SceneManager:getNowRunning()._screen:addEntity(self._thounder) 
 		randomStick.fired = true
 		self._fireCounter = self._fireCounter + 1
 	end

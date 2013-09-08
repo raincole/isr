@@ -1,36 +1,13 @@
 require 'initialize'
 
 Game = {
-	currentScreen = nil,
+	SceneManager = nil,
 	debug = true,
 	timerManager = TimerManager(),
-
 }
 
 function init()
-	local screen = Screen()
-
-	local player = Player('player')
-	player.x = 320
-	player.y = 240
-	screen:addEntity(player)
-
-	stickManager = StickManager("stickManager")
-	screen:addEntity(stickManager)
-	for i = 1, 20 do
-		stickManager:randomAddStick()
-	end
-
-	local countdown = Countdown(10)
-	screen:addEntity(countdown)
-
-	barbarianManager = BarbarianManager("barbarianManager")
-	screen:addEntity(barbarianManager)
-	for i = 1, 5 do
-		barbarianManager:randomAddBarbarian()
-	end
-
-	Game.currentScreen = screen
+	Game.SceneManager = SceneManager(Scene_Game)
 end
 
 -- TODO: move into scene
@@ -49,29 +26,22 @@ function love.load()
 end
 
 function love.update(dt)
-	if math.random(1000) < 17 then barbarianManager:randomAddBarbarian() end
-	if math.random(1000) < 17 then stickManager:randomLightStick() end
-	if math.random(1000) < 37 then stickManager:randomAddStick() end
-
 	Game.timerManager:update(dt)
-
-	Game.currentScreen:update(dt)
-	Game.currentScreen:afterUpdate()
+	Game.SceneManager:update(dt)
 end
 
 function love.draw()
-	love.graphics.draw(R.images.bg, 0, 0)
-	Game.currentScreen:draw()
+	Game.SceneManager:draw()
 end
 
 function love.mousepressed(x, y, button)
-	Game.currentScreen:onMousePressed(x, y, button)
+	Game.SceneManager:onMousePressed(x, y, button)
 end
 
 function love.mousereleased(x, y, button)
-	Game.currentScreen:onMouseReleased(x, y, button)
+	Game.SceneManager:onMouseReleased(x, y, button)
 end
 
 function love.keyreleased(key)
-	Game.currentScreen:onKeyReleased(key)
+	Game.SceneManager:onKeyReleased(key)
 end

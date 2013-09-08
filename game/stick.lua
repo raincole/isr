@@ -6,13 +6,14 @@ function Stick:__init(name, x, y)
 	Stick._base.__init(self, name)
 	local rand = math.random(#R.images.sticks)
 	self.image = R.images.sticks[rand]
-	self.x = x
-	self.y = y
+	self.x = math.floor(x)
+	self.y = math.floor(y)
 	self.width = R.metadatas.stick.size.width
 	self.height = R.metadatas.stick.size.height
-	self.ox = self.width / 2
-	self.oy = self.height / 2
+	self.ox = math.floor(self.width / 2)
+	self.oy = math.floor(self.height / 2)
 	self.fired = false
+	self.glow = false
 	self.zIndex = 0
 	self.burnTime = 20
 	self.burnTimer = nil
@@ -58,24 +59,30 @@ function Stick:update(dt)
 			end
 		)
 		if #sticks >= R.metadatas.campfire.upgradeThreshold then
-			getStickManager():changeBurningStickNum(1)
+			Game.SceneManager:getNowRunning().stickManager:changeBurningStickNum(1)
 			local campfire = Campfire('campfire', self._fire.x, self._fire.y)
-			Game.currentScreen:addEntity(campfire)
+			-- TODO: provide a function to push entity to root
+			Game.SceneManager:getNowRunning()._screen:addEntity(campfire)
 
 			for i, v in ipairs(sticks) do
 				if v.fired == true then
 					v.fired = false
 					v.burnTimer = nil
-					getStickManager():changeBurningStickNum(-1)
+					Game.SceneManager:getNowRunning().stickManager:changeBurningStickNum(-1)
 				end
-				getStickManager():removeStick(v)
+				Game.SceneManager:getNowRunning().stickManager:removeStick(v)
 			end
 		end
 	end
 end
 
 function Stick:draw()
-	love.graphics.drawq(self.image, R.metadatas.stick.quad.normal, self.x - self.ox, self.y - self.oy)
+	if self.glow then
+		love.graphics.drawq(self.image, R.metadatas.stick.quad.glow, self.x - self.ox, self.y - self.oy)
+	else
+		love.graphics.drawq(self.image, R.metadatas.stick.quad.normal, self.x - self.ox, self.y - self.oy)
+	end
+	self.glow = false
 	if self.fired == true then
 		love.graphics.printf( string.format("%.1f",self.burnTimer:getRemainTime()), 
 				self.x - self.width/2 , self.y + 10 , 100, "left" )

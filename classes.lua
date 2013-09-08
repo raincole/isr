@@ -1,6 +1,8 @@
 Entity = require 'engine/entity'
 Screen = require 'engine/screen'
 Actor = require 'engine/actor'
+SceneManager = require 'engine/scene_manager'
+Scene_Base = require 'engine/scene_base'
 
 Mathx = require 'lib/mathx'
 Vect2 = require 'lib/vect2'
@@ -16,6 +18,9 @@ StickManager = require 'game/stick_manager'
 BarbarianManager = require 'game/barbarian_manager'
 
 --
+
+Scene_Title = require 'game/scene/scene_title'
+Scene_Game = require 'game/scene/scene_game'
 
 Player = require 'game/player'
 Stick = require 'game/stick'

@@ -4,13 +4,17 @@ local Campfire = class(Animator)
 
 function Campfire:__init(name, x, y)
     Campfire._base.__init(self, name, R.anims.campfire())
-    self.x = x
-    self.y = y
+    self.x = math.floor(x)
+    self.y = math.floor(y)
+    self.width = 26
+    self.height = 10
     self.ox = 23
     self.oy = 39
-    self.zIndex = 1
+    self.lightRadius = 30
+    self.zIndex = 10
+    self.barbs = {}
 
-    self.timer = Timer('campfire_timer', 10)
+    self.timer = Timer('campfire_timer', 100)
 
     self.barbsLimitNum = 5
     self.barbsBeingNum = 0
@@ -27,24 +31,31 @@ function Campfire:registerObservers()
             cb()
         end
     end)
+    beholder.observe(Event.TRY_TO_MOVE, function(rect, velocity, callback)
+        callback(rect:collisionTime(self:getRect(), velocity))
+    end)
 end
 
 function Campfire:update(dt)
-    if self.timer:isTimeUp() == true then
-        getStickManager():changeBurningStickNum(-1)
-        self:removeSelf()
-    end
-    
     Campfire._base.update(self, dt)
 
-    -- Q: 如何偵測附近一定範圍有barbs? 
-    -- A: 由野蠻人觸發營火的函數去改變數量。所以相關程式碼請參照野蠻人的程式碼。
+    if self.timer:isTimeUp() == true then
+        Game.SceneManager:getNowRunning().stickManager:changeBurningStickNum(-1)
+        self:extinguish()
+    else
+        beholder.trigger(Event.CAMPFIRE, self.x, self.y, self.lightRadius, function(barb)
+            if not self:isFull() then
+                barb:findCampfire()
+                table.insert(self.barbs, barb)
+            end
+        end)
+    end
 end
 
 function Campfire:draw()
     Campfire._base.draw(self)
 
-    love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()), 
+    love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()),
         self.x , self.y + 10 , 100, "left" )
     -- TODO: 營火生命週期血條
     --       血條從正中間為抵，時間越長越往兩側伸展，反之則越往中間縮短
@@ -53,24 +64,22 @@ function Campfire:draw()
     --       love.graphics.draw(self.images.normal, self.ox - self.width / 2, self.oy - self.height / 2)
 end
 
+function Campfire:extinguish()
+    for i, b in ipairs(self.barbs) do
+        b:loseCampfire()
+    end
+    self:removeSelf()
+end
 
 function Campfire:changeLifeTime(seconds)
     self.timer:changeLifeTime(seconds)
 end
 
-function Campfire:isBeingFull()
-    if self.barbsBeingNum < self.barbsLimitNum then
+function Campfire:isFull()
+    if #self.barbs < self.barbsLimitNum then
         return false
     else
         return true
-    end
-end
-
-function Campfire:changeBarbsBeingNum(number)
-    self.barbsBeingNum = self.barbsBeingNum + number
-
-    if self.barbsBeingNum < 0 then
-        error("Number of barbarian near campfire is Error!!!")
     end
 end
 

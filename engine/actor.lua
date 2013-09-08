@@ -3,10 +3,10 @@ require 'vendor/class'
 local Actor = class(Entity)
 
 function Actor:__init(name, image, x, y)
-	self._base.__init(self, name)
+	Actor._base.__init(self, name)
 	self.image = image
-	self.x = x
-	self.y = y
+	self.x = math.floor(x)
+	self.y = math.floor(y)
 end
 
 function Actor:draw()
