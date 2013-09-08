@@ -1,6 +1,4 @@
 return {
-	index = 3,
-	target = 5,
 	playerPos = { x = 320, y = 240 },
 	orginalSticks = 20,
 	spawnLightCond = 5,
@@ -8,6 +6,8 @@ return {
 	spawnStickCond = 100,
 	spawnStickRate = 0.04175,
 	timeLimit = 60,
+	index = 3,
+	target = 5,
 	blockRock = { 
 		{ x =  3, y =  3 },
 		{ x =  4, y =  3 },
@@ -19,8 +19,6 @@ return {
 		{ x =  3, y = 10 },
 		{ x =  4, y = 10 },
 		{ x =  5, y = 10 },
-	},
-	blockSand = {
 		{ x = 13, y =  3 },
 		{ x = 13, y =  4 },
 		{ x = 13, y =  5 },
@@ -29,5 +27,6 @@ return {
 		{ x = 13, y =  8 },
 		{ x = 13, y =  9 },
 		{ x = 13, y = 10 },
-	}
+	},
+	blockSand = {}
 }
