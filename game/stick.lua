@@ -91,7 +91,7 @@ function Stick:draw()
 	    proportion = self.burnTimer:getRemainTime() / self.burnTimer:getLifeTime()
 	    if proportion < 0 then proportion = 0 end
 
-	    width = self._fire.ox * 4
+	    width = self._fire.ox * 3
 	    height = self.lifeImage:getHeight()
 	    quad = love.graphics.newQuad(0, 0, width*proportion, height, width, height)
 	    love.graphics.drawq( self.lifeImage, quad, self._fire.x - width*proportion*0.5 , self._fire.y - self._fire.oy - 8)
