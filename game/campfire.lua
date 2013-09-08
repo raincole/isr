@@ -64,8 +64,9 @@ end
 function Campfire:draw()
     Campfire._base.draw(self)
 
-    love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()),
-        self.x , self.y + 10 , 100, "left" )
+    -- PRINT VALUE ON SCREEN
+    -- love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()),
+    --    self.x , self.y + 10 , 100, "left" )
 
     local proportion = self.timer:getRemainTime() / self.timer:getLifeTime()
     if proportion < 0 then proportion = 0 end

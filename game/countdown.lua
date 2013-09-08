@@ -14,12 +14,15 @@ end
 
 function Countdown:draw()
 
+    --[[
+    -- PRINT VALUE ON SCREEN
     if self.timer:isTimeUp() == false then
         love.graphics.printf( string.format("%.1f / %.1f",self.timer:getRemainTime(), self.timer:getLifeTime()),
             10, 10, 100, "left" )
     else 
         love.graphics.printf( "time is up" , 10, 10, 100, "left" )
     end
+    ]]
     
     love.graphics.draw( self.images[2], 10, love.graphics.getHeight() - 30)
 

@@ -81,8 +81,10 @@ function Stick:draw()
 	end
 	self.glow = false
 	if self.fired == true then
-		love.graphics.printf( string.format("%.1f",self.burnTimer:getRemainTime()),
-			self.x - self.width/2 , self.y + 10 , 100, "left" )
+		
+		-- PRINT VALUE ON SCREEN
+		--love.graphics.printf( string.format("%.1f",self.burnTimer:getRemainTime()),
+		--	self.x - self.width/2 , self.y + 10 , 100, "left" )
 		self._fire:draw()
 
 	    proportion = self.burnTimer:getRemainTime() / self.burnTimer:getLifeTime()
