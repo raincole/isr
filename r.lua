@@ -21,11 +21,16 @@ R.images = {
 	},
 	stickfire = newImage("assets/images/sprites/stickfire.png"),
 	thounder = newImage("assets/images/sprites/thounder.png"),
-	sceneCountdwon = {
-		newImage("assets/images/ui/time_full.png"),
-		newImage("assets/images/ui/time_empty.png"),
-		newImage("assets/images/ui/time_bar.png"),
+	countdown = {
+		scene = {
+			newImage("assets/images/ui/time_full.png"),
+			newImage("assets/images/ui/time_empty.png"),
+			newImage("assets/images/ui/time_bar.png"),		
+		},
+		stick = newImage("assets/images/ui/stick_fire_life.png"),
+		campfire = newImage("assets/images/ui/firecamp_life.png"),
 	},
+
 }
 
 R.sounds = {
@@ -132,15 +137,15 @@ R.metadatas = {
 	sceneCountdwon = {
 		whole = {
 			size = {
-				width = R.images.sceneCountdwon[1]:getWidth(),
-				height = R.images.sceneCountdwon[1]:getHeight()
+				width = R.images.countdown.scene[1]:getWidth(),
+				height = R.images.countdown.scene[1]:getHeight()
 			},
 			quad = newQuad(0,0,189,28,189,28),
 		},
 		bar = {
 			size = {
-				width = R.images.sceneCountdwon[3]:getWidth(),
-				height = R.images.sceneCountdwon[3]:getHeight()
+				width = R.images.countdown.scene[3]:getWidth(),
+				height = R.images.countdown.scene[3]:getHeight()
 			},
 		},
 	},

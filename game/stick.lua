@@ -15,9 +15,9 @@ function Stick:__init(name, x, y)
 	self.fired = false
 	self.glow = false
 	self.zIndex = 0
-	self.burnTime = 20
+	self.burnTime = 5
 	self.burnTimer = nil
-
+	self.lifeImage = R.images.countdown.stick
 	self.name = name
 
 	self.fireOffset = R.metadatas.stick.firePosition[rand]
@@ -85,8 +85,17 @@ function Stick:draw()
 	self.glow = false
 	if self.fired == true then
 		love.graphics.printf( string.format("%.1f",self.burnTimer:getRemainTime()), 
-				self.x - self.width/2 , self.y + 10 , 100, "left" )
+			self.x - self.width/2 , self.y + 10 , 100, "left" )
 		self._fire:draw()
+
+	    proportion = self.burnTimer:getRemainTime() / self.burnTimer:getLifeTime()
+	    if proportion < 0 then proportion = 0 end
+
+	    width = self._fire.ox * 4
+	    height = self.lifeImage:getHeight()
+	    quad = love.graphics.newQuad(0, 0, width*proportion, height, width, height)
+	    love.graphics.drawq( self.lifeImage, quad, self._fire.x - width*proportion*0.5 , self._fire.y - self._fire.oy - 8)
+
 	end
 end
 
