@@ -7,7 +7,7 @@ return {
 	spawnStickRate = 0.04175,
 	timeLimit = 60,
 	index = 2,
-	target = 15,
+	target = 5,
 	blockRock = {},
 	blockSand = {},
 }
