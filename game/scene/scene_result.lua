@@ -15,7 +15,7 @@ function Scene_Result:draw()
 	love.graphics.draw(self.canvas)
 	if self.result.status == 'win' then
 		if self.result.next > #R.levels then
-			love.graphics.draw(R.images.result_Y_LAST)
+			love.graphics.draw(R.images.result_Y2)
 		else
 			love.graphics.draw(R.images.result_Y)
 		end
