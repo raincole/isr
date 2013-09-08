@@ -56,6 +56,17 @@ function Player:draw()
 	Player._base.draw(self)
 	if self.holdingItem then
 		if self.holdingItem.fired == true then
+			local stick = self.holdingItem
+			local timer = stick.burnTimer
+
+			proportion = stick.burnTimer:getRemainTime() / stick.burnTimer:getLifeTime()
+		    if proportion < 0 then proportion = 0 end
+
+		    width = stick._fire.ox * 3
+		    height = stick.lifeImage:getHeight()
+		    quad = love.graphics.newQuad(0, 0, width*proportion, height, width, height)
+		    love.graphics.drawq( stick.lifeImage, quad, self.fire.x - width*proportion*0.5 , self.fire.y - stick._fire.oy - 8)
+
 			self.fire:draw()
 		end
 	end
