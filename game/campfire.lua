@@ -8,7 +8,7 @@ function Campfire:__init(name, x, y, sticksNum)
     self.y = math.floor(y)
     self.width = 26
     self.height = 10
-    self.ox = 23
+    self.ox = 26
     self.oy = 39
     self.lightRadius = 30
     self.zIndex = 10
@@ -72,7 +72,7 @@ function Campfire:draw()
     width = self.lifeImage:getWidth();
     height = self.lifeImage:getHeight();
     quad = love.graphics.newQuad(0, 0, width*proportion, height, width, height)
-    love.graphics.drawq( self.lifeImage, quad, self.x - width*proportion*0.5 , self.y - self.oy - 10)
+    love.graphics.draw( self.lifeImage, self.x - width*proportion*0.5 , self.y - self.oy - 10, 0, proportion, 1)
 end
 
 function Campfire:extinguish()
