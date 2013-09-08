@@ -90,7 +90,7 @@ end
 
 function Barbarian:moveBy(displacement)
     local realDisplacement = self:tryToMove(displacement:normalized(), displacement:magnitude())
-    self.dir = Direction.fromApproxVect(realDisplacement)
+    self.dir = Direction.from4ApproxVect(realDisplacement)
     return realDisplacement
 end
 
