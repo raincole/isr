@@ -105,7 +105,7 @@ function Player:_updateTarget()
 				self.targetItem = item
 			end
 		end)
-	if self.targetItem then
+	if (not self.holdingItem) and self.targetItem then
 		self.targetItem.glow = true
 	end
 end

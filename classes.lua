@@ -38,3 +38,5 @@ Rock = require 'game/rock'
 Barbarian = require 'game/barbarian'
 Thounder = require 'game/thounder'
 
+Border = require 'game/border'
+

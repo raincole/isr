@@ -34,11 +34,19 @@ function Scene_Game:__init(info, level)
 	self.target = level.target
 
 	local conquerPoint = ConquerPoint("conquerPoint", self)
+
 	self._screen:addEntity(conquerPoint)	
 
 	--rock test
 	local rock = Rock("rock1",51,51)
 	self._screen:addEntity(rock)
+
+	local leftBorder = Border('leftBorder', Rect(-20, -20, 10, 1000))
+	local rightBorder = Border('rightBorder', Rect(820, -20, 10, 1000))
+	local upBorder = Border('upBorder', Rect(-20, -20, 1000, 10))
+	local downBorder = Border('downBorder', Rect(-20, 620, 1000, 10))
+	self._screen:addEntities({leftBorder, rightBorder, upBorder, downBorder})
+
 end
 
 function Scene_Game:update(dt)
