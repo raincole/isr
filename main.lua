@@ -4,6 +4,7 @@ Game = {
 	SceneManager = nil,
 	debug = true,
 	timerManager = TimerManager(),
+	globalStroage = {},
 }
 
 function init()

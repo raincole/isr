@@ -68,6 +68,14 @@ function Scene_TitleAnim:draw()
 	Scene_TitleAnim._base.draw(self, dt)
 end
 
+function Scene_TitleAnim:onKeyReleased(key)
+	if key == ' ' then
+		Game.SceneManager:switchScene(Scene_Title(), 0)
+	end
+
+	Scene_TitleAnim._base.onKeyReleased(self, key)
+end
+
 function Scene_TitleAnim:aniStep1(frame)
 	self.title_opacity = self.title_opacity + frame * 2
 	if self.title_opacity >= 255 then
@@ -163,12 +171,11 @@ end
 
 
 function Scene_TitleAnim:aniStep5(frame)
-	Game.SceneManager:nextScene(Scene_Title(), 0)
+	Game.SceneManager:switchScene(Scene_Title(), 0)
 end
 
 function Scene_TitleAnim:aniDraw5()
 	love.graphics.draw(self.mapB)
-	Game.SceneManager:nextScene(Scene_Game(), 1)
 	love.graphics.draw(self.ballons[#self.ballons], 364, 0)
 end
 

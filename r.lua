@@ -23,7 +23,7 @@ R.images = {
 	thounder = newImage("assets/images/sprites/thounder.png"),
 	title = {
 		map = newImage('assets/images/opening/map_1.png'),
-		man = newImage('assets/images/opening/ballons/OP_134.png'),
+		man = newImage('assets/images/opening/man.png'),
 	},
 	countdown = {
 		scene = {
@@ -102,6 +102,21 @@ R.fonts = {
 }
 
 R.metadatas = {
+	title = {
+		stagePosition = {
+			{ x = 712, y = 343 },
+			{ x = 633, y = 355 },
+			{ x = 566, y = 430 },
+			{ x = 497, y = 250 },
+			{ x = 425, y = 451 },
+			{ x = 356, y = 205 },
+			{ x = 288, y = 377 },
+			{ x = 222, y = 159 },
+			{ x = 153, y = 281 },
+			{ x =  87, y = 184 },
+		},
+		manOffset = { x = 19, y = 47 },
+	},
 	stick = {
 		firePosition = {
 			{ x = 27, y = 3  },
