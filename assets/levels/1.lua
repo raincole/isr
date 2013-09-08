@@ -9,5 +9,5 @@ return {
 	spawnBarbRate  = 0.04935,
 	timeLimit = 60,
 	index = 1,
-	target = 1,
+	target = 5,
 }

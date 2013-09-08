@@ -27,9 +27,7 @@ function Scene_Game:__init(info, level)
 	self.colonizedBarbariansNum = 0
 	beholder.observe(Event.CHANGE_COLONIZED_BARBARIANS, function(n)
 		self.colonizedBarbariansNum = self.colonizedBarbariansNum + n
-	end)
-
-	self._screen:addEntity(conquerPoint)	
+	end)	
 
 	--rock test
 	local rock = Rock("rock1",51,51)
