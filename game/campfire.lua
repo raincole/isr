@@ -35,6 +35,7 @@ function Campfire:registerObservers()
         local sqrDistance = (self.x - stick.x) * (self.x - stick.x) + (self.y - stick.y) * (self.y - stick.y)
         if sqrDistance <= self.radius * self.radius then
             self:addOneStick()
+            love.audio.play(R.sounds.fire)
             cb()
         end
     end)
