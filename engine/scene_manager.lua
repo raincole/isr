@@ -40,6 +40,7 @@ function SceneManager:backScene()
 	self._translating = 0
 	self._canvas = nil
 	self._canvas2 = nil
+	table.remove(self._sceneStack)
 end
 
 function SceneManager:switchScene(next, ...)
@@ -50,6 +51,10 @@ end
 function SceneManager:translate()
 	if self._translateAnim == 'fade' then
 		self:translate_fade()
+		return
+	end
+	if self._translateAnim == 'slideFromUp' then
+		self:translate_slideFromUp()
 		return
 	end
 
@@ -79,12 +84,25 @@ function SceneManager:translate_fade()
 	love.graphics.setColor(r, g, b, a)
 end
 
+function SceneManager:translate_slideFromUp()
+	local percent = self._translating / self._translateTime
+	local s = 0.3
+	local h = 200
+	local h2 = love.graphics.getHeight() - h
+	if percent <= s then
+		love.graphics.draw(self._canvas2, 0, -h2 * (percent / s))
+		love.graphics.draw(self._canvas, 0, h * (percent / s))
+	else
+		love.graphics.draw(self._canvas, 0, h * (1 - percent) / (1 - s))
+		love.graphics.draw(self._canvas2, 0, -h2 * (1 - percent) / (1 - s))
+	end
+end
+
 function SceneManager:_moveScene()
 	if self._nextScene == 'back' then
 		self._nextScene = table.remove(self._sceneStack)
-	else
-		table.insert(self._sceneStack, self._nextScene)
 	end
+	table.insert(self._sceneStack, self._nextScene)
 end
 
 -- love2d events

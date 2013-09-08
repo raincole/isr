@@ -4,8 +4,8 @@ local Scene_Title = class(Scene_Base)
 
 function Scene_Title:__init(info, item)
 	Scene_Title._base.__init(self, info)
-
-	self.translation = 0
+	self.translationAnim = 'fade'
+	self.translation = 0.6
 
 	self.item = item or 1
 	if self.item > 10 then self.item = 10 end
@@ -26,6 +26,13 @@ end
 function Scene_Title:onKeyReleased(key)
 	if key == ' ' then
 		Game.SceneManager:nextScene(Scene_Game, R.levels[1])
+	elseif key == 'up' or key == 'w' 
+		or key == 'down' or key == 's' then
+		local canvas = love.graphics.newCanvas()
+		canvas:renderTo(function()
+			self:draw()
+		end)
+		Game.SceneManager:nextScene(Scene_Credit, canvas)
 	elseif key == 'left' or
 		key == 'a' then
 		self.item = self.item + 1

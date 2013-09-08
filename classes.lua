@@ -21,6 +21,7 @@ BarbarianManager = require 'game/barbarian_manager'
 
 Scene_TitleAnim = require 'game/scene/scene_title_anim'
 Scene_Title = require 'game/scene/scene_title'
+Scene_Credit = require 'game/scene/scene_credit'
 Scene_Game = require 'game/scene/scene_game'
 Scene_Result = require 'game/scene/scene_result'
 
