@@ -22,7 +22,12 @@ R.images = {
 		newImage("assets/images/sticks/stick_6.png"),
 	},
 	stickfire = newImage("assets/images/stickfire.png"),
-	thounder = newImage("assets/animation/thounder.png")
+	thounder = newImage("assets/animation/thounder.png"),
+	sceneCountdwon = {
+		newImage("assets/images/ui/time_full.png"),
+		newImage("assets/images/ui/time_empty.png"),
+		newImage("assets/images/ui/time_bar.png"),
+	},
 }
 
 R.sounds = {
@@ -125,6 +130,21 @@ R.metadatas = {
 	},
 	fire = {
 		burnRadius = 30,
+	},
+	sceneCountdwon = {
+		whole = {
+			size = {
+				width = R.images.sceneCountdwon[1]:getWidth(),
+				height = R.images.sceneCountdwon[1]:getHeight()
+			},
+			quad = newQuad(0,0,189,28,189,28),
+		},
+		bar = {
+			size = {
+				width = R.images.sceneCountdwon[3]:getWidth(),
+				height = R.images.sceneCountdwon[3]:getHeight()
+			},
+		},
 	},
 }
 
