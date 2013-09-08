@@ -14,7 +14,11 @@ end
 function Scene_Result:draw()
 	love.graphics.draw(self.canvas)
 	if self.result.status == 'win' then
-		love.graphics.draw(R.images.result_Y)
+		if self.result.next > #R.levels then
+			love.graphics.draw(R.images.result_Y_LAST)
+		else
+			love.graphics.draw(R.images.result_Y)
+		end
 	else
 		love.graphics.draw(R.images.result_N)
 	end
@@ -23,10 +27,10 @@ function Scene_Result:draw()
 end
 
 function Scene_Result:onKeyReleased(key)
-	if key == ' ' then
+	if key == ' ' and self.result.next <= #R.levels then
 		Game.SceneManager:switchScene(Scene_Game, R.levels[self.result.next])
 	elseif key == 'escape' then
-		Game.SceneManager:backScene()
+		Game.SceneManager:backScene(self.result.next, self.result.next)
 	end
 
 	Scene_Result._base.onKeyReleased(self, key)

@@ -30,7 +30,13 @@ R.images = {
 	thounder = newImage("assets/images/sprites/thounder.png"),
 	title = {
 		map = newImage('assets/images/opening/map_1.png'),
+		mapALL = newImage('assets/images/opening/map_2.png'),
 		man = newImage('assets/images/opening/man.png'),
+		barbs = {
+			newImage('assets/images/opening/barb_1.png'),
+			newImage('assets/images/opening/barb_2.png'),
+			newImage('assets/images/opening/barb_3.png'),
+		},
 	},
 	countdown = {
 		scene = {
@@ -131,7 +137,7 @@ R.fonts = {
 }
 
 R.levels = {
-	require 'assets/levels/1',
+	'#tutorial',
 	require 'assets/levels/1',
 }
 
@@ -150,6 +156,7 @@ R.metadatas = {
 			{ x =  87, y = 184 },
 		},
 		manOffset = { x = 19, y = 47 },
+		barbOffset = { x = 16, y = 47 },
 	},
 	stick = {
 		firePosition = {

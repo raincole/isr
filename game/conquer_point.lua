@@ -20,15 +20,11 @@ function ConquerPoint:__init(name, scene)
 
 end
 
-function ConquerPoint:update(dt)
-    ConquerPoint._base.update(self, dt)
-    self.conquerReached = self.scene.colonizedBarbariansNum
-    self.conquerTarget = self.scene.level.target
-end
-
 function ConquerPoint:draw()
     love.graphics.draw( self.imgIcon, self.x, self.y)
 
+    self.conquerReached = self.scene.colonizedBarbariansNum
+    self.conquerTarget = self.scene.level.target
     for i=1, self.conquerTarget do
         if i <= self.conquerReached then
             love.graphics.draw(self.imgGetPoint, self.x - 10*i, self.y, 0, 1, 1, self.pointX, self.pointY)

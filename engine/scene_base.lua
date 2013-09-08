@@ -40,8 +40,8 @@ function Scene_Base:onKeyReleased(key)
 	self._screen:onKeyReleased(key)
 end
 
-function Scene_Base:pause()
+function Scene_Base:pause() end
 
-end
+function Scene_Base:resume() end
 
 return Scene_Base

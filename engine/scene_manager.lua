@@ -33,14 +33,15 @@ function SceneManager:nextScene(next, ...)
 	self._canvas2 = nil
 end
 
-function SceneManager:backScene()
-	self._nextScene = 'back'
+function SceneManager:backScene(...)
+	table.remove(self._sceneStack)
+	self._nextScene = table.remove(self._sceneStack)
+	self._nextScene:resume(...)
 	self._translateTime = self.currentScene.translation
 	self._translateAnim = self.currentScene.translationAnim
 	self._translating = 0
 	self._canvas = nil
 	self._canvas2 = nil
-	table.remove(self._sceneStack)
 end
 
 function SceneManager:switchScene(next, ...)
@@ -99,9 +100,6 @@ function SceneManager:translate_slideFromUp()
 end
 
 function SceneManager:_moveScene()
-	if self._nextScene == 'back' then
-		self._nextScene = table.remove(self._sceneStack)
-	end
 	table.insert(self._sceneStack, self._nextScene)
 end
 
