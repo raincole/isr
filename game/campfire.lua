@@ -66,12 +66,11 @@ function Campfire:draw()
     love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()),
         self.x , self.y + 10 , 100, "left" )
 
-    proportion = self.timer:getRemainTime() / self.timer:getLifeTime()
+    local proportion = self.timer:getRemainTime() / self.timer:getLifeTime()
     if proportion < 0 then proportion = 0 end
 
     width = self.lifeImage:getWidth();
     height = self.lifeImage:getHeight();
-    quad = love.graphics.newQuad(0, 0, width*proportion, height, width, height)
     love.graphics.draw( self.lifeImage, self.x - width*proportion*0.5 , self.y - self.oy - 10, 0, proportion, 1)
 end
 
