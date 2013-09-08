@@ -2,7 +2,7 @@ require 'vendor/class'
 
 local Campfire = class(Animator)
 
-function Campfire:__init(name, x, y)
+function Campfire:__init(name, x, y, sticksNum)
     Campfire._base.__init(self, name, R.anims.campfire())
     self.x = math.floor(x)
     self.y = math.floor(y)
@@ -14,12 +14,12 @@ function Campfire:__init(name, x, y)
     self.zIndex = 10
     self.barbs = {}
 
-    self.timer = Timer('campfire_timer', 100)
+    self.timer = Timer('campfire_timer', sticksNum * R.metadatas.campfire.oneStickLifespan / 2)
 
     self.barbsLimitNum = 5
     self.barbsBeingNum = 0
 
-    self.radius = 25
+    self.radius = R.metadatas.fire.burnRadius
 end
 
 function Campfire:registerObservers()
@@ -33,7 +33,7 @@ function Campfire:registerObservers()
         if stick.toRemove == true then return end
         local sqrDistance = (self.x - stick.x) * (self.x - stick.x) + (self.y - stick.y) * (self.y - stick.y)
         if sqrDistance <= self.radius * self.radius then
-            self:changeLifeTime(R.metadatas.campfire.oneStickLifespan)
+            self:addOneStick()
             cb()
         end
     end)
@@ -83,7 +83,11 @@ function Campfire:changeLifeTime(seconds)
 end
 
 function Campfire:minusOneStick()
-    self:changeLifeTime(-R.metadatas.campfire.oneStickLifespan)
+    self:changeLifeTime(-R.metadatas.campfire.oneStickLifespan/2)
+end
+
+function Campfire:addOneStick()
+    self:changeLifeTime(R.metadatas.campfire.oneStickLifespan/2)
 end
 
 function Campfire:isFull()
