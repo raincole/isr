@@ -18,7 +18,7 @@ function Scene_Title:__init(info, item)
 end
 
 function Scene_Title:draw()
-	if self.unlock < 10 then
+	if self.unlock <= 10 then
 		love.graphics.draw(self.map)
 	else
 		love.graphics.draw(self.map_ALL)
