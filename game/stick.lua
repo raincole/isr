@@ -15,7 +15,7 @@ function Stick:__init(name, x, y)
 	self.fired = false
 	self.glow = false
 	self.zIndex = 0
-	self.burnTime = 5
+	self.burnTime = R.metadatas.campfire.oneStickLifespan
 	self.burnTimer = nil
 
 	self.name = name
@@ -40,10 +40,6 @@ function Stick:update(dt)
 	self._fire.y = self.y - self.oy + self.fireOffset.y
 	Stick._base.update(self, dt)
 
-	if self.burnTimer == nil and self.fired == true then
-		self.burnTimer = Timer(self.name, self.burnTime)
-	end
-
 	if self.burnTimer ~= nil and self.burnTimer:isTimeUp() == true then
 		self.fired = false
 		self.burnTimer = nil
@@ -60,7 +56,7 @@ function Stick:update(dt)
 		)
 		if #sticks >= R.metadatas.campfire.upgradeThreshold then
 			Game.SceneManager:getNowRunning().stickManager:changeBurningStickNum(1)
-			local campfire = Campfire('campfire', self._fire.x, self._fire.y)
+			local campfire = Campfire('campfire', self._fire.x, self._fire.y, #sticks)
 			-- TODO: provide a function to push entity to root
 			Game.SceneManager:getNowRunning()._screen:addEntity(campfire)
 
@@ -90,8 +86,11 @@ function Stick:draw()
 	end
 end
 
-function Stick:isFired()
-	return self._fire
+function Stick:getFired()
+	self.fired = true
+	if self.burnTimer == nil then
+		self.burnTimer = Timer(self.name, self.burnTime)
+	end
 end
 
 return Stick

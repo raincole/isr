@@ -20,6 +20,7 @@ function Animator:draw()
 end
 
 function Animator:getCurrentAnim()
+	print(self:getCurrentAnimIndex())
 	return self.anims[self:getCurrentAnimIndex()]
 end
 

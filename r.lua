@@ -114,6 +114,7 @@ R.metadatas = {
 		},
 	},
 	player = {
+		speed = 150,
 		firePosition = {
 			{ x = 68, y = 24 }, { x = 70, y = 24 }, { x = 68, y = 24 }, { x = 66, y = 24 },
 			{ x = 8 , y = 24 }, { x = 6 , y = 24 }, { x = 8 , y = 24 }, { x = 10, y = 24 },
@@ -122,11 +123,11 @@ R.metadatas = {
 		},
 	},
 	campfire = {
-		oneStickLifespan = 2,
+		oneStickLifespan = 7,
 		upgradeThreshold = 5,
 	},
 	fire = {
-		burnRadius = 30,
+		burnRadius = 25,
 	},
 }
 
