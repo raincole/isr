@@ -37,3 +37,5 @@ Campfire = require 'game/campfire'
 Barbarian = require 'game/barbarian'
 Thounder = require 'game/thounder'
 
+Border = require 'game/border'
+
