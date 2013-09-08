@@ -10,8 +10,8 @@ function ConquerPoint:__init(name, scene)
     self.conquerReached = 0
     self.conquerTarget = 0
 
-    self.x = love.graphics.getWidth() - 30
-    self.y = love.graphics.getHeight() - 30
+    self.x = love.graphics.getWidth() - 42
+    self.y = love.graphics.getHeight() - 37
     self.ox = self.imgIcon:getWidth() / 2
     self.oy = self.imgIcon:getHeight() / 2
     self.pointX = self.imgGetPoint:getWidth() / 2

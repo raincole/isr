@@ -14,9 +14,9 @@ end
 function BarbarianManager:randomAddBarbarian()
 	local barbarian = Barbarian('barbarian')
 	local dir = math.random(4)
-	local minX = 0
+	local minX = 20
 	local maxX = 780
-	local minY = 0
+	local minY = 20
 	local maxY = 580
 
 	if dir == 1 then

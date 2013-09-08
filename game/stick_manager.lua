@@ -25,6 +25,10 @@ function StickManager:getRealPosition(block, position)
 end
 
 function StickManager:addStick(stick, info)
+	if stick.x < 0 then stick.x = 0 end
+	if stick.y < 0 then stick.y = 0 end
+	if stick.x > 799 then stick.x = 799 end
+	if stick.y > 599 then stick.y = 599 end
 	if info == nil then -- real position
 		info = { x = math.floor(stick.x / (love.graphics.getWidth() / self.blockSize.x) + 1),
 				  y = math.floor(stick.y / (love.graphics.getHeight() / self.blockSize.y) + 1) }
