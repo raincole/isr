@@ -1,13 +1,13 @@
 return {
 	playerPos = { x = 400, y = 300 },
 	orginalSticks = 20,
-	spawnLightCond = 20,
+	spawnLightCond = 5,
 	spawnLightRate = 0.0113,
 	spawnStickCond = 100,
 	spawnStickRate = 0.04175,
 	timeLimit = 60,
 	index = 10,
-	target = 10,
+	target = 5,
 	blockRock = { 
 		{ x = 2, y = 5 }, { x = 3, y = 5 }, { x = 3, y = 10 }, { x = 4, y = 6 }, 
 		{ x = 4, y = 8 }, { x = 6, y = 2 }, { x = 6, y = 5 }, { x = 6, y = 7 }, 
