@@ -7,8 +7,8 @@ function ConquerPoint:__init(name, scene)
     self.imgIcon = R.images.conquerPoint[1]
     self.imgEmptyPoint = R.images.conquerPoint[2]
     self.imgGetPoint = R.images.conquerPoint[3]
-    self.conquerReached = 7
-    self.conquerTarget = 10
+    self.conquerReached = 0
+    self.conquerTarget = 0
 
     self.x = love.graphics.getWidth() - 30
     self.y = love.graphics.getHeight() - 30
