@@ -42,6 +42,8 @@ function Scene_Title:resume(item, unlock)
 	if item then
 		self.item = item
 	end
+	if self.item > 10 then self.item = 10 end
+	if self.item < 1  then self.item = 1  end
 	if unlock then
 		if self.unlock < unlock then
 			self.unlock = unlock
