@@ -19,8 +19,8 @@ R.images = {
 		newImage("assets/images/sprites/stick_5.png"),
 		newImage("assets/images/sprites/stick_6.png"),
 	},
-	stickfire = newImage("assets/images/stickfire.png"),
-	thounder = newImage("assets/animation/thounder.png"),
+	stickfire = newImage("assets/images/sprites/stickfire.png"),
+	thounder = newImage("assets/images/sprites/thounder.png"),
 	sceneCountdwon = {
 		newImage("assets/images/ui/time_full.png"),
 		newImage("assets/images/ui/time_empty.png"),
