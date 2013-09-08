@@ -17,6 +17,7 @@ function Barbarian:__init(name)
     self.reachedRadius = 50
     self.nextWayPoint = nil
     self.zIndex = 10
+    self.anims.img = R.images.barbarian[math.random(3)]
 end
 
 function Barbarian:registerObservers()
@@ -108,6 +109,9 @@ function Barbarian:getCurrentAnimIndex()
 end
 
 function Barbarian:findCampfire()
+    if not self.dancing then
+        love.audio.play(R.sounds.dancing)
+    end
     beholder.trigger(Event.CHANGE_COLONIZED_BARBARIANS, 1)
     self.dancing = true
 end

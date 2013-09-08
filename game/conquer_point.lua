@@ -25,7 +25,7 @@ end
 function ConquerPoint:update(dt)
     ConquerPoint._base.update(self, dt)
     self.conquerReached = self.scene.colonizedBarbariansNum
-    self.conquerTarget = self.scene.target
+    self.conquerTarget = self.scene.level.target
 end
 
 function ConquerPoint:draw()

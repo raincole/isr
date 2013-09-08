@@ -7,9 +7,16 @@ local R = {}
 
 R.images = {
 	bg = newImage("assets/images/bg.png"),
+	result_Y = newImage("assets/images/result_Y.png"),
+	result_N = newImage("assets/images/result_N.png"),
+	CREDIT = newImage("assets/images/CREDIT.png"),
 	player = newImage("assets/images/sprites/player.png"),
 	playerStick = newImage("assets/images/sprites/player_stick.png"),
-	barbarian = newImage("assets/images/sprites/bab_1.png"),
+	barbarian = {
+		newImage("assets/images/sprites/bab_1.png"),
+		newImage("assets/images/sprites/bab_2.png"),
+		newImage("assets/images/sprites/bab_3.png"),
+	},
     campfire =  newImage("assets/images/sprites/campfire.png"),
 	sticks = {
 		newImage("assets/images/sprites/stick_1.png"),
@@ -44,9 +51,15 @@ R.images = {
 }
 
 R.sounds = {
+	campfire = newSound("assets/sounds/campfire.ogg"),
+	dancing = newSound("assets/sounds/dancing.ogg"),
+	fire = newSound("assets/sounds/fire.ogg"),
+	thunder = love.sound.newSoundData("assets/sounds/thunder.ogg"),
 }
 
 R.musics = {
+	menu = newMusic("assets/musics/menu.ogg"),
+	level = newMusic("assets/musics/level.ogg"),
 }
 
 R.anims = {
@@ -78,16 +91,16 @@ R.anims = {
 	end,
 	barbarian = function()
 		return {
-			left      = newAnimation(R.images.barbarian, 34, 48, 0.1, {5, 6, 7, 8}),
-			upLeft    = newAnimation(R.images.barbarian, 34, 48, 0.1, {5, 6, 7, 8}),
-			downLeft  = newAnimation(R.images.barbarian, 34, 48, 0.1, {5, 6, 7, 8}),
-			right     = newAnimation(R.images.barbarian, 34, 48, 0.1, {1, 2, 3, 4}),
-			upRight   = newAnimation(R.images.barbarian, 34, 48, 0.1, {1, 2, 3, 4}),
-			downRight = newAnimation(R.images.barbarian, 34, 48, 0.1, {1, 2, 3, 4}),
-			up        = newAnimation(R.images.barbarian, 34, 48, 0.1, {13, 14, 15, 16}),
-			down      = newAnimation(R.images.barbarian, 34, 48, 0.1, {9, 10, 11, 12}),
-			center    = newAnimation(R.images.barbarian, 34, 48, 0.1, {9, 10, 11, 12}),
-			dancing   = newAnimation(R.images.barbarian, 34, 48, 0.2, {17, 18, 19, 20, 21, 22, 23, 24}),
+			left      = newAnimation(R.images.barbarian[1], 34, 48, 0.1, {5, 6, 7, 8}),
+			upLeft    = newAnimation(R.images.barbarian[1], 34, 48, 0.1, {5, 6, 7, 8}),
+			downLeft  = newAnimation(R.images.barbarian[1], 34, 48, 0.1, {5, 6, 7, 8}),
+			right     = newAnimation(R.images.barbarian[1], 34, 48, 0.1, {1, 2, 3, 4}),
+			upRight   = newAnimation(R.images.barbarian[1], 34, 48, 0.1, {1, 2, 3, 4}),
+			downRight = newAnimation(R.images.barbarian[1], 34, 48, 0.1, {1, 2, 3, 4}),
+			up        = newAnimation(R.images.barbarian[1], 34, 48, 0.1, {13, 14, 15, 16}),
+			down      = newAnimation(R.images.barbarian[1], 34, 48, 0.1, {9, 10, 11, 12}),
+			center    = newAnimation(R.images.barbarian[1], 34, 48, 0.1, {9, 10, 11, 12}),
+			dancing   = newAnimation(R.images.barbarian[1], 34, 48, 0.2, {17, 18, 19, 20, 21, 22, 23, 24}),
 		}
 	end,
 	stickfire = function()
@@ -109,6 +122,7 @@ R.fonts = {
 }
 
 R.levels = {
+	require 'assets/levels/1',
 	require 'assets/levels/1',
 }
 

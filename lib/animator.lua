@@ -12,11 +12,13 @@ function Animator:__init(name, anims)
 end
 
 function Animator:update(dt)
-	self:getCurrentAnim():update(dt)
+	local anim = self:getCurrentAnim()
+	if anim then self:getCurrentAnim():update(dt) end
 end
 
 function Animator:draw()
-	self:getCurrentAnim():draw(self.x - self.ox, self.y - self.oy)
+	local anim = self:getCurrentAnim()
+	if anim then anim:draw(self.x - self.ox, self.y - self.oy) end
 end
 
 function Animator:getCurrentAnim()
