@@ -50,9 +50,15 @@ R.images = {
 }
 
 R.sounds = {
+	campfire = newSound("assets/sounds/campfire.ogg"),
+	dancing = newSound("assets/sounds/dancing.ogg"),
+	fire = newSound("assets/sounds/fire.ogg"),
+	thunder = love.sound.newSoundData("assets/sounds/thunder.ogg"),
 }
 
 R.musics = {
+	menu = newMusic("assets/musics/menu.ogg"),
+	level = newMusic("assets/musics/level.ogg"),
 }
 
 R.anims = {

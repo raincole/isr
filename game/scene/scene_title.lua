@@ -12,12 +12,13 @@ function Scene_Title:__init(info, item)
 	if self.item < 1  then self.item = 1  end
 	self.map = R.images.title.map
 	self.man = R.images.title.man
+
 end
 
 function Scene_Title:draw()
 	love.graphics.draw(self.map)
-	love.graphics.draw(self.man, 
-		R.metadatas.title.stagePosition[self.item].x - R.metadatas.title.manOffset.x, 
+	love.graphics.draw(self.man,
+		R.metadatas.title.stagePosition[self.item].x - R.metadatas.title.manOffset.x,
 		R.metadatas.title.stagePosition[self.item].y - R.metadatas.title.manOffset.y)
 
 	Scene_Title._base.draw(self)

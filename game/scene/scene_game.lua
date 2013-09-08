@@ -44,6 +44,10 @@ function Scene_Game:__init(info, level)
 	self.countdown = Countdown(level.timeLimit)
 	self._screen:addEntity(self.countdown)
 	self._screen:addEntity(ConquerPoint("conquerPoint", self))
+
+	love.audio.stop(Game.globalStroage.bgm)
+	Game.globalStroage.bgm = R.musics.level
+	love.audio.play(Game.globalStroage.bgm)
 end
 
 function Scene_Game:update(dt)

@@ -63,8 +63,8 @@ function SceneManager:translate()
 	love.graphics.draw(self._canvas2, 0, 0)
 
 	for i = 0, math.floor(love.graphics.getHeight() / self.translateBlockHeight) do
-		local quad = love.graphics.newQuad(0, i * self.translateBlockHeight, 
-			love.graphics.getWidth(), self.translateBlockHeight * percent, 
+		local quad = love.graphics.newQuad(0, i * self.translateBlockHeight,
+			love.graphics.getWidth(), self.translateBlockHeight * percent,
 			love.graphics.getWidth(), love.graphics.getHeight()
 		)
 		love.graphics.drawq(self._canvas, quad, 0, i * self.translateBlockHeight)
@@ -112,6 +112,7 @@ function SceneManager:update(dt)
 		self._translating = self._translating + dt
 		if self._translating > self._translateTime then
 			self._translate = false
+			self.currentScene:dispose()
 			self.currentScene = self._nextScene
 			self._nextScene = nil
 		end
@@ -144,7 +145,7 @@ function SceneManager:draw()
 		self:translate()
 		return
 	end
-	
+
 	self.currentScene:draw()
 end
 
