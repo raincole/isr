@@ -27,4 +27,24 @@ function Animator:getCurrentAnimIndex()
 	return 1
 end
 
+function Animator:getRect()
+    return Rect(self.x - self.width / 2, self.y - self.height / 2,
+                self.width, self.height)
+end
+
+function Animator:tryToMove(dir, length)
+	local rect = self:getRect()
+	local firstCollisionTime = 1
+	local velocity = dir:stretchTo(length)
+
+	beholder.trigger(Event.TRY_TO_MOVE, rect, velocity, function(collisionTime)
+		firstCollisionTime = math.min(firstCollisionTime, collisionTime)
+	end)
+
+	local displacement = velocity:scale(firstCollisionTime)
+	self.x = self.x + displacement.x
+	self.y = self.y + displacement.y
+	return displacement
+end
+
 return Animator

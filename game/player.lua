@@ -8,6 +8,8 @@ function Player:__init(name)
 	self.y = 0
 	self.ox = 16
 	self.oy = 35
+	self.width = 32
+	self.height = 20
 	self.zIndex = 10
 
 	self.moving = false
@@ -69,9 +71,7 @@ function Player:_handleMove(dt)
 
 		local vect = Direction.toVect(dir)
 		local frameSpeed = self.speed * dt
-		local displacement = vect:stretchTo(frameSpeed)
-		self.x = self.x + displacement.x
-		self.y = self.y + displacement.y
+		self:tryToMove(vect, frameSpeed)
 	end
 end
 

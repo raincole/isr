@@ -6,6 +6,8 @@ function Barbarian:__init(name)
     Barbarian._base.__init(self, name, R.anims.barbarian())
     self.ox = 16
     self.oy = 35
+    self.width = 32
+    self.height = 20
     self.speed = 60
     self.dir = Direction.CENTER
     self.tracing = false
@@ -79,9 +81,8 @@ function Barbarian:moveToPoint(point, frameSpeed)
 end
 
 function Barbarian:moveBy(displacement)
-    self.x = self.x + displacement.x
-    self.y = self.y + displacement.y
-    self.dir = Direction.fromApproxVect(displacement)
+    local realDisplacement = self:tryToMove(displacement:normalized(), displacement:magnitude())
+    self.dir = Direction.fromApproxVect(realDisplacement)
 end
 
 function Barbarian:reachedWayPoint()
