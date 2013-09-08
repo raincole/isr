@@ -23,7 +23,7 @@ function Scene_Result:draw()
 end
 
 function Scene_Result:onKeyReleased(key)
-	if key == '' then
+	if key == ' ' then
 		Game.SceneManager:switchScene(Scene_Game, R.levels[self.result.next])
 	elseif key == 'escape' then
 		Game.SceneManager:backScene()
