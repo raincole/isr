@@ -20,7 +20,11 @@ R.images = {
 		newImage("assets/images/sprites/stick_6.png"),
 	},
 	stickfire = newImage("assets/images/sprites/stickfire.png"),
-	thounder = newImage("assets/images/sprites/thounder.png")
+	thounder = newImage("assets/images/sprites/thounder.png"),
+	title = {
+		map = newImage('assets/images/opening/map_1.png'),
+		man = newImage('assets/images/opening/ballons/OP_134.png'),
+	},
 }
 
 R.sounds = {
