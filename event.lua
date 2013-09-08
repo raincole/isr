@@ -5,7 +5,8 @@ local Event = {
 	PUT_STICK_ON_GROUND = 'putStickOnGround',
 	CAMPFIRE = 'campire',
 	TRY_TO_MOVE = 'tryToMove',
-	CHANGE_COLONIZED_BARBARIANS = 'changeColonizedBarbarians'
+	CHANGE_COLONIZED_BARBARIANS = 'changeColonizedBarbarians',
+    HERE_IS_SAND = 'hereIsSand',
 }
 
 return Event

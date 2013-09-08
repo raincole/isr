@@ -40,6 +40,7 @@ R.images = {
 		newImage("assets/images/ui/people_1.png"),
 	},
 	rock = newImage("assets/images/sprites/rocks.png"),
+	sand = newImage("assets/images/sprites/sands.png"),
 }
 
 R.sounds = {

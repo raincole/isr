@@ -50,6 +50,18 @@ function Player:update(dt)
 			self.holdingItem = nil
 		end
 	end
+
+	self.speed = R.metadatas.player.speed
+end
+
+function Player:registerObservers()
+    beholder.observe(Event.HERE_IS_SAND, function(x, y,width,height)
+    	if x <= self.x and self.x <= x+width then
+    		if y <= self.y+11 and self.y+11 <= y+height then
+    			self.speed = 30
+    		end
+    	end
+    end)
 end
 
 function Player:draw()

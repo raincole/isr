@@ -5,10 +5,10 @@ local Scene_Game = class(Scene_Base)
 function Scene_Game:__init(info, level)
 	Scene_Game._base.__init(self, info)
 
-	local player = Player('player')
-	player.x = 320
-	player.y = 240
-	self._screen:addEntity(player)
+	Game.player = Player('player')
+	Game.player.x = 320
+	Game.player.y = 240
+	self._screen:addEntity(Game.player)
 
 	self.stickManager = StickManager("stickManager")
 	self._screen:addEntity(self.stickManager)
@@ -37,8 +37,8 @@ function Scene_Game:__init(info, level)
 	self._screen:addEntity(conquerPoint)	
 
 	--rock test
-	local rock = Rock("rock1",51,51)
-	self._screen:addEntity(rock)
+	local element = Sand("ele",51,51)
+	self._screen:addEntity(element)
 end
 
 function Scene_Game:update(dt)
