@@ -79,7 +79,7 @@ function Scene_Tutorial:update(dt)
 		)
 	end
 
-	beholder.trigger(Event.LIGHT_SOURCE, 610, 300, 60)
+	beholder.trigger(Event.LIGHT_SOURCE, 610, 300, 90)
 
 	if self.phrase == 'move' then
 		if love.keyboard.isDown('w') or
