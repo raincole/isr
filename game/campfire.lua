@@ -6,13 +6,15 @@ function Campfire:__init(name, x, y)
     Campfire._base.__init(self, name, R.anims.campfire())
     self.x = math.floor(x)
     self.y = math.floor(y)
+    self.width = 26
+    self.height = 10
     self.ox = 23
     self.oy = 39
     self.lightRadius = 30
     self.zIndex = 10
     self.barbs = {}
 
-    self.timer = Timer('campfire_timer', 10)
+    self.timer = Timer('campfire_timer', 100)
 
     self.barbsLimitNum = 5
     self.barbsBeingNum = 0
@@ -28,6 +30,9 @@ function Campfire:registerObservers()
             self:changeLifeTime(R.metadatas.campfire.oneStickLifespan)
             cb()
         end
+    end)
+    beholder.observe(Event.TRY_TO_MOVE, function(rect, velocity, callback)
+        callback(rect:collisionTime(self:getRect(), velocity))
     end)
 end
 
@@ -50,7 +55,7 @@ end
 function Campfire:draw()
     Campfire._base.draw(self)
 
-    love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()), 
+    love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()),
         self.x , self.y + 10 , 100, "left" )
     -- TODO: 營火生命週期血條
     --       血條從正中間為抵，時間越長越往兩側伸展，反之則越往中間縮短
