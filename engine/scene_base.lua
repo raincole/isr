@@ -4,7 +4,6 @@ local Scene_Base = class()
 
 function Scene_Base:__init()
 	self._screen = Screen()
-	self._translate = 3
 end
 
 function Scene_Base:update(dt)
