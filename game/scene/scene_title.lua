@@ -5,6 +5,8 @@ local Scene_Title = class(Scene_Base)
 function Scene_Title:__init(info, item)
 	Scene_Title._base.__init(self, info)
 
+	self.translation = 0
+
 	self.item = item or 1
 	if self.item > 10 then self.item = 10 end
 	if self.item < 1  then self.item = 1  end

@@ -171,7 +171,7 @@ end
 
 
 function Scene_TitleAnim:aniStep5(frame)
-	Game.SceneManager:switchScene(Scene_Title(), 0)
+	Game.SceneManager:switchScene(Scene_Title)
 end
 
 function Scene_TitleAnim:aniDraw5()
