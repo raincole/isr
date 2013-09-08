@@ -25,6 +25,15 @@ R.images = {
 		map = newImage('assets/images/opening/map_1.png'),
 		man = newImage('assets/images/opening/ballons/OP_134.png'),
 	},
+	countdown = {
+		scene = {
+			newImage("assets/images/ui/time_full.png"),
+			newImage("assets/images/ui/time_empty.png"),
+			newImage("assets/images/ui/time_bar.png"),		
+		},
+		stick = newImage("assets/images/ui/stick_fire_life.png"),
+		campfire = newImage("assets/images/ui/firecamp_life.png"),
+	},
 }
 
 R.sounds = {
@@ -81,7 +90,11 @@ R.anims = {
 		return { newAnimation(R.images.thounder, 32, 600, 0.08, 0) }
 	end,
 	campfire = function()
-		return { newAnimation(R.images.campfire, 50, 56, 0.16, 0) }
+		return {
+			normal = newAnimation(R.images.campfire, 52, 56, 0.16, {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
+			glow = newAnimation(R.images.campfire, 52, 56, 0.16, {11, 12, 13, 14, 15,
+					   										     16, 17, 18, 19, 20}),
+		}
 	end,
 }
 
@@ -114,6 +127,7 @@ R.metadatas = {
 		},
 	},
 	player = {
+		speed = 150,
 		firePosition = {
 			{ x = 68, y = 24 }, { x = 70, y = 24 }, { x = 68, y = 24 }, { x = 66, y = 24 },
 			{ x = 8 , y = 24 }, { x = 6 , y = 24 }, { x = 8 , y = 24 }, { x = 10, y = 24 },
@@ -122,11 +136,26 @@ R.metadatas = {
 		},
 	},
 	campfire = {
-		oneStickLifespan = 2,
+		oneStickLifespan = 7,
 		upgradeThreshold = 5,
 	},
 	fire = {
-		burnRadius = 30,
+		burnRadius = 25,
+	},
+	sceneCountdwon = {
+		whole = {
+			size = {
+				width = R.images.countdown.scene[1]:getWidth(),
+				height = R.images.countdown.scene[1]:getHeight()
+			},
+			quad = newQuad(0,0,189,28,189,28),
+		},
+		bar = {
+			size = {
+				width = R.images.countdown.scene[3]:getWidth(),
+				height = R.images.countdown.scene[3]:getHeight()
+			},
+		},
 	},
 }
 

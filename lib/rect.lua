@@ -60,8 +60,8 @@ function Rect:collisionTime(other, velocity)
 
 	if exit < 1e-5 then
 		return math.huge
-	elseif enter < 1e-5 then
-		return 0
+	elseif enter < 0 and exit > 0 then
+		return math.huge
 	else
 		return enter
 	end

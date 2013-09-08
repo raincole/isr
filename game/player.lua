@@ -13,7 +13,7 @@ function Player:__init(name)
 	self.zIndex = 10
 
 	self.moving = false
-	self.speed = 120
+	self.speed = R.metadatas.player.speed
 	self.pickingRadius = 40
 	self.lightRadius = 80
 	self.handLength = 20
@@ -41,8 +41,14 @@ function Player:update(dt)
 		self:getCurrentAnim():reset()
 	end
 
-	if self.holdingItem and self.holdingItem:isFired() then
+	if self.holdingItem and self.holdingItem.fired then
 		beholder.trigger(Event.LIGHT_SOURCE, self.x, self.y, self.lightRadius)
+		local timer = self.holdingItem.burnTimer
+		if timer and timer:isTimeUp() then
+			Game.SceneManager:getNowRunning().stickManager:changeBurningStickNum(-1)
+			self:useNormalAnim()
+			self.holdingItem = nil
+		end
 	end
 end
 
@@ -95,24 +101,36 @@ end
 
 function Player:onKeyReleased(key)
 	if key == ' ' or key == 'j' then
-		item = self.holdingItem
+		local item = self.holdingItem
+		local sm = Game.SceneManager:getNowRunning().stickManager
 		if item then -- put item
-			self.ox = 16
-			self.anims = R.anims.player()
+			self:useNormalAnim()
 			item.x = math.floor(self:getHandPosition().x)
 			item.y = math.floor(self:getHandPosition().y)
-			local sm = Game.SceneManager:getNowRunning().stickManager
 			sm:addStick(item, nil) -- sitck only
 			self.holdingItem = nil
 		elseif self.targetItem then -- hold item
-			self.ox = 36
-			self.anims = R.anims.playerStick()
-			self.targetItem:removeSelf()
-			self.holdingItem = self.targetItem
-			local sm = Game.SceneManager:getNowRunning().stickManager
-			sm:removeStick(self.targetItem)
+			self:useStickAnim()
+			if self.targetItem:is_a(Stick) then
+				self.targetItem:removeSelf()
+				self.holdingItem = self.targetItem
+				sm:removeStick(self.targetItem)
+			else
+				self.targetItem:minusOneStick()
+				self.holdingItem = sm:generateFireStick()
+			end
 		end
 	end
+end
+
+function Player:useNormalAnim()
+	self.ox = 16
+	self.anims = R.anims.player()
+end
+
+function Player:useStickAnim()
+	self.ox = 36
+	self.anims = R.anims.playerStick()
 end
 
 function Player:getHandPosition()

@@ -2,7 +2,7 @@ require 'vendor/class'
 
 local Campfire = class(Animator)
 
-function Campfire:__init(name, x, y)
+function Campfire:__init(name, x, y, sticksNum)
     Campfire._base.__init(self, name, R.anims.campfire())
     self.x = math.floor(x)
     self.y = math.floor(y)
@@ -14,20 +14,27 @@ function Campfire:__init(name, x, y)
     self.zIndex = 10
     self.barbs = {}
 
-    self.timer = Timer('campfire_timer', 100)
+    self.timer = Timer('campfire_timer', sticksNum * R.metadatas.campfire.oneStickLifespan / 2)
+    self.lifeImage = R.images.countdown.campfire
 
     self.barbsLimitNum = 5
     self.barbsBeingNum = 0
 
-    self.radius = 15
+    self.radius = R.metadatas.fire.burnRadius
 end
 
 function Campfire:registerObservers()
+    beholder.observe(Event.CHECK_IN_RANGE, function(x, y, radius, callback)
+        local sqrDistance = (self.x - x) * (self.x - x) + (self.y - y) * (self.y - y)
+        if sqrDistance <= radius * radius then
+            callback(self, sqrDistance)
+        end
+    end)
     beholder.observe(Event.PUT_STICK_ON_GROUND, function(stick, cb)
         if stick.toRemove == true then return end
         local sqrDistance = (self.x - stick.x) * (self.x - stick.x) + (self.y - stick.y) * (self.y - stick.y)
         if sqrDistance <= self.radius * self.radius then
-            self:changeLifeTime(R.metadatas.campfire.oneStickLifespan)
+            self:addOneStick()
             cb()
         end
     end)
@@ -50,6 +57,7 @@ function Campfire:update(dt)
             end
         end)
     end
+    self.glow = false
 end
 
 function Campfire:draw()
@@ -57,11 +65,14 @@ function Campfire:draw()
 
     love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()),
         self.x , self.y + 10 , 100, "left" )
-    -- TODO: 營火生命週期血條
-    --       血條從正中間為抵，時間越長越往兩側伸展，反之則越往中間縮短
 
-    -- TODO: 營火圖案
-    --       love.graphics.draw(self.images.normal, self.ox - self.width / 2, self.oy - self.height / 2)
+    local proportion = self.timer:getRemainTime() / self.timer:getLifeTime()
+    if proportion < 0 then proportion = 0 end
+
+    local width = self.lifeImage:getWidth();
+    local height = self.lifeImage:getHeight();
+    local quad = love.graphics.newQuad(0, 0, width*proportion, height, width, height)
+    love.graphics.drawq( self.lifeImage, quad, self.x - width*proportion*0.5 , self.y - self.oy - 10)
 end
 
 function Campfire:extinguish()
@@ -75,12 +86,25 @@ function Campfire:changeLifeTime(seconds)
     self.timer:changeLifeTime(seconds)
 end
 
+function Campfire:minusOneStick()
+    self:changeLifeTime(-R.metadatas.campfire.oneStickLifespan/2)
+end
+
+function Campfire:addOneStick()
+    self:changeLifeTime(R.metadatas.campfire.oneStickLifespan/2)
+end
+
 function Campfire:isFull()
     if #self.barbs < self.barbsLimitNum then
         return false
     else
         return true
     end
+end
+
+function Campfire:getCurrentAnimIndex()
+    if self.glow then return 'glow'
+    else return 'normal' end
 end
 
 return Campfire
