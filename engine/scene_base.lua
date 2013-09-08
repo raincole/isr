@@ -24,6 +24,10 @@ function Scene_Base:draw()
 	self._screen:draw()
 end
 
+function Scene_Base:dispose()
+	self._screen:onRemoved()
+end
+
 function Scene_Base:onMousePressed(x, y, button)
 	self._screen:onMousePressed(x, y, button)
 end
@@ -37,7 +41,7 @@ function Scene_Base:onKeyReleased(key)
 end
 
 function Scene_Base:pause()
-	
+
 end
 
 return Scene_Base
