@@ -13,7 +13,7 @@ function Barbarian:__init(name)
     self.tracing = false
     self.dancing = false
     self.hasTarget = false
-    self.detectingRadius = 40
+    self.detectingRadius = 60
     self.reachedRadius = 50
     self.nextWayPoint = nil
     self.zIndex = 10

@@ -206,11 +206,11 @@ R.metadatas = {
 		},
 	},
 	campfire = {
-		oneStickLifespan = 7,
+		oneStickLifespan = 15,
 		upgradeThreshold = 5,
 	},
 	fire = {
-		burnRadius = 25,
+		burnRadius = 40,
 	},
 	sceneCountdwon = {
 		whole = {
