@@ -20,7 +20,7 @@ function Scene_Game:__init(info, level)
 
 	self.barbarianManager = BarbarianManager("barbarianManager")
 	self._screen:addEntity(self.barbarianManager)
-	for i = 1, level.orginalBarbs do
+	for i = 1, level.target do
 		self.barbarianManager:randomAddBarbarian()
 	end
 
@@ -29,9 +29,19 @@ function Scene_Game:__init(info, level)
 		self.colonizedBarbariansNum = self.colonizedBarbariansNum + n
 	end)
 
-	--rock test
-	local element = Sand("ele",51,51)
-	self._screen:addEntity(element)
+	-- Landform
+
+	for i, item in ipairs(level.blockSand) do
+		local element = Sand("Landform", item.x * 50 - 25, item.y * 50 - 25)
+		self._screen:addEntity(element)
+	end
+
+	for i, item in ipairs(level.blockRock) do
+		local element = Rock("Landform", item.x * 50 - 25, item.y * 50 - 25)
+		self._screen:addEntity(element)
+	end
+
+	-- Border
 
 	local leftBorder = Border('leftBorder', Rect(-20, -20, 10, 1000))
 	local rightBorder = Border('rightBorder', Rect(820, -20, 10, 1000))
@@ -39,7 +49,7 @@ function Scene_Game:__init(info, level)
 	local downBorder = Border('downBorder', Rect(-20, 620, 1000, 10))
 	self._screen:addEntities({leftBorder, rightBorder, upBorder, downBorder})
 
-	-- panel
+	-- Panel
 
 	self.countdown = Countdown(level.timeLimit)
 	self._screen:addEntity(self.countdown)
@@ -71,10 +81,6 @@ function Scene_Game:update(dt)
 		Game.SceneManager:switchScene(Scene_Result,
 			canvas, { status = 'lose', next = self.level.index }
 		)
-	end
-
-	if math.random() < self.level.spawnBarbRate then
-		self.barbarianManager:randomAddBarbarian()
 	end
 
 	if self.stickManager:stickCounter() <= self.level.spawnStickCond then
