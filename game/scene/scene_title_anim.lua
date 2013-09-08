@@ -22,6 +22,8 @@ function Scene_TitleAnim:__init(info)
 	self.spf = 1 / self.fps
 
 	self.title_opacity = 255
+	Game.globalStroage.bgm = R.musics.menu
+	love.audio.play(Game.globalStroage.bgm)
 end
 
 function Scene_TitleAnim:update(dt)
@@ -70,7 +72,7 @@ end
 
 function Scene_TitleAnim:onKeyReleased(key)
 	if key == ' ' then
-		Game.SceneManager:switchScene(Scene_Title, 0)
+		Game.SceneManager:switchScene(Scene_Title)
 	end
 
 	Scene_TitleAnim._base.onKeyReleased(self, key)
@@ -93,7 +95,7 @@ function Scene_TitleAnim:aniDraw1()
 	local o = self.title_opacity
 	if o > 255 then o = 255 end
 	love.graphics.setColor(255, 255, 255, self.title_opacity)
-	love.graphics.draw(self.title, 
+	love.graphics.draw(self.title,
 		(love.graphics.getWidth() - self.title:getWidth()) / 2,
 		(love.graphics.getHeight() - self.title:getHeight()) / 2)
 	love.graphics.setColor(r, g, b, a)
@@ -122,7 +124,7 @@ function Scene_TitleAnim:aniDraw2()
 
 	o = self.title_opacity
 	love.graphics.setColor(255, 255, 255, self.title_opacity)
-	love.graphics.draw(self.title, 
+	love.graphics.draw(self.title,
 		(love.graphics.getWidth() - self.title:getWidth()) / 2,
 		(love.graphics.getHeight() - self.title:getHeight()) / 2)
 

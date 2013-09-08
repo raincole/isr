@@ -5,37 +5,29 @@ local Scene_Game = class(Scene_Base)
 function Scene_Game:__init(info, level)
 	Scene_Game._base.__init(self, info)
 
+	self.level = level
+
 	local player = Player('player')
-	player.x = 320
-	player.y = 240
+	player.x = level.playerPos.x
+	player.y = level.playerPos.y
 	self._screen:addEntity(player)
 
 	self.stickManager = StickManager("stickManager")
 	self._screen:addEntity(self.stickManager)
-	for i = 1, 20 do
+	for i = 1, level.orginalSticks do
 		self.stickManager:randomAddStick()
 	end
 
-	local countdown = Countdown(10)
-	self._screen:addEntity(countdown)
-
 	self.barbarianManager = BarbarianManager("barbarianManager")
 	self._screen:addEntity(self.barbarianManager)
-	for i = 1, 5 do
+	for i = 1, level.orginalBarbs do
 		self.barbarianManager:randomAddBarbarian()
 	end
 
 	self.colonizedBarbariansNum = 0
 	beholder.observe(Event.CHANGE_COLONIZED_BARBARIANS, function(n)
 		self.colonizedBarbariansNum = self.colonizedBarbariansNum + n
-	end)
-
-	self.index = level.index
-	self.target = level.target
-
-	local conquerPoint = ConquerPoint("conquerPoint", self)
-
-	self._screen:addEntity(conquerPoint)	
+	end)	
 
 	--rock test
 	local rock = Rock("rock1",51,51)
@@ -47,12 +39,55 @@ function Scene_Game:__init(info, level)
 	local downBorder = Border('downBorder', Rect(-20, 620, 1000, 10))
 	self._screen:addEntities({leftBorder, rightBorder, upBorder, downBorder})
 
+	-- panel
+
+	self.countdown = Countdown(level.timeLimit)
+	self._screen:addEntity(self.countdown)
+	self._screen:addEntity(ConquerPoint("conquerPoint", self))
+
+	love.audio.stop(Game.globalStroage.bgm)
+	Game.globalStroage.bgm = R.musics.level
+	love.audio.play(Game.globalStroage.bgm)
 end
 
 function Scene_Game:update(dt)
-	if math.random(1000) < 17 then self.barbarianManager:randomAddBarbarian() end
-	if math.random(1000) < 17 then self.stickManager:randomLightStick() end
-	if math.random(1000) < 37 then self.stickManager:randomAddStick() end
+	if self.colonizedBarbariansNum >= self.level.target then
+		local canvas = love.graphics.newCanvas()
+		canvas:renderTo(function()
+			self:draw()
+		end)
+
+		Game.SceneManager:switchScene(Scene_Result, 
+			canvas, { status = 'win', next = self.level.index + 1 }
+		)
+	end
+
+	if self.countdown.timer:isTimeUp() then
+		local canvas = love.graphics.newCanvas()
+		canvas:renderTo(function()
+			self:draw()
+		end)
+
+		Game.SceneManager:switchScene(Scene_Result, 
+			canvas, { status = 'lose', next = self.level.index }
+		)
+	end
+
+	if math.random() < self.level.spawnBarbRate then 
+		self.barbarianManager:randomAddBarbarian()
+	end
+
+	if self.stickManager:stickCounter() <= self.level.spawnStickCond then
+		if math.random() < self.level.spawnStickRate then
+			self.stickManager:randomAddStick()
+		end
+	end
+
+	if self.stickManager:fireCounter() <= self.level.spawnLightCond then
+		if math.random() < self.level.spawnLightRate then
+			self.stickManager:randomLightStick()
+		end
+	end
 
 	Scene_Game._base.update(self, dt)
 end
