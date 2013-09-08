@@ -6,7 +6,7 @@ return {
 	spawnStickCond = 100,
 	spawnStickRate = 0.04175,
 	timeLimit = 60,
-	index = 1,
+	index = 10,
 	target = 5,
 	blockRock = { 
 		{ x = 2, y = 5 }, { x = 3, y = 5 }, { x = 3, y = 10 }, { x = 4, y = 6 }, 

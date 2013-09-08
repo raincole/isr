@@ -10,7 +10,7 @@ function Sand:__init(name, x, y)
     self.height = 50
     self.ox = 26
     self.oy = 26
-    self.zIndex = 10
+    self.zIndex = 0
     self.images = R.images.sand
     self.rand = math.random(6)
     self.radius = 35

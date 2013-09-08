@@ -6,7 +6,7 @@ return {
 	spawnStickCond = 100,
 	spawnStickRate = 0.04175,
 	timeLimit = 60,
-	index = 1,
+	index = 6,
 	target = 5,
 	blockRock = {},
 	blockSand = {
