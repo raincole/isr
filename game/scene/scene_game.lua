@@ -41,6 +41,10 @@ function Scene_Game:__init(info, level)
 	local upBorder = Border('upBorder', Rect(-20, -20, 1000, 10))
 	local downBorder = Border('downBorder', Rect(-20, 620, 1000, 10))
 	self._screen:addEntities({leftBorder, rightBorder, upBorder, downBorder})
+
+	love.audio.stop(Game.globalStroage.bgm)
+	Game.globalStroage.bgm = R.musics.level
+	love.audio.play(Game.globalStroage.bgm)
 end
 
 function Scene_Game:update(dt)

@@ -16,7 +16,8 @@ function Animator:update(dt)
 end
 
 function Animator:draw()
-	self:getCurrentAnim():draw(self.x - self.ox, self.y - self.oy)
+	local anim = self:getCurrentAnim()
+	if anim then anim:draw(self.x - self.ox, self.y - self.oy) end
 end
 
 function Animator:getCurrentAnim()
