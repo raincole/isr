@@ -1,5 +1,5 @@
 return {
-	playerPos = { x = 320, y = 240 },
+	playerPos = { x = 400, y = 300 },
 	orginalSticks = 20,
 	spawnLightCond = 5,
 	spawnLightRate = 0.0113,
