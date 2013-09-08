@@ -47,8 +47,8 @@ function Stick:update(dt)
 	if self.burnTimer ~= nil and self.burnTimer:isTimeUp() == true then
 		self.fired = false
 		self.burnTimer = nil
-		getStickManager():changeBurningStickNum(-1)
-		getStickManager():removeStick(self)
+		Game.SceneManager:getNowRunning().stickManager:changeBurningStickNum(-1)
+		Game.SceneManager:getNowRunning().stickManager:removeStick(self)
 	end
 
 	if self.fired and not self.toRemove then

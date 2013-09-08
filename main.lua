@@ -7,12 +7,7 @@ Game = {
 }
 
 function init()
-	Game.SceneManager = SceneManager(Scene_Game)
-end
-
--- TODO: move into scene
-function getStickManager()
-	return stickManager
+	Game.SceneManager = SceneManager(Scene_Title())
 end
 
 function love.load()
