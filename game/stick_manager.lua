@@ -79,10 +79,16 @@ function StickManager:randomAddStick()
 	local randPos = self:randomPosition()
 	local stickDebugName = string.format("stick [%d, %d] (%d, %d)", randBlock.x, randBlock.y, randPos.x, randPos.y)
 	local realPosition = self:getRealPosition(randBlock, randPos)
-	stick = Stick(stickDebugName, realPosition.x, realPosition.y)
+	local stick = Stick(stickDebugName, realPosition.x, realPosition.y)
 	self:addStick(stick, randBlock)
 end
 
+function StickManager:generateFireStick()
+	local stick = Stick('stick picked from campfire', 0, 0)
+	stick.fired = true
+	self:changeBurningStickNum(1)
+	return stick
+end
 
 function StickManager:randomLightStick()
 	if self._fireCounter == 0 then
@@ -90,7 +96,7 @@ function StickManager:randomLightStick()
 		local randomStick = self._sticksID[rand]
 		self._thounder = Thounder("Thounder: " .. rand, randomStick.x, randomStick.y)
 		-- TODO: provide a function to push entity to root
-		Game.SceneManager:getNowRunning()._screen:addEntity(self._thounder) 
+		Game.SceneManager:getNowRunning()._screen:addEntity(self._thounder)
 		randomStick.fired = true
 		self._fireCounter = self._fireCounter + 1
 	end

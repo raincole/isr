@@ -29,7 +29,7 @@ end
 function Stick:registerObservers()
 	beholder.observe(Event.CHECK_IN_RANGE, function(x, y, radius, callback)
 		local sqrDistance = (self.x - x) * (self.x - x) + (self.y - y) * (self.y - y)
-		if sqrDistance <= radius * radius then
+		if self.toRemove == false and sqrDistance <= radius * radius then
 			callback(self, sqrDistance)
 		end
 	end)
@@ -40,7 +40,7 @@ function Stick:update(dt)
 	self._fire.y = self.y - self.oy + self.fireOffset.y
 	Stick._base.update(self, dt)
 
-	if self.burnTimer == nil and self.fired == true then 
+	if self.burnTimer == nil and self.fired == true then
 		self.burnTimer = Timer(self.name, self.burnTime)
 	end
 
