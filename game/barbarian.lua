@@ -56,16 +56,22 @@ function Barbarian:update(dt)
 
     else
         if (not self.hasTarget) and (self:reachedWayPoint()) then
-            self.nextWayPoint = { x = self.x + math.random(-200, 200),
-                                  y = self.y + math.random(-200, 200) }
+            self:randomWayPoint()
         end
 
         if self.nextWayPoint then
-            self:moveToPoint(self.nextWayPoint, self.speed * dt)
+            if not self:moveToPoint(self.nextWayPoint, self.speed * dt) then
+                self:randomWayPoint()
+            end
         end
     end
 
     self.hasTarget = false
+end
+
+function Barbarian:randomWayPoint()
+    self.nextWayPoint = { x = self.x + math.random(-200, 200),
+                          y = self.y + math.random(-200, 200) }
 end
 
 function Barbarian:moveToPoint(point, frameSpeed)
@@ -77,12 +83,15 @@ function Barbarian:moveToPoint(point, frameSpeed)
     else
         displacement = delta:normalized():scale(frameSpeed)
     end
-    self:moveBy(displacement)
+    local realDisplacement = self:moveBy(displacement)
+
+    return realDisplacement:magnitude() >= 0.5
 end
 
 function Barbarian:moveBy(displacement)
     local realDisplacement = self:tryToMove(displacement:normalized(), displacement:magnitude())
     self.dir = Direction.fromApproxVect(realDisplacement)
+    return realDisplacement
 end
 
 function Barbarian:reachedWayPoint()
