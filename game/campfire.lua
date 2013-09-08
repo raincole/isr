@@ -15,6 +15,7 @@ function Campfire:__init(name, x, y, sticksNum)
     self.barbs = {}
 
     self.timer = Timer('campfire_timer', sticksNum * R.metadatas.campfire.oneStickLifespan / 2)
+    self.lifeImage = R.images.countdown.campfire
 
     self.barbsLimitNum = 5
     self.barbsBeingNum = 0
@@ -64,11 +65,14 @@ function Campfire:draw()
 
     love.graphics.printf( string.format("%.1f",self.timer:getRemainTime()),
         self.x , self.y + 10 , 100, "left" )
-    -- TODO: 營火生命週期血條
-    --       血條從正中間為抵，時間越長越往兩側伸展，反之則越往中間縮短
 
-    -- TODO: 營火圖案
-    --       love.graphics.draw(self.images.normal, self.ox - self.width / 2, self.oy - self.height / 2)
+    proportion = self.timer:getRemainTime() / self.timer:getLifeTime()
+    if proportion < 0 then proportion = 0 end
+
+    width = self.lifeImage:getWidth();
+    height = self.lifeImage:getHeight();
+    quad = love.graphics.newQuad(0, 0, width*proportion, height, width, height)
+    love.graphics.drawq( self.lifeImage, quad, self.x - width*proportion*0.5 , self.y - self.oy - 10)
 end
 
 function Campfire:extinguish()
