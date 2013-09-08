@@ -82,7 +82,11 @@ R.anims = {
 		return { newAnimation(R.images.thounder, 32, 600, 0.08, 0) }
 	end,
 	campfire = function()
-		return { newAnimation(R.images.campfire, 50, 56, 0.16, 0) }
+		return {
+			normal = newAnimation(R.images.campfire, 52, 56, 0.16, {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}),
+			glow = newAnimation(R.images.campfire, 52, 56, 0.16, {11, 12, 13, 14, 15,
+					   										     16, 17, 18, 19, 20}),
+		}
 	end,
 }
 

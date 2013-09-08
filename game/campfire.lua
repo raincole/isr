@@ -56,6 +56,7 @@ function Campfire:update(dt)
             end
         end)
     end
+    self.glow = false
 end
 
 function Campfire:draw()
@@ -91,6 +92,11 @@ function Campfire:isFull()
     else
         return true
     end
+end
+
+function Campfire:getCurrentAnimIndex()
+    if self.glow then return 'glow'
+    else return 'normal' end
 end
 
 return Campfire
