@@ -7,6 +7,6 @@ Graphic Designer
 * Joshua Choa (@FludotCo)
 
 Audio Source
-www.sounddogs.com
+* www.sounddogs.com
 
 This game was developed as part of Indie Speed Run 2013 (www.indiespeedrun.com).
